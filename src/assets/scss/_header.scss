@@ -60,6 +60,7 @@
             &.count-style {
               color: #fff;
               background-color: #000;
+              // background-color: rgba(228, 173, 21, 0.8705882353);
             }
           }
         }
@@ -612,7 +613,8 @@
 
         color: #fff;
         border-radius: 100%;
-        background-color: #000;
+        // background-color: #000;
+        background-color: rgba(228, 173, 21, 0.8705882353);
         @media #{$xl-layout} {
           right: -5px;
         }

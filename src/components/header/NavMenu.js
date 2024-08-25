@@ -117,7 +117,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                   </li>
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/shop/1"}>
-                      {t("Kids Corner")}
+                      {t("Health & Beauty")}
                     </Link>
                   </li>
               
@@ -155,8 +155,10 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                       <img
                         src={
                           process.env.PUBLIC_URL +
-                          "/assets/img/banner/banner-12.png"
+                          "/assets/img/banner/book1.jpg"
                         }
+                        height={240}
+                        width={240}
                         alt=""
                       />
                     </Link>

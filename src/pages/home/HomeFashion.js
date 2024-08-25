@@ -7,6 +7,7 @@ import TabProduct from "../../wrappers/product/TabProduct";
 import CategoryfourSlider from "../../wrappers/category/CategoryFourSlider";
 import CategoryFiveGrid from "../../wrappers/category/CategoryFiveGrid";
 import SliderBanner from "../../wrappers/slider-banner/SliderBanner";
+import ProductImageGallerySlider from "../../components/product/ProductImageGallerySlider";
 
 const HomeFashion = () => {
   return (
@@ -38,6 +39,7 @@ const HomeFashion = () => {
         <SliderBanner />
         {/* tab product */}
         <TabProduct spaceBottomClass="pb-60" category="fashion" />
+        
       </LayoutOne>
     </Fragment>
   );

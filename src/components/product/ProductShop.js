@@ -66,7 +66,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
       tag: ["flower"],
       stock: 6,
       image: [
-        "/assets/img/product/fashion/2.jpg",
+        "/assets/img/product/flowers/book4.jpg",
         "/assets/img/product/flowers/2.jpg",
         "/assets/img/product/flowers/3.jpg",
         "/assets/img/product/flowers/4.jpg",
@@ -90,7 +90,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
       tag: ["cosmetics"],
       stock: 10,
       image: [
-        "/assets/img/product/cosmetics/4.jpg",
+        "/assets/img/product/flowers/book4.jpg",
         "/assets/img/product/cosmetics/5.jpg",
         "/assets/img/product/cosmetics/6.jpg",
         "/assets/img/product/cosmetics/7.jpg",
@@ -114,7 +114,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
       tag: ["handmade"],
       stock: 12,
       image: [
-        "/assets/img/product/handmade/4.jpg",
+      "/assets/img/product/flowers/book4.jpg",
         "/assets/img/product/handmade/5.jpg",
         "/assets/img/product/handmade/6.jpg",
         "/assets/img/product/handmade/7.jpg",
@@ -138,7 +138,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
       tag: ["accessories"],
       stock: 30,
       image: [
-        "/assets/img/product/accessories/10.jpg",
+        "/assets/img/product/flowers/book4.jpg",
         "/assets/img/product/accessories/11.jpg",
         "/assets/img/product/accessories/12.jpg",
         "/assets/img/product/accessories/1.jpg",
@@ -162,7 +162,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
       tag: ["cakes"],
       stock: 10,
       image: [
-        "/assets/img/product/cake-shop/3.jpg",
+        "/assets/img/product/flowers/book4.jpg",
         "/assets/img/product/cake-shop/4.jpg",
         "/assets/img/product/cake-shop/5.jpg",
         "/assets/img/product/cake-shop/6.jpg",
@@ -186,7 +186,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
       tag: ["cakes"],
       stock: 10,
       image: [
-        "/assets/img/product/cake-shop/3.jpg",
+        "/assets/img/product/flowers/book4.jpg",
         "/assets/img/product/cake-shop/4.jpg",
         "/assets/img/product/cake-shop/5.jpg",
         "/assets/img/product/cake-shop/6.jpg",
@@ -210,7 +210,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
       tag: ["pet food"],
       stock: 10,
       image: [
-        "/assets/img/product/pet-food/3.jpg",
+        "/assets/img/product/flowers/book4.jpg",
         "/assets/img/product/pet-food/4.jpg",
         "/assets/img/product/pet-food/5.jpg",
         "/assets/img/product/pet-food/6.jpg",
@@ -234,7 +234,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
       tag: ["medical"],
       stock: 10,
       image: [
-        "/assets/img/product/medical/3.jpg",
+        "/assets/img/product/flowers/book4.jpg",
         "/assets/img/product/medical/4.jpg",
         "/assets/img/product/medical/5.jpg",
         "/assets/img/product/medical/6.jpg",
@@ -263,8 +263,8 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
                       <Link
                         to={
                           process.env.PUBLIC_URL +
-                          "/shop/productDetail/" +
-                          e?.slug
+                          "/productDetail/" +
+                          e?.id
                         }
                       >
                         <img
@@ -296,7 +296,8 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
                             </button>
                           ) : (
                             <Link
-                              to={`${process.env.PUBLIC_URL}/shop/productDetail/" + ${e?.slug}`}
+                              // to={`${process.env.PUBLIC_URL}/shop/productDetail/" + ${e?.slug}`}
+                              to={`#`}
                             >
                               <i className="pe-7s-cart"></i>
                               Add To Cart
@@ -315,8 +316,8 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
                         <Link
                           to={
                             process.env.PUBLIC_URL +
-                            "/shop/productDetail/" +
-                            e?.slug
+                            "/productDetail/" +
+                            e?.id
                           }
                         >
                           {e?.name}

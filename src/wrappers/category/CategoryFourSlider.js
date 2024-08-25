@@ -9,7 +9,7 @@ import SectionTitle from "../../components/section-title/SectionTitle.js";
 const settings = {
   loop: false,
   spaceBetween: 30,
-  autoplay: false,
+  autoplay: true,
   breakpoints: {
     320: {
       slidesPerView: 1
@@ -27,7 +27,7 @@ const CategoryfourSlider = ({ spaceTopClass, spaceBottomClass }) => {
   return (
     <div className={clsx("collections-area m-4", spaceTopClass, spaceBottomClass)}>
       <div className="container">
-        <div className="collection-wrap">
+        <div className="collection-wrap  pt-100 pb-70">
           <div className="collection-active">
           <SectionTitle
         titleText="Top Categories"

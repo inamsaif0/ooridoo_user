@@ -59,14 +59,14 @@ const LatestStory = () => {
     {
       id: "1",
       price:100,
-      image: "/assets/img/image-slider/book1.jpg",
+      image: "/assets/img/image-slider/book7.jpg",
       subtitle: "2 Products",
       title: "Book & Media",
       link: "/shop/1"
     },
     {
       id: "2",
-      image: "/assets/img/image-slider/book2.jpg",
+      image: "/assets/img/image-slider/book8.jpg",
       subtitle: "3 Products",
       title: "Health & Beauty",
       link: "/shop/2",
@@ -75,7 +75,7 @@ const LatestStory = () => {
     },
     {
       id: "3",
-      image: "/assets/img/image-slider/book6.jpg",
+      image: "/assets/img/image-slider/book10.jpg",
       subtitle: "6 Products",
       title: "Kids Corner",
       link: "/shop/3",
@@ -108,6 +108,7 @@ const LatestStory = () => {
 ]
   return (
     <>
+    <div  className=" pt-100 pb-70" > 
       <SectionTitle titleText="Featured Products " positionClass="text-center m-4" />
       <Swiper
         slidesPerView={4}
@@ -126,7 +127,7 @@ const LatestStory = () => {
             slidesPerView: 3,
           },
         }}
-        autoplay={true}
+        autoplay={false}
         grabCursor={true}
         speed={1000}
         modules={[Pagination, Autoplay]}
@@ -137,7 +138,8 @@ const LatestStory = () => {
               return (
                 <>
                   <SwiperSlide>
-                    <Link to={`/Blog/${e?.slug}`}>
+                    <Link to={`/shop/2`}>
+                    {/* <Link to={`/Blog/${e?.slug}`}> */}
                       <SliderCard
                         image={imgurl + e?.image}
                         productName={e?.title}
@@ -154,6 +156,7 @@ const LatestStory = () => {
             })
           : null}
       </Swiper>
+      </div>
     </>
   );
 };

@@ -1,42 +1,42 @@
 [
   {
     "id": "1",
-    "image": "/assets/img/image-slider/book1.jpg",
+    "image": "/assets/img/image-slider/book7.jpg",
     "subtitle": "2 Products",
     "title": "Book & Media",
     "link": "/shop/1"
   },
   {
     "id": "2",
-    "image": "/assets/img/image-slider/book2.jpg",
+    "image": "/assets/img/image-slider/book10.jpg",
     "subtitle": "3 Products",
     "title": "Health & Beauty",
     "link": "/shop/2"
   },
   {
     "id": "3",
-    "image": "/assets/img/image-slider/book6.jpg",
+    "image": "/assets/img/image-slider/book8.jpg",
     "subtitle": "6 Products",
     "title": "Kids Corner",
     "link": "/shop/3"
   },
   {
     "id": "4",
-    "image": "/assets/img/image-slider/book5.jpg",
+    "image": "/assets/img/image-slider/book9.jpg",
     "subtitle": "5 Products",
     "title": "Hajji & Umrah",
     "link": "/shop/4"
   },
   {
     "id": "5",
-    "image": "/assets/img/image-slider/book3.jpg",
+    "image": "/assets/img/image-slider/book6.jpg",
     "subtitle": "3 Products",
     "title": "Home Decor",
     "link": "/shop/5"
   },
   {
     "id": "6",
-    "image": "/assets/img/image-slider/book7.jpg",
+    "image": "/assets/img/image-slider/book11.jpg",
     "subtitle": "3 Products",
     "title": "Clothing",
     "link": "/shop/6"

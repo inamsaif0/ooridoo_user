@@ -20,6 +20,7 @@ import ProductGridList from "./ProductgridList";
 import ProductGridListSingle from "../../components/product/ProductShop";
 import  Swiper, { SwiperSlide } from "../../components/swiper";
 import SwiperSlider from "../../components/swiper";
+import ProductImageGallerySlider from "../../components/product/ProductImageGallerySlider";
 const TabProduct = (spaceTopClass, spaceBottomClass, bgColorClass) => {
   const [getfunctionality, setGetfunctionality] = useState([]);
   const [imgurl, setImgurl] = useState("");
@@ -427,6 +428,7 @@ const settings = {
           {/* <Professionals_Local /> */}
           {/* <Ideas /> */}
           <LatestStory />
+          {/* <ProductImageGallerySlider product={''} /> */}
           {/* <Photos /> */}
           {/* <VerifeidTV /> */}
         </div>

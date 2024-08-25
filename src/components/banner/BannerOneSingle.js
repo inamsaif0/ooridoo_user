@@ -9,9 +9,9 @@ const BannerOneSingle = ({ data, spaceBottomClass }) => {
           <img src={process.env.PUBLIC_URL + data.image} alt="" />
         </Link>
         <div className="banner-content">
-          <h3>{data.title}</h3>
-          <h4>
-            {data.subtitle} <span>{data.price}</span>
+          <h3 className="text-white" >{data.title}</h3>
+          <h4 className="text-white">
+            {data.subtitle} <span className="text-warning" >{data.price}</span>
           </h4>
           <Link to={process.env.PUBLIC_URL + 'shop/1'}>
             <i className="fa fa-long-arrow-right" />
@@ -20,7 +20,6 @@ const BannerOneSingle = ({ data, spaceBottomClass }) => {
       </div>
   );
 };
-//
 
 BannerOneSingle.propTypes = {
   data: PropTypes.shape({}),
