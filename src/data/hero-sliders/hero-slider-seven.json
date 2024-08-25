@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "New Arrivals",
+    "subtitle": "Book Shop <br /> Find Your Book",
+    "image": "/assets/img/image-slider/book3.jpg",
+    "url": "/shop/1"
+  },
+  {
+    "id": 2,
+    "title": "New Arrivals",
+    "subtitle": "Book Shop <br /> Find Your Book",
+    "image": "/assets/img/image-slider/book2.jpg",
+    "url": "/shop/2"
+  },
+  {
+    "id": 3,
+    "title": "New Arrivals",
+    "subtitle": "Book Shop <br /> Find Your Book",
+    "image": "/assets/img/image-slider/book3.jpg",
+    "url": "/shop/3"
+  },
+  {
+    "id": 4,
+    "title": "New Arrivals",
+    "subtitle": "Book Shop <br /> Find Your Book",
+    "image": "/assets/img/image-slider/book4.jpg",
+    "url": "/shop/4"
+  },
+  {
+    "id": 5,
+    "title": "New Arrivals",
+    "subtitle": "Book Shop <br /> Find Your Book",
+    "image": "/assets/img/image-slider/book1.jpg",
+    "url": "/shop/5"
+  }
+]

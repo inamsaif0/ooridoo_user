@@ -1,0 +1,19 @@
+.no-bullets li {
+    list-style: none;
+    cursor: pointer;
+  }
+  
+  
+  .no-bullets li a:hover {
+    list-style: none;
+    cursor: pointer;
+    color: #007562;
+  }
+  
+  .no-bullets li a:focus {
+    outline: none;
+  }
+  
+  .no-bullets__li {
+    color: rgb(85, 85, 85);
+  }
