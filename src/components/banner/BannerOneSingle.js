@@ -20,6 +20,7 @@ const BannerOneSingle = ({ data, spaceBottomClass }) => {
       </div>
   );
 };
+//
 
 BannerOneSingle.propTypes = {
   data: PropTypes.shape({}),
