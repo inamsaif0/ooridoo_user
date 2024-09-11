@@ -1,32 +1,149 @@
 import React, { Fragment, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { HomeOwnerIcon, ProfessionaIcon } from '../../assets/icons/index'
+import { HomeOwnerIcon, ProfessionaIcon } from '../../assets/icons/index';
+import { toast } from "react-toastify";
+import BaseUrl from "../../BaseUrl";
 
 const LoginSignUp = () => {
-  let { pathname } = useLocation();
+  const { pathname } = useLocation();
   const LoginTabRef = useRef(null);
 
-  const [isSignUp, setIsSignUp] = useState(false);
+ const navigate =  useNavigate()
 
-  const handleSubmit = (e) => {
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    userName:""
+  });
+  const [errors, setErrors] = useState({});
+
+  const validateLoginForm = () => {
+    let formErrors = {};
+    if (!formData.email) formErrors.email = "Email is required";
+    if (!formData.password) formErrors.password = "Password is required";
+    // if (!formData.password) formErrors.password = "Password is required";
+    return formErrors;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmitLogin = (e) => {
     e.preventDefault();
-    setIsSignUp(!isSignUp);
-  }
+    const formErrors = validateLoginForm();
+    if (Object.keys(formErrors).length === 0) {
+
+      const requestBody={
+        email:formData?.email,
+        password:formData?.password,
+        device_token:'123'
+
+      }
+      // Submit to API
+      fetch(`${BaseUrl.baseurl}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('response==>',data?.data?.token)
+          // Handle success
+          if(data?.status == true){
+            toast.success(data?.message);
+            localStorage.setItem('Token', JSON.stringify(data?.data?.token));
+            localStorage.setItem('UserId', JSON.stringify(data?.data?.User?._id));
+            navigate('/')
+          LoginTabRef.current.click()
+            console.log("Success:", data);
+          }
+          else{
+            toast.error(data?.message);
+          }
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error:", error);
+        });
+    } else {
+      setErrors(formErrors);
+    }
+  };
+  // api/auth/register
+  const handleSignUpChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
+  };
+
+  const handleSubmitSignUp = (e) => {
+    e.preventDefault();
+    const formErrors = validateSignUpForm();
+    if (Object.keys(formErrors).length === 0) {
+
+        const requestBody={
+          email:formData?.email,
+          password:formData?.password,
+          name:formData?.userName,
+          role:'user'
+  
+        }
+        // Submit to API
+        fetch(`${BaseUrl.baseurl}/api/auth/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('response==>',data?.data?.token)
+            // Handle success
+            if(data?.status == true){
+              toast.success(data?.message);
+              localStorage.setItem('Token', JSON.stringify(data?.data?.token));
+              navigate('/ogin-signup')
+              console.log("Success:", data);
+            }
+            else{
+              toast.error(data?.message);
+            }
+          })
+          .catch((error) => {
+            // Handle error
+            console.error("Error:", error);
+          });
+      } else {
+        setErrors(formErrors);
+      }
+  };
+
+  const validateSignUpForm = () => {
+    let formErrors = {};
+    if (!formData.userName) formErrors.userName = "User Name is required";
+    if (!formData.email) formErrors.email = "Email is required";
+    if (!formData.password) formErrors.password = "Password is required";
+    if (formData.password && formData.password.length < 8) {
+      formErrors.password = "Password must be at least 8 characters";
+    }
+    return formErrors;
+  };
 
   return (
     <Fragment>
-      <SEO
-        titleTemplate="Login"
-        description="Login page of Varified Calender"
-      />
-      {/* <LayoutOne headerTop="visible"> */}
+      <SEO titleTemplate="Login" description="Login page of Varified Calendar" />
       <LayoutOne>
-        {/* breadcrumb */}
         <Breadcrumb
           pages={[
             { label: "Home", path: process.env.PUBLIC_URL + "/" },
@@ -38,7 +155,7 @@ const LoginSignUp = () => {
             <div className="row">
               <div className="col-lg-7 col-md-12 ms-auto me-auto">
                 <div className="login-register-wrapper">
-                  {!isSignUp ?
+                  {!isSignUp ? (
                     <Tab.Container defaultActiveKey="login">
                       <Nav variant="pills" className="login-register-tab-list">
                         <Nav.Item>
@@ -56,22 +173,26 @@ const LoginSignUp = () => {
                         <Tab.Pane eventKey="login">
                           <div className="login-form-container">
                             <div className="login-register-form">
-                              <form onSubmit={(e) => e.preventDefault()}>
+                              <form onSubmit={handleSubmitLogin}>
                                 <input
-                                  type="text"
-                                  name="user-name"
-                                  placeholder="Username or Email"
+                                  type="email"
+                                  name="email"
+                                  placeholder="Email"
+                                  value={formData.email}
+                                  onChange={handleInputChange}
                                 />
+                                {errors.email && <span className="error">{errors.email}</span>}
                                 <input
                                   type="password"
                                   className="mb-0"
-                                  name="user-password"
+                                  name="password"
                                   placeholder="Password"
+                                  value={formData.password}
+                                  onChange={handleInputChange}
                                 />
+                                {errors.password && <span className="error">{errors.password}</span>}
                                 <div className="button-box">
                                   <div className="login-toggle-btn mb-3">
-                                    {/* <input type="checkbox" />
-                                  <label className="ml-10">Keep me sign in</label> */}
                                     <Link to={process.env.PUBLIC_URL + "/forgotPassword"}>
                                       Forgot your password?
                                     </Link>
@@ -87,22 +208,37 @@ const LoginSignUp = () => {
                         <Tab.Pane eventKey="sign-up">
                           <div className="login-form-container">
                             <div className="login-register-form">
-                              <form onSubmit={handleSubmit}>
+                              <form onSubmit={handleSubmitSignUp}>
+                              <input
+                                  name="userName"
+                                  className="mb-2"
+                                  placeholder="User Name"
+                                  type="text"
+                                  value={formData.userName}
+                                  onChange={handleSignUpChange}
+                                />
+                                {errors.userName && <span className="error">{errors.userName}</span>}
                                 <input
-                                  name="user-email"
+                                className="mb-0 mt-4"
+                                  name="email"
                                   placeholder="Email"
                                   type="email"
+                                  value={formData.email}
+                                  onChange={handleSignUpChange}
                                 />
+                                {errors.email && <span className="error">{errors.email}</span>}
                                 <input
-                                  className="mb-0"
+                                  className="mb-0 mt-4"
                                   type="password"
-                                  name="user-password"
-                                  placeholder="create a password"
+                                  name="password"
+                                  placeholder="Create a password"
+                                  value={formData.password}
+                                  onChange={handleSignUpChange}
                                 />
-                                <small>Use 8 or more characters, with a mix of letters, numbers and symbols</small>
+                                {errors.password && <span className="error ml-2">{errors.password}</span>}
+                                <small className={errors.password ? "ml-4" : "" }  >Use 8 or more characters, with a mix of letters, numbers, and symbols</small>
                                 <div className="button-box">
                                   <div className="login-toggle-btn mb-3">
-                                    {/* <label className="ml-10">Keep me sign in</label> */}
                                     <Link to={"#"} onClick={() => LoginTabRef.current.click()}>
                                       Already have an account? <strong>Sign in</strong>?
                                     </Link>
@@ -117,12 +253,10 @@ const LoginSignUp = () => {
                         </Tab.Pane>
                       </Tab.Content>
                     </Tab.Container>
-                    :
-                    <div class="card text-center which-describe">
-                      <div class="card-header">
-                        Which describes you best?
-                      </div>
-                      <div class="card-body">
+                  ) : (
+                    <div className="card text-center which-describe">
+                      <div className="card-header">Which describes you best?</div>
+                      <div className="card-body">
                         <div className="row">
                           <div className="col-6 Homeowner">
                             <Link to={'/welcomeHomeOwner'}>
@@ -141,7 +275,7 @@ const LoginSignUp = () => {
                         </div>
                       </div>
                     </div>
-                  }
+                  )}
                 </div>
               </div>
             </div>

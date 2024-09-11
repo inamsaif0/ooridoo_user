@@ -9,10 +9,10 @@ const BannerEightSingle = ({ data, spaceBottomClass }) => {
           <img src={process.env.PUBLIC_URL + data.image} alt="" />
         </Link>
         <div className="banner-content banner-pink">
-          <h3 className="text-white" >{data.title}</h3>
-          <h4 className="text-white">
+          <h3 className="text-white mb-4" >{data.title}</h3>
+          {/* <h4 className="text-white">
             {data.subtitle} <span className="text-black" >{data.price}</span>
-          </h4>
+          </h4> */}
           <Link to={process.env.PUBLIC_URL + data.link}>
             <i className="fa fa-long-arrow-right" />
           </Link>

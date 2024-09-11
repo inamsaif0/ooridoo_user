@@ -151,7 +151,8 @@
 
         display: inline-block;
 
-        padding: 0 15px;
+        // padding: 0 15px;
+        padding: 0 30px;
         ul.submenu {
           position: absolute;
           z-index: 999;
@@ -342,7 +343,8 @@
           transform: rotateX(0deg);
         }
         @media #{$lg-layout} {
-          padding: 0 7px;
+          // padding: 0 7px;
+          padding: 0 30px;
         }
         @media #{$xl-layout} {
           padding: 0 10px;

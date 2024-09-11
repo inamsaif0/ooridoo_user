@@ -1,21 +1,203 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getDiscountPrice } from "../../helpers/product";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { addToCart } from "../../store/slices/cart-slice";
 import { deleteFromWishlist, deleteAllFromWishlist } from "../../store/slices/wishlist-slice"
+import axios from "axios";
+import Swal from "sweetalert2";
+import BaseUrl from "../../BaseUrl";
+import { toast } from "react-toastify";
+import { cartFlagfunction } from "../../store/slices/productDetail-slice";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
   let { pathname } = useLocation();
-  
+
+            const navigate = useNavigate()
+
   const currency = useSelector((state) => state.currency);
-  const { wishlistItems } = useSelector((state) => state.wishlist);
+  // const { wishlistItems } = useSelector((state) => state.wishlist);
   const { cartItems } = useSelector((state) => state.cart);
+
+  const [FavoriteData, setFavoriteData] = useState([])
+
+  useEffect(() => {
+    // GetAllCartList();
+    GetAllFavoriteList();
+  }, []);
+
+  const GetAllFavoriteList = () => {
+    const token = JSON.parse(localStorage.getItem('Token'));
+    try {
+      // setLoader(true);
+      var config = {
+        method: "get",
+        url: `${BaseUrl.baseurl}/api/favourite/get-favourite`,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          console.log('responseReviews==>', response);
+          setFavoriteData(response?.data?.data)
+        })
+        .catch((error) => {
+          // setLoader(false);
+          console.log(error);
+        });
+    } catch (error) {
+      // setLoader(false);
+      console.log(error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message,
+        animation: true,
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    }
+  };
+
+
+  const handleRemoveFavorite = async(e) =>{
+    console.log('item==>id',e)
+    const token = JSON.parse(localStorage.getItem('Token'));
+    const requestBody={
+      favouriteId:e,
+    }
+    try {
+      // setLoader(true);
+
+      // const token = JSON.parse(localStorage.getItem('Token'));
+      // if (!token) throw new Error("Authentication token is missing");
+
+      const config = {
+        method: "POST",
+        url: `${BaseUrl.baseurl}/api/favourite/remove-from-favourite`,
+        data: requestBody,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+        },
+      };
+
+      const response = await axios(config);
+      console.log('==>cart==>api',response)
+      if (response?.data?.status === true) {
+        dispatch(cartFlagfunction(true))
+        GetAllFavoriteList()
+        toast.success(response?.data?.message);
+      } else {
+        // setLoader(false);
+        toast.error(response?.data?.message || "Failed to add review.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message || "Something went wrong!",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } finally {
+      // setLoader(false);
+    }
+
+
+
+  }
+
+
+  const handleAddtoCart =async (e,item) => {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem('Token'));
+    const UserId = JSON.parse(localStorage.getItem('UserId'));
+    console.log('userID',UserId,'Token',token,)
+    console.log('data==>',item)
+    if(token == undefined){
+      toast.error( "Please Login to Add to Cart.");
+      navigate('/login-signup')
+      return
+    }
+
+    const requestBody={
+      productId:item?._id,
+      userId:UserId,
+    }
+      try {
+        // setLoader(true);
   
+        // const token = JSON.parse(localStorage.getItem('Token'));
+        // if (!token) throw new Error("Authentication token is missing");
+  
+        const config = {
+          method: "POST",
+          url: `${BaseUrl.baseurl}/api/cart/add-to-cart`,
+          data: requestBody,
+          headers: {
+            token: token,
+            "Accept": "application/json",
+          },
+        };
+  
+        const response = await axios(config);
+        console.log('==>cart==>api',response)
+        if (response?.data?.status === true) {
+          toast.success(response?.data?.message);
+          handleRemoveFavorite(item?._id)
+          dispatch(cartFlagfunction(true))
+
+
+        } else {
+          // setLoader(false);
+          toast.error(response?.data?.message || "Failed to add review.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          showCloseButton: true,
+          toast: true,
+          icon: "error",
+          title: error?.response?.data?.message || "Something went wrong!",
+          position: "top-right",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+      } finally {
+        // setLoader(false);
+      }
+
+
+  }
+
+
 
   return (
     <Fragment>
@@ -25,15 +207,15 @@ const Wishlist = () => {
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
-        <Breadcrumb 
+        <Breadcrumb
           pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Wishlist", path: process.env.PUBLIC_URL + pathname }
-          ]} 
+            { label: "Home", path: process.env.PUBLIC_URL + "/" },
+            { label: "Wishlist", path: process.env.PUBLIC_URL + pathname }
+          ]}
         />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
-            {wishlistItems && wishlistItems.length >= 1 ? (
+            {FavoriteData && FavoriteData?.length >  0 ? (
               <Fragment>
                 <h3 className="cart-page-title">Your wishlist items</h3>
                 <div className="row">
@@ -50,20 +232,20 @@ const Wishlist = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {wishlistItems.map((wishlistItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              wishlistItem.price,
-                              wishlistItem.discount
-                            );
-                            const finalProductPrice = (
-                              wishlistItem.price * currency.currencyRate
-                            ).toFixed(2);
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            ).toFixed(2);
-                            const cartItem = cartItems.find(
-                              item => item.id === wishlistItem.id
-                            );
+                          {FavoriteData.map((wishlistItem, key) => {
+                            // const discountedPrice = getDiscountPrice(
+                            //   wishlistItem.price,
+                            //   wishlistItem.discount
+                            // );
+                            // const finalProductPrice = (
+                            //   wishlistItem.price * currency.currencyRate
+                            // ).toFixed(2);
+                            // const finalDiscountedPrice = (
+                            //   discountedPrice * currency.currencyRate
+                            // ).toFixed(2);
+                            // const cartItem = cartItems.find(
+                            //   item => item.id === wishlistItem.id
+                            // );
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -71,22 +253,19 @@ const Wishlist = () => {
                                     to={
                                       process.env.PUBLIC_URL +
                                       "/product/" +
-                                      wishlistItem.id
+                                      wishlistItem._id
                                     }
                                   >
                                     <img
                                       className="img-fluid"
-                                      src={
-                                        process.env.PUBLIC_URL +
-                                        wishlistItem.image[0]
-                                      }
+                                      src={`${BaseUrl.baseurl}${'/'}${wishlistItem?.productId?.media[0]?.file}`}
                                       alt=""
                                     />
                                   </Link>
                                 </td>
 
                                 <td className="product-name text-center">
-                                  <Link
+                                  {/* <Link
                                     to={
                                       process.env.PUBLIC_URL +
                                       "/product/" +
@@ -94,11 +273,12 @@ const Wishlist = () => {
                                     }
                                   >
                                     {wishlistItem.name}
-                                  </Link>
+                                  </Link> */}
+                                  {wishlistItem?.productId?.title}
                                 </td>
 
                                 <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
+                                  {/* {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
                                         {currency.currencySymbol +
@@ -114,10 +294,14 @@ const Wishlist = () => {
                                       {currency.currencySymbol +
                                         finalProductPrice}
                                     </span>
-                                  )}
+                                  )} */}
+                                  <span className="amount">
+                                    {wishlistItem?.productId?.price}
+                                  </span>
+
                                 </td>
 
-                                <td className="product-wishlist-cart">
+                                {/* <td className="product-wishlist-cart">
                                   {wishlistItem.affiliateLink ? (
                                     <a
                                       href={wishlistItem.affiliateLink}
@@ -128,14 +312,14 @@ const Wishlist = () => {
                                       Buy now{" "}
                                     </a>
                                   ) 
-                                  // : wishlistItem.variation &&
-                                  //   wishlistItem.variation.length >= 1 ? (
-                                  //   <Link
-                                  //     to={`${process.env.PUBLIC_URL}/product/${wishlistItem.id}`}
-                                  //   >
-                                  //     Select option
-                                  //   </Link>
-                                  // ) 
+                                  : wishlistItem.variation &&
+                                    wishlistItem.variation.length >= 1 ? (
+                                    <Link
+                                      to={`${process.env.PUBLIC_URL}/product/${wishlistItem.id}`}
+                                    >
+                                      Select option
+                                    </Link>
+                                  ) 
                                   : wishlistItem.stock &&
                                     wishlistItem.stock > 0 ? (
                                     <button
@@ -168,12 +352,19 @@ const Wishlist = () => {
                                       Out of stock
                                     </button>
                                   )}
-                                </td>
+                                </td> */}
+                              <td className="product-wishlist-cart">
+                                <button onClick={(e)=>{handleAddtoCart(e,wishlistItem)}}   className="active"  >
+                                  Add to cart
+                                </button>
+                              </td>
+                                {/* <td>hello</td> */}
 
                                 <td className="product-remove">
                                   <button
                                     onClick={() =>
-                                      dispatch(deleteFromWishlist(wishlistItem.id))
+                                      // dispatch(deleteFromWishlist(wishlistItem.id))
+                                      handleRemoveFavorite(wishlistItem._id)
                                     }
                                   >
                                     <i className="fa fa-times"></i>
@@ -193,16 +384,16 @@ const Wishlist = () => {
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
                         <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
+                          to={process.env.PUBLIC_URL + "/shop/1"}
                         >
                           Continue Shopping
                         </Link>
                       </div>
-                      <div className="cart-clear">
+                      {/* <div className="cart-clear">
                         <button onClick={() => dispatch(deleteAllFromWishlist())}>
                           Clear Wishlist
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -216,7 +407,7 @@ const Wishlist = () => {
                     </div>
                     <div className="item-empty-area__text">
                       No items found in wishlist <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+                      <Link to={process.env.PUBLIC_URL + "/"}>
                         Add Items
                       </Link>
                     </div>

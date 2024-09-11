@@ -2,55 +2,58 @@ import axios from "axios";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { Fragment, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import BaseUrl from "../../BaseUrl";
 import Rating from "./sub-components/ProductRating";
+import { useDispatch } from "react-redux";
+import { cartFlagfunction, setProductsDetail } from "../../store/slices/productDetail-slice";
+import { toast } from "react-toastify";
 
-const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
-  const [getProduct, setGetProduct] = useState([]);
-  const [imgurl, setImgurl] = useState("");
-  const { slug } = useParams("");
-  useEffect(() => {
-    try {
-      var config = {
-        method: "get",
-        url: `${BaseUrl.baseurl}productFilter?${
-          localStorage.getItem("true") === "true"
-            ? `category=${slug}`
-            : `subcategory=${slug}`
-        }`,
-      };
-      axios(config)
-        .then(function (response) {
-          console.log(response, "ideas");
-          setImgurl(response?.data?.imagePath);
-          setGetProduct(response?.data?.products);
-          ProductLenght(response?.data?.products.length);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        showCloseButton: true,
-        toast: true,
-        icon: "error",
-        title: error?.response?.data?.message,
-        animation: true,
-        position: "top-right",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-    }
-  }, [ProductLenght, slug]);
-  console.log(getProduct, imgurl, "getproduct");
+const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => {
+  // const [getProduct, setGetProduct] = useState([]);
+  // const [imgurl, setImgurl] = useState("");
+  // const { slug } = useParams("");
+  // useEffect(() => {
+  //   try {
+  //     var config = {
+  //       method: "get",
+  //       url: `${BaseUrl.baseurl}productFilter?${
+  //         localStorage.getItem("true") === "true"
+  //           ? `category=${slug}`
+  //           : `subcategory=${slug}`
+  //       }`,
+  //     };
+  //     axios(config)
+  //       .then(function (response) {
+  //         console.log(response, "ideas");
+  //         setImgurl(response?.data?.imagePath);
+  //         setGetProduct(response?.data?.products);
+  //         ProductLenght(response?.data?.products.length);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //     Swal.fire({
+  //       showCloseButton: true,
+  //       toast: true,
+  //       icon: "error",
+  //       title: error?.response?.data?.message,
+  //       animation: true,
+  //       position: "top-right",
+  //       showConfirmButton: false,
+  //       timer: 3000,
+  //       timerProgressBar: true,
+  //       didOpen: (toast) => {
+  //         toast.addEventListener("mouseenter", Swal.stopTimer);
+  //         toast.addEventListener("mouseleave", Swal.resumeTimer);
+  //       },
+  //     });
+  //   }
+  // }, [ProductLenght, slug]);
+  // console.log(getProduct, imgurl, "getproduct");
 
   const Myproduct = [
     {
@@ -247,72 +250,277 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
     },
   ];
 
-  console.log('Myproduct==>',Myproduct)
+  const navigate = useNavigate()
+
+  const [modalShow, setModalShow] = useState(false);
   
+   const router = useNavigate()
+   const dispatch = useDispatch()
+
+  console.log('Myproduct==>',products)
+  
+  console.log('products==>api==>response==>',products)
+
+  const handleDetailPage = (e) =>{
+   
+    console.log('e==>data',e)
+
+    dispatch(setProductsDetail(e))
+
+    router('/productDetail')
+  }
+
+
+
+  const handleAddtoCart =async (e,item) => {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem('Token'));
+    const UserId = JSON.parse(localStorage.getItem('UserId'));
+    console.log('userID',UserId,'Token',token,)
+    console.log('data==>',item)
+    if(token == undefined){
+      toast.error( "Please Login to Add to Cart.");
+      navigate('/login-signup')
+      return
+    }
+
+    const requestBody={
+      productId:item?._id,
+      userId:UserId,
+    }
+    // Submit to API
+    // fetch(`${BaseUrl.baseurl}/api/cart/add-to-cart`, {
+    //   method: "POST",
+    //   headers: {
+    //     token: token,
+    //     "Accept": "application/json",
+    //   },
+    //   // body: JSON.stringify(requestBody),
+    //   data: requestBody,
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log('response==>',data)
+    //     // Handle success
+    //     if(data?.status == true){
+    //       toast.success(data?.message);
+    //       console.log("Success:", data);
+    //     }
+    //     else{
+    //       toast.error(data?.message);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     // Handle error
+    //     console.error("Error:", error);
+    //   });
+
+
+
+      try {
+        // setLoader(true);
+  
+        // const token = JSON.parse(localStorage.getItem('Token'));
+        // if (!token) throw new Error("Authentication token is missing");
+  
+        const config = {
+          method: "POST",
+          url: `${BaseUrl.baseurl}/api/cart/add-to-cart`,
+          data: requestBody,
+          headers: {
+            token: token,
+            "Accept": "application/json",
+          },
+        };
+  
+        const response = await axios(config);
+        console.log('==>cart==>api',response)
+        if (response?.data?.status === true) {
+          toast.success(response?.data?.message);
+               dispatch(cartFlagfunction(true))
+        } else {
+          // setLoader(false);
+          toast.error(response?.data?.message || "Failed to add review.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          showCloseButton: true,
+          toast: true,
+          icon: "error",
+          title: error?.response?.data?.message || "Something went wrong!",
+          position: "top-right",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+      } finally {
+        // setLoader(false);
+      }
+
+
+  }
+
+  const handleAddtoFavorite =async (e,item) => {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem('Token'));
+    // const UserId = JSON.parse(localStorage.getItem('UserId'));
+    console.log('Token',token,)
+    console.log('data==>',item)
+    if(token == undefined){
+      toast.error( "Please Login to Add to Cart.");
+      navigate('/login-signup')
+      return
+    }
+
+    const requestBody={
+      productId:item?._id,
+      device_token:'',
+    }
+      try {
+        // setLoader(true);
+  
+        // const token = JSON.parse(localStorage.getItem('Token'));
+        // if (!token) throw new Error("Authentication token is missing");
+  
+        const config = {
+          method: "POST",
+          url: `${BaseUrl.baseurl}/api/favourite/add-to-favourite`,
+          data: requestBody,
+          headers: {
+            token: token,
+            "Accept": "application/json",
+          },
+        };
+  
+        const response = await axios(config);
+        console.log('==>cart==>api',response)
+        if (response?.data?.status === true) {
+          toast.success(response?.data?.message);
+          dispatch(cartFlagfunction(true))
+        } else {
+          // setLoader(false);
+          toast.error(response?.data?.message || "Failed to add review.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          showCloseButton: true,
+          toast: true,
+          icon: "error",
+          title: error?.response?.data?.message || "Something went wrong!",
+          position: "top-right",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+      } finally {
+        // setLoader(false);
+      }
+
+
+  }
+
+
+
 
   return (
     <Fragment>
       <div className={clsx("product-wrap", spaceBottomClass)}>
         <div className="row">
-          {Myproduct.length > 0 ? (
-            Myproduct.map((e) => {
+          {products.length > 0 ? (
+            products.map((item) => {
               return (
                 <>
+                {/* <h1>{`${BaseUrl.baseurl + '/'+ item?.media[0]?.file}`}</h1> */}
                   <div className="col-xl-4 col-md-5 col-sm-6  shadow p-3 mb-5 bg-body rounded">
                     <div className="product-img">
-                      <Link
+                      {/* <Link
+                        // to={
+                        //   process.env.PUBLIC_URL +
+                        //   "/productDetail/" +
+                        //   item?.id
+                        // }
                         to={
                           process.env.PUBLIC_URL +
-                          "/productDetail/" +
-                          e?.id
+                          "/productDetail"
                         }
-                      >
+                      > */}
+                      <div onClick={()=>{handleDetailPage(item)}} >
                         <img
                           className="default-img"
-                          src={e?.image[0]}
+                          src={`${BaseUrl.baseurl + '/'+ item?.media[0]?.file}` }
                           alt=""
                         />
-                      </Link>
+                        </div>
+                      {/* </Link> */}
+
+                      {/* <h1 className="title" >{item.title}</h1> */}
                       <div className="product-img-badges">
-                        {e?.saleCount === 0 ||
-                        e?.saleCount === null ? null : (
+                        {item?.saleCount === 0 ||
+                        item?.saleCount === null ? null : (
                           <span className="bg-success">Sale</span>
                         )}
-                        {e?.new === 0 || e?.new === null ? null : (
+                        {item?.new === 0 || item?.new === null ? null : (
                           <span className="purple">New</span>
                         )}
                       </div>
 
                       <div className="product-action">
                         <div className="pro-same-action pro-wishlist">
-                          <button title={"Add to wishlist"}>
+                        {/* {
+                          item.isFavourite == true ?
+                           (
+                           <button disabled  className="active" title={"Add to wishlist"}  >
                             <i className="pe-7s-like" />
                           </button>
+                          ) : 
+                          ( <button  title={"Add to wishlist"}  >
+                            <i className="pe-7s-like" />
+                          </button>
+                          )
+                        } */}
+ 
+                          
+                        <button  title={"Add to wishlist"} onClick={(e)=>{handleAddtoFavorite(e,item)}} >
+                            <i className="pe-7s-like" />
+                          </button>
+                          
+
+                         
                         </div>
                         <div className="pro-same-action pro-cart">
-                          {e?.stock === 0 ? (
+                          {item?.stock === 0 ? (
                             <button disabled className="active">
                               Out of Stock
                             </button>
                           ) : (
-                            <Link
-                              // to={`${process.env.PUBLIC_URL}/shop/productDetail/" + ${e?.slug}`}
-                              to={`#`}
-                            >
+                            // <Link
+                            //   to={`#`}
+                            // >
+                              <button  onClick={(e)=>{handleAddtoCart(e,item)}}  >
                               <i className="pe-7s-cart"></i>
-                              Add To Cart
-                            </Link>
+                              Add To Cart 
+                              </button>
                           )}
                         </div>
-                        <div className="pro-same-action pro-quickview">
+                        {/* <div className="pro-same-action pro-quickview">
                           <button title="Quick View">
                             <i className="pe-7s-look" />
                           </button>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                     <div className="product-content text-center">
-                      <h3>
+                      {/* <h3>
                         <Link
                           to={
                             process.env.PUBLIC_URL +
@@ -322,13 +530,16 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
                         >
                           {e?.name}
                         </Link>
-                      </h3>
-                      <Rating />
+                      </h3> */}
+                      {/* <Rating /> */}
 
                       <div className="product-price">
                         <h4>
                           <i className="fa fa-dollar"></i>
-                          {e?.saleCount === 0 || e?.saleCount === null ? (
+                          <span>{item?.price}</span>
+                          {/* discount price below */}
+                          {/* <span className="old" >{e?.price}</span> */}
+                          {/* {e?.saleCount === 0 || e?.saleCount === null ? (
                             <>
                               <span>{e?.regular_price}</span>
                             </>
@@ -337,7 +548,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght }) => {
                               <span>{e?.saleCount}</span>{" "}
                               <span className="old">{e?.regular_price}</span>
                             </>
-                          )}
+                          )} */}
                         </h4>
                       </div>
                     </div>

@@ -1,21 +1,24 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import BaseUrl from "../../BaseUrl";
 
 const CategoryFourSingle = ({ data, sliderClass }) => {
+  console.log('category==>data',data)
   return (
     <div className="collection-product">
       <div className="collection-img">
-        <Link to={process.env.PUBLIC_URL + data.link}>
-          <img src={process.env.PUBLIC_URL + data.image} alt="" />
+        <Link to={`/shop/${data?._id}`}>
+          <img src={`${BaseUrl.baseurl + '/'+ data?.media[0]?.file}`} alt="" />
         </Link>
       </div>
       <div className="collection-content text-center">
-        <span>{data.subtitle}</span>
+        {/* <span>{data.subtitle}</span> */}
         <h4>
-          <Link to={process.env.PUBLIC_URL + data.link}>{data.title}</Link>
+          <Link to={`/shop/${data?._id}`}>{data.title}</Link>
         </h4>
         <Link
-          to={process.env.PUBLIC_URL + data.link}
+          // to={process.env.PUBLIC_URL + data.link}
+          to={`/shop/${data?._id}`}
           className="collection-btn"
         >
           SHOP NOW

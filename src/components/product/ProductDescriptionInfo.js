@@ -27,7 +27,6 @@ const ProductDescriptionInfo = () => {
       axios(config)
         .then(function (response) {
           console.log(response, "ideas");
-
           setGetProduct(response?.data?.products);
         })
         .catch((error) => {

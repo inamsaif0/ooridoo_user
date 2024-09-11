@@ -441,7 +441,7 @@ const settings = {
                 <Nav.Item>
                   <Nav.Link eventKey="newArrival">
                     <h4>Shop by Department</h4>
-                  </Nav.Link>
+                </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey="bestSeller">

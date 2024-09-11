@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 import Swiper, { SwiperSlide } from "../../components/swiper";
+import BaseUrl from "../../BaseUrl";
 
 const ProductImageGallerySlider = ({ product }) => {
   // swiper slider settings
@@ -70,6 +71,8 @@ const ProductImageGallerySlider = ({ product }) => {
       link: "/shop/6"
     }
   ];
+
+  console.log('product==>image==>Galery',product)
   
 
   
@@ -77,13 +80,13 @@ const ProductImageGallerySlider = ({ product }) => {
   return (
     <div className="product-large-image-wrapper product-large-image-wrapper--slider">
       {/* {product?.image?.length ? ( */}
-        {DemoProduct?.length ? (
+        {product?.media?.length ? (
         <Swiper options={gallerySwiperParams}>
-          {DemoProduct?.map((single, key) => (
+          {product?.media?.map((single, key) => (
             <SwiperSlide key={key}>
               <div className="single-image">
                 <img
-                  src={process.env.PUBLIC_URL + single.image}
+                  src={`${BaseUrl.baseurl}${'/'}${single.file} `}
                   className="img-fluid"
                   alt=""
                 />

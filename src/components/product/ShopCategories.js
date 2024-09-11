@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import { setActiveSort } from "../../helpers/product";
 
-const ShopCategories = ({ categories, getSortParams }) => {
+const ShopCategories = ({ categories, getSortParams ,setSelectedCategory}) => {
 
   const myCategory=[
       "Books & Media",
@@ -11,9 +11,23 @@ const ShopCategories = ({ categories, getSortParams }) => {
       "Hajj & Umrah",
       'Home Decor',
       'Clothing'
-      
   ]
 
+
+  console.log('getSortParams==>',getSortParams)
+
+
+  console.log('categories==>',categories)
+
+  const handleCheckbox = (e,category) =>{
+
+    console.log('checkmark==>',category)
+
+    setSelectedCategory(category?._id)
+
+    setActiveSort(e)
+
+  }
 
 
 
@@ -21,9 +35,9 @@ const ShopCategories = ({ categories, getSortParams }) => {
     <div className="sidebar-widget">
       <h4 className="pro-sidebar-title">Categories </h4>
       <div className="sidebar-widget-list mt-30">
-        {myCategory ? (
+        {categories ? (
           <ul>
-            <li>
+            {/* <li>
               <div className="sidebar-widget-list-left">
                 <button
                   onClick={e => {
@@ -34,19 +48,22 @@ const ShopCategories = ({ categories, getSortParams }) => {
                   <span className="checkmark" /> All Categories
                 </button>
               </div>
-            </li>
-            {myCategory.map((category, key) => {
+            </li> */}
+            {categories.map((category, key) => {
               return (
                 <li key={key}>
                   <div className="sidebar-widget-list-left">
                     <button
-                      onClick={e => {
-                        getSortParams("category", category);
-                        setActiveSort(e);
-                      }}
+                      // onClick={e => {
+
+                      //   console.log('e===>',e.target)
+                      //   // getSortParams("category", category.name);
+                      //   setActiveSort(e);
+                      // }}
+                      onClick={(e)=>{handleCheckbox(e,category)}}
                     >
                       {" "}
-                      <span className="checkmark" /> {category}{" "}
+                      <span className="checkmark" /> {category?.title}{" "}
                     </button>
                   </div>
                 </li>

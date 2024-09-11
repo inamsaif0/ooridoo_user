@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./helpers/scroll-top";
 import "./App.css";
 import "react-loading-skeleton/dist/skeleton.css";
+// import SuccessPage from "./pages/other/SuccessPage";
 // import "/node_modules/video-react/dist/video-react.css"; // import css
 
 // home pages
@@ -82,6 +83,10 @@ const Compare = lazy(() => import("./pages/other/Compare"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
+
+const SuccessPage = lazy(() => import("./pages/other/SuccessPage"));
+
+const FailedPage = lazy(() => import("./pages/other/FailedPage"));
 
 // ProfessionalRoutes
 const ProfessionalHome = lazy(() => import("./pages/Professional/home/index"));
@@ -277,11 +282,18 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/product-sticky/:id"}
               element={<ProductSticky />}
             />
-            <Route
+            {/* <Route
               path={process.env.PUBLIC_URL + "/productDetail/:id"}
               // path={process.env.PUBLIC_URL + "/product-slider/:id"}
               element={<ProductSlider />}
+            /> */}
+              
+              <Route
+              path={process.env.PUBLIC_URL + "/productDetail"}
+              // path={process.env.PUBLIC_URL + "/product-slider/:id"}
+              element={<ProductSlider />}
             />
+
             <Route
               path={process.env.PUBLIC_URL + "/product-fixed-image/:id"}
               element={<ProductFixedImage />}
@@ -391,6 +403,19 @@ const App = () => {
             {/* User Profile Routes */}
 
             <Route path="*" element={<NotFound />} />
+
+            <Route
+              path={process.env.PUBLIC_URL + "/success"}
+              element={<SuccessPage />}
+            />
+
+<Route
+              path={process.env.PUBLIC_URL + "/failed"}
+              element={<FailedPage />}
+            />
+
+
+
 
             {/* professional Routes  */}
             <Route

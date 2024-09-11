@@ -7,6 +7,10 @@ import LayoutOne from "../../layouts/LayoutOne";
 import ShopProducts from "../../wrappers/product/ShopProducts";
 import ShopSidebar from "../../wrappers/product/ShopSidebar";
 import ShopTopbar from "../../wrappers/product/ShopTopbar";
+import BaseUrl from "../../BaseUrl";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
 
 const ShopGridStandard = () => {
   const [layout, setLayout] = useState("grid three-column");
@@ -16,7 +20,7 @@ const ShopGridStandard = () => {
   const [filterSortType, setFilterSortType] = useState("");
   const [filterSortValue, setFilterSortValue] = useState("");
   const [offset, setOffset] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const { products } = useSelector((state) => state.product);
@@ -49,6 +53,124 @@ const ShopGridStandard = () => {
     setSortedProducts(sortedProducts);
     setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
   }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
+
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const [getProductData, setGetProductData] = useState([]);
+
+  const [getCategoriesData, setGetCategoriesData] = useState([]);
+
+  const [PaginationData,setPaginationData]=useState()
+
+  const [currentPage, setCurrentPage] = useState(1);
+const [limit, setLimit] = useState(10);
+
+const { slug } = useParams();
+
+console.log('slug==>',slug)
+
+const [searchQuery, setSearchQuery] = useState(""); // Add search query state
+  console.log('PaginationData===>',PaginationData)
+
+  console.log('getProductData==>',getProductData)
+
+  console.log('getProductData==>currentData',currentData)
+
+    // Fetch products on initial render or when the selected category changes
+    useEffect(() => {
+      const fetchProducts = async () => {
+        try {
+          // let url = `${BaseUrl.baseurl}/api/products/get?page=1&limit=10`;
+          // if (selectedCategory) {
+          //   url += `&category=${selectedCategory}`;
+          // }
+          let url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+      if (selectedCategory) {
+        url += `&category=${selectedCategory}`;
+      }
+      else if(slug == 1 || slug == 2 ){
+        url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+      } 
+      else{
+        url += `&category=${slug}`;
+      }
+          const config = {
+            method: "get",
+            url: url,
+          };
+  
+          const response = await axios(config);
+          console.log(response, "Product Data");
+          setGetProductData(response?.data?.data?.result);
+          setPaginationData(response?.data?.data?.pagination)
+        } catch (error) {
+          console.error(error);
+          Swal.fire({
+            showCloseButton: true,
+            toast: true,
+            icon: "error",
+            title: error?.response?.data?.message,
+            animation: true,
+            position: "top-right",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+        }
+      };
+  
+      fetchProducts();
+    }, [selectedCategory,currentPage, limit,slug]);
+  
+
+// categories data
+  useEffect(() => {
+    try {
+      var config = {
+        method: "get",
+        // url: `${BaseUrl.baseurl}products?shop=${slug}`,
+         url: `${BaseUrl.baseurl}/api/categories/get`,
+      };
+      axios(config)
+        .then(function (response) {
+          // console.log(response?.data?.data?.result, "CategoryData");
+          // setImgurl(response?.data?.subcatoryimagePath);
+          setGetCategoriesData(response?.data?.data?.result)
+          // setGetProductData(response?.data?.data?.result);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message,
+        animation: true,
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    }
+  }, []);
+
+  
+  console.log('ahmedTotal Records:', PaginationData?.totalItems);
+  console.log('ahmedPage Limit:', limit);
+  console.log('ahmedCurrent Page:', currentPage);
+
   console.log(productLenght, "getProductLenght");
   return (
     <Fragment>
@@ -72,7 +194,9 @@ const ShopGridStandard = () => {
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}
                 <ShopSidebar
-                  products={products}
+                  products={getCategoriesData}
+                  setSearchQuery={setSearchQuery}
+                  setSelectedCategory={setSelectedCategory}
                   getSortParams={getSortParams}
                   sideSpaceClass="mr-30"
                 />
@@ -89,23 +213,58 @@ const ShopGridStandard = () => {
                 {/* shop page content default */}
                 <ShopProducts
                   layout={layout}
-                  ProductLenght={getProductLenght}
-                  products={currentData}
+                  ProductLenght={getProductData?.length}
+                  products={getProductData}
                 />
 
                 {/* shop product pagination */}
                 <div className="pro-pagination-style text-center mt-30">
-                  <Paginator
-                    totalRecords={sortedProducts.length}
-                    pageLimit={pageLimit}
-                    pageNeighbours={2}
+                  {/* <Paginator
+                    totalRecords={PaginationData?.totalItems}
+                    pageLimit={PaginationData?.totalPages}
+                    pageNeighbours={PaginationData?.nextPage}
                     setOffset={setOffset}
-                    currentPage={currentPage}
+                    currentPage={PaginationData?.currentPage}
                     setCurrentPage={setCurrentPage}
                     pageContainerClass="mb-0 mt-0"
                     pagePrevText="«"
                     pageNextText="»"
-                  />
+                  /> */}
+        {/* <Paginator
+                    totalRecords={PaginationData?.totalItems}
+                    pageLimit={limit}
+                    pageNeighbours={2}
+                    currentPage={PaginationData?.currentPage}
+                    setCurrentPage={setCurrentPage}
+                    pageContainerClass="mb-0 mt-0"
+                    pagePrevText="«"
+                    pageNextText="»"
+                  /> */}
+                   {/* <Paginator
+                    totalRecords={PaginationData?.totalItems}
+                    pageLimit={limit}
+                    pageNeighbours={2}
+                    setOffset={setOffset}
+                    currentPage={PaginationData?.currentPage}
+                    setCurrentPage={setCurrentPage}
+                    pageContainerClass="mb-0 mt-0"
+                    pagePrevText="«"
+                    pageNextText="»"
+                  /> */}
+                  {PaginationData?.totalPages > 1 && (
+  <Paginator
+    totalRecords={PaginationData?.totalItems}
+    pageLimit={limit}
+    pageNeighbours={2}
+    setOffset={setOffset}
+    // currentPage={currentPage}
+    currentPage={PaginationData?.currentPage}
+    setCurrentPage={setCurrentPage}
+    pageContainerClass="mb-0 mt-0"
+    pagePrevText="«"
+    pageNextText="»"
+  />
+)}
                 </div>
               </div>
             </div>

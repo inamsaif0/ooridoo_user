@@ -29,7 +29,7 @@ const ProductImageDescription = ({ spaceTopClass, spaceBottomClass, product }) =
           </div>
           <div className="col-lg-12 text-center">
             {/* product description info */}
-            <ProductDescriptionInfoSlider
+            {/* <ProductDescriptionInfoSlider
               product={product}
               discountedPrice={discountedPrice}
               currency={currency}
@@ -38,7 +38,7 @@ const ProductImageDescription = ({ spaceTopClass, spaceBottomClass, product }) =
               cartItems={cartItems}
               wishlistItem={wishlistItem}
               compareItem={compareItem}
-            />
+            /> */}
           </div>
         </div>
       </div>

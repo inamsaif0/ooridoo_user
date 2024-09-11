@@ -1,12 +1,17 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SEO from "../../components/seo";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { addToCart, decreaseQuantity, deleteFromCart, deleteAllFromCart } from "../../store/slices/cart-slice";
 import { cartItemStock } from "../../helpers/product";
+import Swal from "sweetalert2";
+import axios from "axios";
+import BaseUrl from "../../BaseUrl";
+import { toast } from "react-toastify";
+import { cartFlagfunction } from "../../store/slices/productDetail-slice";
 
 const Cart = () => {
   let cartTotalPrice = 0;
@@ -14,9 +19,260 @@ const Cart = () => {
   const [quantityCount] = useState(1);
   const dispatch = useDispatch();
   let { pathname } = useLocation();
+  const navigate = useNavigate()
+  // const currency = useSelector((state) => state.currency);
+  // const { cartItems } = useSelector((state) => state.cart);
+
+  const [CartData, setCartData] = useState([])
+
+  useEffect(() => {
+    // GetAllCartList();
+    GetAllCartList();
+  }, []);
+
+  const GetAllCartList = () => {
+    const token = JSON.parse(localStorage.getItem('Token'));
+    try {
+      // setLoader(true);
+      var config = {
+        method: "get",
+        url: `${BaseUrl.baseurl}/api/cart/get-cart`,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          console.log('responseReviews==>', response);
+          setCartData(response?.data?.data)
+        })
+        .catch((error) => {
+          // setLoader(false);
+          console.log(error);
+        });
+    } catch (error) {
+      // setLoader(false);
+      console.log(error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message,
+        animation: true,
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    }
+  };
+
+  const totalPrice = CartData.reduce((acc, item) => {
+    const itemPrice = item?.productId?.price || 0; // Assuming price is stored in item.productId.price
+    return acc + itemPrice * item?.count;
+  }, 0);
+
+
+  const handleAddtoCart =async (e,item) => {
+    // e.preventDefault();
+    const token = JSON.parse(localStorage.getItem('Token'));
+    const UserId = JSON.parse(localStorage.getItem('UserId'));
+    console.log('userID',UserId,'Token',token,)
+    console.log('data==>',item)
+    if(token == undefined){
+      toast.error( "Please Login to Add to Cart.");
+      navigate('/login-signup')
+      return
+    }
+
+    const requestBody={
+      cartId:item,
+      count:e + 1,
+    }
+      try {
+        // setLoader(true);
   
-  const currency = useSelector((state) => state.currency);
-  const { cartItems } = useSelector((state) => state.cart);
+        // const token = JSON.parse(localStorage.getItem('Token'));
+        // if (!token) throw new Error("Authentication token is missing");
+  
+        const config = {
+          method: "POST",
+          url: `${BaseUrl.baseurl}/api/cart/update-cart-count`,
+          data: requestBody,
+          headers: {
+            token: token,
+            "Accept": "application/json",
+          },
+        };
+  
+        const response = await axios(config);
+        console.log('==>cart==>api',response)
+        if (response?.data?.status === true) {
+          GetAllCartList()
+          toast.success(response?.data?.message);
+          dispatch(cartFlagfunction(true))
+          // handleRemoveFavorite(item?._id)
+        } else {
+          // setLoader(false);
+          toast.error(response?.data?.message || "Failed to add review.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          showCloseButton: true,
+          toast: true,
+          icon: "error",
+          title: error?.response?.data?.message || "Something went wrong!",
+          position: "top-right",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+      } finally {
+        // setLoader(false);
+      }
+
+
+  }
+
+  const handleRemovetoCart =async (e,item) => {
+    // e.preventDefault();
+    const token = JSON.parse(localStorage.getItem('Token'));
+    const UserId = JSON.parse(localStorage.getItem('UserId'));
+    console.log('userID',UserId,'Token',token,)
+    console.log('data==>',item)
+    if(token == undefined){
+      toast.error( "Please Login to Add to Cart.");
+      navigate('/login-signup')
+      return
+    }
+    
+    if(e > 1 ){
+      const requestBody={
+        cartId:item,
+        count:e - 1,
+      }
+        try {
+          // setLoader(true);
+    
+          // const token = JSON.parse(localStorage.getItem('Token'));
+          // if (!token) throw new Error("Authentication token is missing");
+    
+          const config = {
+            method: "POST",
+            url: `${BaseUrl.baseurl}/api/cart/update-cart-count`,
+            data: requestBody,
+            headers: {
+              token: token,
+              "Accept": "application/json",
+            },
+          };
+    
+          const response = await axios(config);
+          console.log('==>cart==>api',response)
+          if (response?.data?.status === true) {
+            GetAllCartList()
+            toast.success(response?.data?.message);
+            // handleRemoveFavorite(item?._id)
+            dispatch(cartFlagfunction(true))
+          } else {
+            // setLoader(false);
+            toast.error(response?.data?.message || "Failed to add review.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          Swal.fire({
+            showCloseButton: true,
+            toast: true,
+            icon: "error",
+            title: error?.response?.data?.message || "Something went wrong!",
+            position: "top-right",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+        } finally {
+          // setLoader(false);
+        }
+    }else{
+      handleRemoveFavorite(item)
+      GetAllCartList()
+    }
+  }
+
+  const handleRemoveFavorite = async(e) =>{
+    console.log('item==>id',e)
+    const token = JSON.parse(localStorage.getItem('Token'));
+    const requestBody={
+      cartId:e,
+    }
+    try {
+      // setLoader(true);
+
+      // const token = JSON.parse(localStorage.getItem('Token'));
+      // if (!token) throw new Error("Authentication token is missing");
+
+      const config = {
+        method: "POST",
+        url: `${BaseUrl.baseurl}/api/cart/remove-from-cart`,
+        data: requestBody,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+        },
+      };
+
+      const response = await axios(config);
+      console.log('==>cart==>api',response)
+      if (response?.data?.status === true) {
+        toast.success(response?.data?.message);
+        dispatch(cartFlagfunction(true))
+        GetAllCartList()
+      } else {
+        // setLoader(false);
+        toast.error(response?.data?.message || "Failed to add review.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message || "Something went wrong!",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } finally {
+      // setLoader(false);
+    }
+
+
+
+  }
+
+
+
+
+
 
   return (
     <Fragment>
@@ -35,7 +291,7 @@ const Cart = () => {
         />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
-            {cartItems && cartItems.length >= 1 ? (
+            {CartData && CartData.length >= 1 ? (
               <Fragment>
                 <h3 className="cart-page-title">Your cart items</h3>
                 <div className="row">
@@ -53,23 +309,23 @@ const Cart = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {cartItems.map((cartItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              cartItem.price,
-                              cartItem.discount
-                            );
-                            const finalProductPrice = (
-                              cartItem.price * currency.currencyRate
-                            ).toFixed(2);
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            ).toFixed(2);
+                          {CartData.map((cartItem, key) => {
+                            // const discountedPrice = getDiscountPrice(
+                            //   cartItem.price,
+                            //   cartItem.discount
+                            // );
+                            // const finalProductPrice = (
+                            //   cartItem.price * currency.currencyRate
+                            // ).toFixed(2);
+                            // const finalDiscountedPrice = (
+                            //   discountedPrice * currency.currencyRate
+                            // ).toFixed(2);
 
-                            discountedPrice != null
-                              ? (cartTotalPrice +=
-                                  finalDiscountedPrice * cartItem.quantity)
-                              : (cartTotalPrice +=
-                                  finalProductPrice * cartItem.quantity);
+                            // discountedPrice != null
+                            //   ? (cartTotalPrice +=
+                            //       finalDiscountedPrice * cartItem.quantity)
+                            //   : (cartTotalPrice +=
+                            //       finalProductPrice * cartItem.quantity);
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -82,10 +338,11 @@ const Cart = () => {
                                   >
                                     <img
                                       className="img-fluid"
-                                      src={
-                                        process.env.PUBLIC_URL +
-                                        cartItem.image[0]
-                                      }
+                                      // src={
+                                      //   process.env.PUBLIC_URL +
+                                      //   cartItem.image[0]
+                                      // }
+                                      src={`${BaseUrl.baseurl}${'/'}${cartItem?.productId?.media[0]?.file}`}
                                       alt=""
                                     />
                                   </Link>
@@ -99,9 +356,9 @@ const Cart = () => {
                                       cartItem.id
                                     }
                                   >
-                                    {cartItem.name}
+                                    {cartItem?.productId?.title}
                                   </Link>
-                                  {cartItem.selectedProductColor &&
+                                  {/* {cartItem.selectedProductColor &&
                                   cartItem.selectedProductSize ? (
                                     <div className="cart-item-variation">
                                       <span>
@@ -113,11 +370,11 @@ const Cart = () => {
                                     </div>
                                   ) : (
                                     ""
-                                  )}
+                                  )} */}
                                 </td>
 
                                 <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
+                                  {/* {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
                                         {currency.currencySymbol +
@@ -133,7 +390,10 @@ const Cart = () => {
                                       {currency.currencySymbol +
                                         finalProductPrice}
                                     </span>
-                                  )}
+                                  )} */}
+                                  <span className="amount">
+                                    {cartItem?.productId?.price}
+                                  </span>
                                 </td>
 
                                 <td className="product-quantity">
@@ -141,7 +401,8 @@ const Cart = () => {
                                     <button
                                       className="dec qtybutton"
                                       onClick={() =>
-                                        dispatch(decreaseQuantity(cartItem))
+                                        // dispatch(decreaseQuantity(cartItem))
+                                        handleRemovetoCart(cartItem?.count,cartItem?._id)
                                       }
                                     >
                                       -
@@ -149,16 +410,18 @@ const Cart = () => {
                                     <input
                                       className="cart-plus-minus-box"
                                       type="text"
-                                      value={cartItem.quantity}
+                                      value={cartItem?.count}
                                       readOnly
                                     />
                                     <button
                                       className="inc qtybutton"
                                       onClick={() =>
-                                        dispatch(addToCart({
-                                          ...cartItem,
-                                          quantity: quantityCount
-                                        }))
+                                        // dispatch(addToCart({
+                                        //   ...cartItem,
+                                        //   quantity: quantityCount
+                                        // }))
+                                        handleAddtoCart(cartItem?.count,cartItem?._id)
+                                        // handleAddtoCart(cartItem?.count,cartItem?.productId?._id)
                                       }
                                       disabled={
                                         cartItem !== undefined &&
@@ -176,7 +439,7 @@ const Cart = () => {
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
-                                  {discountedPrice !== null
+                                  {/* {discountedPrice !== null
                                     ? currency.currencySymbol +
                                       (
                                         finalDiscountedPrice * cartItem.quantity
@@ -184,13 +447,15 @@ const Cart = () => {
                                     : currency.currencySymbol +
                                       (
                                         finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)}
+                                      ).toFixed(2)} */}
+                                       {totalPrice}
                                 </td>
 
                                 <td className="product-remove">
                                   <button
                                     onClick={() =>
-                                      dispatch(deleteFromCart(cartItem.cartItemId))
+                                      // dispatch(deleteFromCart(cartItem.cartItemId))
+                                      handleRemoveFavorite(cartItem._id)
                                     }
                                   >
                                     <i className="fa fa-times"></i>
@@ -215,15 +480,16 @@ const Cart = () => {
                         </Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => dispatch(deleteAllFromCart())}>
-                          Clear Shopping Cart
+                        <button onClick={() => navigate('/checkout')}>
+                          View Checkout
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <div className="row">
+                   
+                   {/* cart Item */}
+                {/* <div className="row">
                   <div className="col-lg-4 col-md-6">
                     <div className="cart-tax">
                       <div className="title-wrap">
@@ -312,7 +578,7 @@ const Cart = () => {
                       </Link>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </Fragment>
             ) : (
               <div className="row">

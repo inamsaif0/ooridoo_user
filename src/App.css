@@ -1,3 +1,12 @@
+::-webkit-scrollbar {
+  width: 4px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffbb0c;
+  border-radius: 12px;
+}
 .styled-input {
   float: left;
   background: #fff;
@@ -258,7 +267,11 @@
 
   .styled-input.multi > div.error label.error {
     padding-top: 0;
+    
   }
+}
+.error{
+color: red;
 }
 
 /* Button */

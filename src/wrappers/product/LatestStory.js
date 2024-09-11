@@ -12,20 +12,23 @@ const LatestStory = () => {
   const [getstories, setGetstories] = useState([]);
   const [imgurl, setImgurl] = useState("");
   const [loader, setLoader] = useState(false);
+
+  const [getProductData, setGetProductData] = useState([]);
   useEffect(() => {
     setLoader(true);
 
     try {
       var config = {
         method: "get",
-        url: `${BaseUrl.baseurl}stories`,
+        url: `${BaseUrl.baseurl}/api/products/get?page=1&limit=5`,
       };
       axios(config)
         .then(function (response) {
           setLoader(false);
           console.log(response, "story");
-          setImgurl(response?.data?.imagePath);
-          setGetstories(response?.data?.story);
+          // setImgurl(response?.data?.imagePath);
+          setGetProductData(response?.data?.data?.result);
+          // setGetstories(response?.data?.story);
         })
         .catch((error) => {
           setLoader(false);
@@ -53,6 +56,8 @@ const LatestStory = () => {
       });
     }
   }, []);
+
+  // Featured Products
 
   const myproduct =[
     
@@ -133,15 +138,16 @@ const LatestStory = () => {
         modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
-        {myproduct
-          ? myproduct?.map((e) => {
+        {getProductData
+          ? getProductData?.map((e) => {
               return (
                 <>
                   <SwiperSlide>
-                    <Link to={`/shop/2`}>
+                    <Link to={`/shop/${e?.category}`}>
                     {/* <Link to={`/Blog/${e?.slug}`}> */}
                       <SliderCard
-                        image={imgurl + e?.image}
+                        // image={imgurl + e?.image}
+                        image={`${BaseUrl.baseurl + '/'+ e?.media[0]?.file}`}
                         productName={e?.title}
                         description={e.price}
                         loader={loader}
@@ -154,7 +160,7 @@ const LatestStory = () => {
                 </>
               );
             })
-          : null}
+          : (<p>No products found</p>)}
       </Swiper>
       </div>
     </>

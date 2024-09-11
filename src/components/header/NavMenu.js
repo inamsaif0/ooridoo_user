@@ -12,19 +12,22 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const [getidea, setGetidea] = useState([]);
   const [getprofessional, setGetprofessional] = useState([]);
   const [getshop, setGetShop] = useState([]);
+  const [getCategories, setgetCategories] = useState([]);
+
   const { slug } = useParams();
   useEffect(() => {
     try {
       var config = {
         method: "get",
-        url: `${BaseUrl.baseurl}getheader`,
+        // url: `${BaseUrl.baseurl}getheader`,
+        url:`${BaseUrl.baseurl}/api/categories/get`
       };
       axios(config)
         .then(function (response) {
-          console.log(response, "setGetheader");
-          setGetidea(response?.data?.idea);
-          setGetprofessional(response?.data?.professionalCategory);
-          setGetShop(response?.data?.shop);
+          console.log(response?.data?.data?.result, "setGetheader");
+          setgetCategories(response?.data?.data?.result);
+          // setGetprofessional(response?.data?.professionalCategory);
+          // setGetShop(response?.data?.shop);
         })
         .catch((error) => {
           console.log(error);
@@ -85,7 +88,6 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                            
                           </Link>
                         </li>
-
                         <li>
             <Link to={process.env.PUBLIC_URL + "/shop/1"}>
               {t("Categories")}
@@ -98,40 +100,38 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               )}
             </Link>
             <ul className="mega-menu mega-menu-padding">
+              {/* part one */}
               <li>
                 <ul>
-                  {/* <li className="mega-menu-title">
-                    <Link to={process.env.PUBLIC_URL + "/"}>
+                  {/* <li>
+                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
                       {t("Books & Media")}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+                      {t("Health & Beauty")}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+                      {t("Health & Beauty")}
                     </Link>
                   </li> */}
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
-                      {t("Books & Media")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
-                      {t("Health & Beauty")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
-                      {t("Health & Beauty")}
-                    </Link>
-                  </li>
-              
-
+                   {getCategories?.slice(0, 2).map((category, index) => (
+        <li key={index}>
+          <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
+            {t(category.title)}
+          </Link>
+        </li>
+      ))}
                 </ul>
               </li>
+
+              {/* part two */}
               <li>
                 <ul>
-                  {/* <li className="mega-menu-title">
-                    <Link to={process.env.PUBLIC_URL + "/"}>
-                      {t("home_group_two")}
-                    </Link>
-                  </li> */}
-                  <li>
+                  {/* <li>
                     <Link to={process.env.PUBLIC_URL + "/shop/1"}>
                       {t("Hajj & Umrah")}
                     </Link>
@@ -145,9 +145,19 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                     <Link to={process.env.PUBLIC_URL + "/shop/3"}>
                       {t("Clothing")}
                     </Link>
-                  </li>
+                  </li> */}
+
+{getCategories?.slice(2, 4).map((category, index) => (
+        <li key={index}>
+          <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
+            {t(category.title)}
+          </Link>
+        </li>
+      ))}
                 </ul>
               </li>
+
+               {/* image */}
               <li>
                 <ul>
                   <li className="mega-menu-img">
@@ -179,7 +189,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                           </Link>
                         </li>
 
-                        <li className="mega-menu-title">
+                        {/* <li className="mega-menu-title">
                           <Link
                             to={process.env.PUBLIC_URL + `/shop/1`}
                           >
@@ -195,7 +205,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                            Offers
                            
                           </Link>
-                        </li>
+                        </li> */}
           {/* <li>
             <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
               {t("Get Ideas")}

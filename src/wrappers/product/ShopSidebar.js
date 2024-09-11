@@ -11,25 +11,27 @@ import ShopCategories from "../../components/product/ShopCategories";
 import ShopColor from "../../components/product/ShopColor";
 
 
-const ShopSidebar = ({ products, getSortParams, sideSpaceClass }) => {
+const ShopSidebar = ({ products, getSortParams, sideSpaceClass ,setSelectedCategory,setSearchQuery}) => {
 
   
 
   // console.log('MyProductCategory',MyProductCategory)
   console.log('products==>',products)
 
-  const uniqueCategories = getIndividualCategories(products);
-  const uniqueColors = getIndividualColors(products);
+  // const uniqueCategories = getIndividualCategories(products);
+  // const uniqueColors = getIndividualColors(products);
  
 
   return (
     <div className={clsx("sidebar-style", sideSpaceClass)}>
       {/* shop search */}
-      <ShopSearch />
+      {/* <ShopSearch /> */}
+      <ShopSearch setSearchQuery={setSearchQuery} />
 
       {/* filter by categories */}
       <ShopCategories
-        categories={uniqueCategories}
+        categories={products}
+        setSelectedCategory={setSelectedCategory}
         getSortParams={getSortParams}
       />
 

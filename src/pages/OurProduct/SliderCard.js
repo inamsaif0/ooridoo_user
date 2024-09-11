@@ -1,6 +1,8 @@
 import React from "react";
 
 const SliderCard = (props) => {
+
+  console.log('==>props.image',props)
   return (
     <>
       {/* <div className="container w-100 border shadow p-3 mb-5 bg-body rounded" > */}

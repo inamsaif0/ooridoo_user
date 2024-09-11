@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
 
-const IconGroup = ({ iconWhiteClass }) => {
+const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) => {
   const handleClick = e => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -16,12 +16,12 @@ const IconGroup = ({ iconWhiteClass }) => {
     offcanvasMobileMenu.classList.add("active");
   };
   const { compareItems } = useSelector((state) => state.compare);
-  const { wishlistItems } = useSelector((state) => state.wishlist);
-  const { cartItems } = useSelector((state) => state.cart);
+  // const { wishlistItems } = useSelector((state) => state.wishlist);
+  // const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)} >
-      <div className="same-style header-search d-none d-lg-block">
+      {/* <div className="same-style header-search d-none d-lg-block">
         <button className="search-active" onClick={e => handleClick(e)}>
           <i className="pe-7s-search" />
         </button>
@@ -33,7 +33,7 @@ const IconGroup = ({ iconWhiteClass }) => {
             </button>
           </form>
         </div>
-      </div>
+      </div> */}
       <div className="same-style account-setting d-none d-lg-block">
         <button
           className="account-setting-active"
@@ -41,6 +41,7 @@ const IconGroup = ({ iconWhiteClass }) => {
         >
           <i className="pe-7s-user-female" />
         </button>
+        {/* signup */}
         <div className="account-dropdown">
           <ul>
             <li>
@@ -51,30 +52,32 @@ const IconGroup = ({ iconWhiteClass }) => {
                 Sign Up
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to={process.env.PUBLIC_URL + "/profile"}>
                 my account
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
-      <div className="same-style header-compare">
+      {/* whistlist */}
+      {/* <div className="same-style header-compare">
         <Link to={process.env.PUBLIC_URL + "/compare"}>
           <i className="pe-7s-shuffle" />
           <span className="count-style">
             {compareItems && compareItems.length ? compareItems.length : 0}
           </span>
         </Link>
-      </div>
+      </div> */}
       <div className="same-style header-wishlist">
         <Link to={process.env.PUBLIC_URL + "/wishlist"}>
           <i className="pe-7s-like" />
           <span className="count-style">
-            {wishlistItems && wishlistItems.length ? wishlistItems.length : 0}
+            {FavoriteData && FavoriteData.length ? FavoriteData.length : 0}
           </span>
         </Link>
       </div>
+      {/* cart */}
       <div className="same-style cart-wrap d-none d-lg-block">
         <button className="icon-cart" onClick={e => handleClick(e)}>
           <i className="pe-7s-shopbag" />
@@ -83,7 +86,7 @@ const IconGroup = ({ iconWhiteClass }) => {
           </span>
         </button>
         {/* menu cart */}
-        <MenuCart />
+        <MenuCart cartItems={cartItems} GetAllCartList={GetAllCartList} />
       </div>
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>

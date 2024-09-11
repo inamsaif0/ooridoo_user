@@ -4,6 +4,7 @@ import Bg_img from "../../assets/img/books/bookcover.jpg";
 import Pepsi from "../../assets/img/Pepsi.png";
 import { Button } from "react-bootstrap";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const heroSliderData = [
   {
     id: 1,
@@ -17,33 +18,34 @@ const heroSliderData = [
 const HeroSliderOne = () => {
   const [, setPublicIPAddress] = useState("");
   const [zipCode, setZipCode] = useState("");
+   const navigate =useNavigate()
 
-  useEffect(() => {
-    // Fetch public IP address
-    fetch("https://api64.ipify.org?format=json")
-      .then((response) => response.json())
-      .then((data) => {
-        const ipAddress = data.ip;
-        setPublicIPAddress(ipAddress);
-        console.log(data, ipAddress, "location 1");
+  // useEffect(() => {
+  //   // Fetch public IP address
+  //   fetch("https://api64.ipify.org?format=json")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const ipAddress = data.ip;
+  //       setPublicIPAddress(ipAddress);
+  //       console.log(data, ipAddress, "location 1");
 
-        // Fetch zip code from IP address
-        fetch(
-          `https://api.ipdata.co/${ipAddress}/postal?api-key=15a88f7849645d3f9b6d53237169e1b01626d4266fc950acabe354f0`
-        )
-          .then((response) => response.text())
-          .then((data) => {
-            setZipCode(data);
-            console.log(data, "location 2");
-          })
-          .catch((error) => {
-            console.error("Error fetching zip code from IP address:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Error fetching public IP address:", error);
-      });
-  }, []);
+  //       // Fetch zip code from IP address
+  //       fetch(
+  //         `https://api.ipdata.co/${ipAddress}/postal?api-key=15a88f7849645d3f9b6d53237169e1b01626d4266fc950acabe354f0`
+  //       )
+  //         .then((response) => response.text())
+  //         .then((data) => {
+  //           setZipCode(data);
+  //           console.log(data, "location 2");
+  //         })
+  //         .catch((error) => {
+  //           console.error("Error fetching zip code from IP address:", error);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching public IP address:", error);
+  //     });
+  // }, []);
   return (
     <div className="slider-area">
       <div className="slider-active  nav-style-1">
@@ -87,7 +89,9 @@ const HeroSliderOne = () => {
                           </div> */}
 
                           <div className="col-md-4">
-                            <Button className=" btn-lg btn-warning">
+                            <Button className=" btn-lg btn-warning"
+                            onClick={()=>{navigate('/shop/1')}}
+                            >
                               Shop Now
                             </Button>
                           </div>
