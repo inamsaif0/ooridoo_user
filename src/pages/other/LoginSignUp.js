@@ -8,11 +8,23 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { HomeOwnerIcon, ProfessionaIcon } from '../../assets/icons/index';
 import { toast } from "react-toastify";
 import BaseUrl from "../../BaseUrl";
-
+import defaultUser from '../../assets/img/default-user.png';
 const LoginSignUp = () => {
   const { pathname } = useLocation();
   const LoginTabRef = useRef(null);
 
+  const [profileImage, setProfileImage] = useState(null);
+    const inputRef = useRef(null);
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        const imageUrl = URL.createObjectURL(file);
+        setProfileImage(imageUrl);
+    }
+
+    const handleImage = () => {
+        inputRef.current.click();
+    }
  const navigate =  useNavigate()
 
   const [isSignUp, setIsSignUp] = useState(false);
@@ -209,6 +221,18 @@ const LoginSignUp = () => {
                           <div className="login-form-container">
                             <div className="login-register-form">
                               <form onSubmit={handleSubmitSignUp}>
+                              {/* <div className='row' >
+                        <div className='col-md-4'>
+                            <h3 className='fw-bold text-decoration-underline text-center'>Upload Profile Image</h3>
+                            <div className='d-flex align-items-center gap-4 mt-5'>
+                                <div>
+                                    <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
+                                    <img className='profile-image' onClick={() => handleImage()} src={profileImage ? profileImage : defaultUser} alt="Profile" />
+                                </div>
+                            </div>
+                            <button type='button' className='btn btn-outline-primary mt-4 ms-4' onClick={handleImage}>Update Photo</button>
+                        </div>
+                    </div> */}
                               <input
                                   name="userName"
                                   className="mb-2"
