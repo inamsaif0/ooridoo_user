@@ -9,15 +9,23 @@ import { HomeOwnerIcon, ProfessionaIcon } from '../../assets/icons/index';
 import { toast } from "react-toastify";
 import BaseUrl from "../../BaseUrl";
 import defaultUser from '../../assets/img/default-user.png';
+import GetStartedStep4 from "../../components/get-started/step4";
+import axios from "axios";
+import Swal from "sweetalert2";
 const LoginSignUp = () => {
   const { pathname } = useLocation();
   const LoginTabRef = useRef(null);
-
+  const Token = localStorage.getItem("Token")
   const [profileImage, setProfileImage] = useState(null);
+  const [profileImage2, setProfileImage2] = useState(null);
+  const [Fullname, setFullname] = useState(null);
+  const [Bio, setBio] = useState(null);
+  const [phone, setphone] = useState(null);
     const inputRef = useRef(null);
 
     function handleImageUpload(event) {
-        const file = event.target.files[0];
+        const file = event?.target?.files[0];
+        setProfileImage2(file)
         const imageUrl = URL.createObjectURL(file);
         setProfileImage(imageUrl);
     }
@@ -125,7 +133,8 @@ const LoginSignUp = () => {
             if(data?.status == true){
               toast.success(data?.message);
               localStorage.setItem('Token', JSON.stringify(data?.data?.token));
-              navigate('/ogin-signup')
+              // navigate('/login-signup')
+              // setIsSignUp(true)
               console.log("Success:", data);
             }
             else{
@@ -151,6 +160,93 @@ const LoginSignUp = () => {
     }
     return formErrors;
   };
+
+  const handleSubmitProfile =async (e) => {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem('Token'));
+
+    // const token = JSON.parse(localStorage.getItem('Token'));
+    // // var myHeaders = new Headers();
+    // // myHeaders.append("token", Token);
+    // // myHeaders.append("Content-Type", "application/json");
+    // const formData = new FormData();
+    // // formData.append('token',Token)
+    // formData.append('profile_image', profileImage2);
+    // formData.append('full_name', Fullname);
+    // formData.append('phone_number', phone);
+    // formData.append('bio', Bio);
+  
+    // fetch(`${BaseUrl.baseurl}/api/user/complete-profile`, {
+    //   method: "POST",
+    //   // headers: myHeaders,
+    //   headers: {
+    //     token: Token, // Token for authentication
+    //   },
+    //   body: formData,  // Send FormData to handle file upload
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     if (data.status === true) {
+    //       toast.success(data.message);
+    //     } else {
+    //       toast.error(data.message);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+
+    console.log('profileImage2==>',profileImage2)
+
+    const requestBody={
+      profile_image:profileImage,
+      full_name:Fullname,
+      phone_number:phone,
+      bio:Bio
+    }
+      try {
+        const config = {
+          method: "POST",
+          url: `${BaseUrl.baseurl}/api/user/complete-profile`,
+          data: requestBody,
+          headers: {
+            token: token,
+            "Accept": "application/json",
+          },
+        };
+  
+        const response = await axios(config);
+        console.log('==>cart==>api',response)
+        if (response?.data?.status === true) {
+          toast.success(response?.data?.message);
+          // dispatch(cartFlagfunction(true))
+        } else {
+          // setLoader(false);
+          toast.error(response?.data?.message || "Failed to add review.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          showCloseButton: true,
+          toast: true,
+          icon: "error",
+          title: error?.response?.data?.message || "Something went wrong!",
+          position: "top-right",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+      } finally {
+        // setLoader(false);
+      }
+
+  };
+  
+
 
   return (
     <Fragment>
@@ -182,6 +278,7 @@ const LoginSignUp = () => {
                         </Nav.Item>
                       </Nav>
                       <Tab.Content>
+                      
                         <Tab.Pane eventKey="login">
                           <div className="login-form-container">
                             <div className="login-register-form">
@@ -221,18 +318,6 @@ const LoginSignUp = () => {
                           <div className="login-form-container">
                             <div className="login-register-form">
                               <form onSubmit={handleSubmitSignUp}>
-                              {/* <div className='row' >
-                        <div className='col-md-4'>
-                            <h3 className='fw-bold text-decoration-underline text-center'>Upload Profile Image</h3>
-                            <div className='d-flex align-items-center gap-4 mt-5'>
-                                <div>
-                                    <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
-                                    <img className='profile-image' onClick={() => handleImage()} src={profileImage ? profileImage : defaultUser} alt="Profile" />
-                                </div>
-                            </div>
-                            <button type='button' className='btn btn-outline-primary mt-4 ms-4' onClick={handleImage}>Update Photo</button>
-                        </div>
-                    </div> */}
                               <input
                                   name="userName"
                                   className="mb-2"
@@ -278,27 +363,84 @@ const LoginSignUp = () => {
                       </Tab.Content>
                     </Tab.Container>
                   ) : (
-                    <div className="card text-center which-describe">
-                      <div className="card-header">Which describes you best?</div>
-                      <div className="card-body">
-                        <div className="row">
-                          <div className="col-6 Homeowner">
-                            <Link to={'/welcomeHomeOwner'}>
-                              <div className="icon"><HomeOwnerIcon /></div>
-                              <h3>Homeowner</h3>
-                              <p>I am a homeowner or interested in home design.</p>
-                            </Link>
-                          </div>
-                          <div className="col-6 Professional">
-                            <Link to={'/welcomeProfessional'}>
-                              <div className="icon"><ProfessionaIcon /></div>
-                              <h3>Professional</h3>
-                              <p>I offer home improvement services or sell home products.</p>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
+                    <GetStartedStep4 />
+                    // <div className="card text-center which-describe">
+                    //   <div className="card-header">Which describes you best?</div>
+                    //   <div className="card-body">
+                    //     <div className="row">
+                    //       <div className="col-6 Homeowner">
+                    //         <Link to={'/welcomeHomeOwner'}>
+                    //           <div className="icon"><HomeOwnerIcon /></div>
+                    //           <h3>Homeowner</h3>
+                    //           <p>I am a homeowner or interested in home design.</p>
+                    //         </Link>
+                    //       </div>
+                    //       <div className="col-6 Professional">
+                    //         <Link to={'/welcomeProfessional'}>
+                    //           <div className="icon"><ProfessionaIcon /></div>
+                    //           <h3>Professional</h3>
+                    //           <p>I offer home improvement services or sell home products.</p>
+                    //         </Link>
+                    //       </div>
+                    //     </div>
+                    //   </div>
+                    // </div>
+                    // profile work
+                    // <div>
+                    //    <div className="login-form-container">
+                    //         <div className="login-register-form">
+                    //           <form onSubmit={handleSubmitProfile}>
+                    //           {/* <div className='row' >
+                    //     <div className='col-md-4'> */}
+                    //         <h3 className='fw-bold text-decoration-underline text-center'>Upload Profile Image</h3>
+                    //         <div className='d-flex align-items-center gap-4 mt-5'>
+                    //             <div>
+                    //                 <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
+                    //                 <img className='profile-image' style={{height:'200px',width:'200px'}} onClick={() => handleImage()} src={profileImage ? profileImage : defaultUser} alt="Profile" />
+                    //             </div>
+                    //         </div>
+                    //         <button type='button' className='btn btn-outline-primary mt-4 ms-4 mb-4' onClick={handleImage}>Update Photo</button>
+                    //     {/* </div>
+                    // </div> */}
+                    //           <input
+                    //               name="userName"
+                    //               className="mb-2"
+                    //               placeholder="full_name"
+                    //               type="text"
+                    //               // value={formData.userName}
+                    //               onChange={(e)=>{setFullname(e?.target?.value)}}
+                    //             />
+                    //             {/* {errors.userName && <span className="error">{errors.userName}</span>} */}
+                    //             <input
+                    //             className="mb-0 mt-4"
+                    //               name="phone_number"
+                    //               placeholder="phone_number"
+                    //               type="text"
+                    //               // value={formData.email}
+                    //               onChange={(e)=>{setphone(e?.target?.value)}}
+                    //             />
+                    //             {/* {errors.email && <span className="error">{errors.email}</span>} */}
+                    //             <input
+                    //               className="mb-0 mt-4"
+                    //               type="text"
+                    //               name="password"
+                    //               placeholder="Bio"
+                    //               // value={formData.password}
+                    //               onChange={(e)=>{setBio(e?.target?.value)}}
+                    //               // onChange={handleSignUpChange}
+                    //             />
+                    //             <div className="button-box">
+                    //               <button type="submit">
+                    //                 <span>Updated Profile</span>
+                    //               </button>
+                    //             </div>
+                    //           </form>
+                    //         </div>
+                    //       </div>
+
+                    //   </div>
+
                   )}
                 </div>
               </div>

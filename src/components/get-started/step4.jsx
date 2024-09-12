@@ -26,11 +26,12 @@ export default function GetStartedStep4() {
                                     <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
                                     <img className='profile-image' onClick={() => handleImage()} src={profileImage ? profileImage : defaultUser} alt="Profile" />
                                 </div>
-                                <div>
+                                {/* <div>
                                     <p className='mb-0 fs-3 fw-bold'>John Doe</p>
                                     <p>Velit nisi ab nobis, MA</p>
-                                </div>
+                                </div> */}
                             </div>
+                            
                             <button type='button' className='btn btn-outline-primary mt-4 ms-4' onClick={handleImage}>Update Photo</button>
                         </div>
                     </div>
