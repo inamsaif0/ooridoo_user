@@ -142,10 +142,18 @@ const Wishlist = () => {
       return
     }
 
+    console.log('item==>',item)
+
     const requestBody={
-      productId:item?._id,
+      productId:item?.productId?._id,
       userId:UserId,
     }
+
+    // 66e5379b90ab9d205a31ea85
+
+    console.log('RequestBody===>',requestBody)
+
+
       try {
         // setLoader(true);
   
@@ -168,8 +176,6 @@ const Wishlist = () => {
           toast.success(response?.data?.message);
           handleRemoveFavorite(item?._id)
           dispatch(cartFlagfunction(true))
-
-
         } else {
           // setLoader(false);
           toast.error(response?.data?.message || "Failed to add review.");

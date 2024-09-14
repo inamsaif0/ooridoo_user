@@ -1,10 +1,14 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
 
 const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) => {
+
+          const navigate =useNavigate()
+          const Token = localStorage.getItem("Token")
+          console.log('Token==>',Token)
   const handleClick = e => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -19,6 +23,15 @@ const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) =
   // const { wishlistItems } = useSelector((state) => state.wishlist);
   // const { cartItems } = useSelector((state) => state.cart);
 
+  const handleLogout = () => {
+    // Remove token and user data from localStorage
+    localStorage.removeItem('Token');
+    localStorage.removeItem('UserId');
+     
+    navigate('/')
+
+    console.log("Logged out successfully");
+};
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)} >
       {/* <div className="same-style header-search d-none d-lg-block">
@@ -44,14 +57,23 @@ const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) =
         {/* signup */}
         <div className="account-dropdown">
           <ul>
-            <li>
+           {Token == null ? (  <li>
               <Link to={process.env.PUBLIC_URL + "/login-signup"}>Login</Link>
-            </li>
+            </li>): null} 
+          
             <li>
               <Link to={process.env.PUBLIC_URL + "/login-signup"}>
                 Sign Up
               </Link>
             </li>
+            {Token != null ? ( 
+              <li style={{cursor:'pointer'}} onClick={()=>{handleLogout()}} >
+              Log Out
+           </li>
+            ): null} 
+            {/* <li onClick={()=>{handleLogout()}} >
+               Log Out
+            </li> */}
             {/* <li>
               <Link to={process.env.PUBLIC_URL + "/profile"}>
                 my account

@@ -10,10 +10,10 @@ import axios from "axios";
 
 const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
 
-  console.log('cartItems==>ahmed',ahmed,'cartItems',cartItems)
+  console.log('cartItems==>ahmed',ahmed)
   const dispatch = useDispatch();
   const currency = useSelector((state) => state.currency);
-  const { cartItems } = useSelector((state) => state.cart);
+  // const { cartItems } = useSelector((state) => state.cart);
   let cartTotalPrice = 0;
 
   const handleRemoveCart = async(e) =>{

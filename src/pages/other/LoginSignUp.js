@@ -17,18 +17,27 @@ const LoginSignUp = () => {
   const LoginTabRef = useRef(null);
   const Token = localStorage.getItem("Token")
   const [profileImage, setProfileImage] = useState(null);
-  const [profileImage2, setProfileImage2] = useState(null);
+  const [profilePriviewImage2, setProfilePriviewImage2] = useState(null);
   const [Fullname, setFullname] = useState(null);
   const [Bio, setBio] = useState(null);
   const [phone, setphone] = useState(null);
     const inputRef = useRef(null);
 
-    function handleImageUpload(event) {
-        const file = event?.target?.files[0];
-        setProfileImage2(file)
+    // function handleImageUpload(event) {
+    //     const file = event?.target?.files[0];
+    //     setProfilePriviewImage2(file)
+    //     const imageUrl = URL.createObjectURL(file);
+    //     setProfileImage(imageUrl);
+    // }
+    const handleImageUpload = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        // Create a preview of the selected image
         const imageUrl = URL.createObjectURL(file);
-        setProfileImage(imageUrl);
-    }
+        setProfilePriviewImage2(file); // Set the selected image file to be sent to the API
+        setProfileImage(imageUrl); // Display the selected image as a preview
+      }
+    };
 
     const handleImage = () => {
         inputRef.current.click();
@@ -134,7 +143,7 @@ const LoginSignUp = () => {
               toast.success(data?.message);
               localStorage.setItem('Token', JSON.stringify(data?.data?.token));
               // navigate('/login-signup')
-              // setIsSignUp(true)
+              setIsSignUp(true)
               console.log("Success:", data);
             }
             else{
@@ -171,7 +180,7 @@ const LoginSignUp = () => {
     // // myHeaders.append("Content-Type", "application/json");
     // const formData = new FormData();
     // // formData.append('token',Token)
-    // formData.append('profile_image', profileImage2);
+    // formData.append('profile_image', profilePriviewImage2);
     // formData.append('full_name', Fullname);
     // formData.append('phone_number', phone);
     // formData.append('bio', Bio);
@@ -196,22 +205,40 @@ const LoginSignUp = () => {
     //     console.error("Error:", error);
     //   });
 
-    console.log('profileImage2==>',profileImage2)
-
-    const requestBody={
-      profile_image:profileImage,
-      full_name:Fullname,
-      phone_number:phone,
-      bio:Bio
+    if (!profilePriviewImage2) {
+      toast.error('Please upload an image');
+      return;
     }
+
+    console.log('profilePriviewImage2==>',profilePriviewImage2)
+
+    // const requestBody={
+    //   profile_image:profilePriviewImage2,
+    //   full_name:Fullname,
+    //   phone_number:phone,
+    //   bio:Bio
+    // }
+
+    // console.log('requestBody==>',requestBody)
+
+    const formData = new FormData();
+    formData.append('profile_image', profilePriviewImage2);
+    formData.append('full_name', Fullname);
+    formData.append('phone_number', phone);
+    formData.append('bio', Bio);
+
+
+
       try {
         const config = {
           method: "POST",
           url: `${BaseUrl.baseurl}/api/user/complete-profile`,
-          data: requestBody,
+          // data: requestBody,
+          data: formData,
           headers: {
             token: token,
             "Accept": "application/json",
+            'Content-Type': 'multipart/form-data', // Ensure multipart/form-data is used
           },
         };
   
@@ -219,6 +246,7 @@ const LoginSignUp = () => {
         console.log('==>cart==>api',response)
         if (response?.data?.status === true) {
           toast.success(response?.data?.message);
+           navigate('/')
           // dispatch(cartFlagfunction(true))
         } else {
           // setLoader(false);
@@ -364,7 +392,7 @@ const LoginSignUp = () => {
                     </Tab.Container>
                   ) : (
 
-                    <GetStartedStep4 />
+                    // <GetStartedStep4 />
                     // <div className="card text-center which-describe">
                     //   <div className="card-header">Which describes you best?</div>
                     //   <div className="card-body">
@@ -387,60 +415,79 @@ const LoginSignUp = () => {
                     //   </div>
                     // </div>
                     // profile work
-                    // <div>
-                    //    <div className="login-form-container">
-                    //         <div className="login-register-form">
-                    //           <form onSubmit={handleSubmitProfile}>
-                    //           {/* <div className='row' >
-                    //     <div className='col-md-4'> */}
-                    //         <h3 className='fw-bold text-decoration-underline text-center'>Upload Profile Image</h3>
-                    //         <div className='d-flex align-items-center gap-4 mt-5'>
-                    //             <div>
-                    //                 <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
-                    //                 <img className='profile-image' style={{height:'200px',width:'200px'}} onClick={() => handleImage()} src={profileImage ? profileImage : defaultUser} alt="Profile" />
-                    //             </div>
-                    //         </div>
-                    //         <button type='button' className='btn btn-outline-primary mt-4 ms-4 mb-4' onClick={handleImage}>Update Photo</button>
-                    //     {/* </div>
-                    // </div> */}
-                    //           <input
-                    //               name="userName"
-                    //               className="mb-2"
-                    //               placeholder="full_name"
-                    //               type="text"
-                    //               // value={formData.userName}
-                    //               onChange={(e)=>{setFullname(e?.target?.value)}}
-                    //             />
-                    //             {/* {errors.userName && <span className="error">{errors.userName}</span>} */}
-                    //             <input
-                    //             className="mb-0 mt-4"
-                    //               name="phone_number"
-                    //               placeholder="phone_number"
-                    //               type="text"
-                    //               // value={formData.email}
-                    //               onChange={(e)=>{setphone(e?.target?.value)}}
-                    //             />
-                    //             {/* {errors.email && <span className="error">{errors.email}</span>} */}
-                    //             <input
-                    //               className="mb-0 mt-4"
-                    //               type="text"
-                    //               name="password"
-                    //               placeholder="Bio"
-                    //               // value={formData.password}
-                    //               onChange={(e)=>{setBio(e?.target?.value)}}
-                    //               // onChange={handleSignUpChange}
-                    //             />
-                    //             <div className="button-box">
-                    //               <button type="submit">
-                    //                 <span>Updated Profile</span>
-                    //               </button>
-                    //             </div>
-                    //           </form>
-                    //         </div>
-                    //       </div>
+                    <div>
+                       <div className="login-form-container">
+                            <div className="login-register-form">
+                              <form onSubmit={handleSubmitProfile}>
+                              {/* <div className='row' >
+                        <div className='col-md-4'> */}
+                         
+                         {/* <div className='col-md-4 text-center ' >
+                        <h4 className='' >Upload Profile Image</h4>   
+                        <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
+                        <img className='profile-image' onClick={() => handleImage()} src={profileImage ? profileImage : defaultUser} alt="Profile" />
 
-                    //   </div>
+                        <div className='text-center'>
+                            <button className='btn btn-primary mt-4 '  > Upload Profile </button>
+                        </div>
 
+                    </div> */}
+
+                    {/* <div>
+                      
+                    </div> */}
+ 
+
+                            <h3 className='fw-bold text-decoration-underline  text-center'>Upload Profile Image</h3>
+                            <div className='d-flex align-items-center gap-4 mt-5'>
+                                <div className="text-center" >
+                                    <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
+                                    <img className='profile-image' style={{height:'200px',width:'200px',borderRadius:'12px'}} onClick={() => handleImage()} 
+                                    
+                                    // src={profileImage ? profileImage : defaultUser}
+                                    src={profileImage || defaultUser}  // Show defaultUser if no profile image is uploaded
+                                    alt="Profile" />
+                                </div>
+                            </div>
+                            <button type='button' className='btn btn-outline-primary mt-4 ms-4 mb-4' onClick={handleImage}>Update Photo</button>
+                        {/* </div>
+                    </div> */}
+                              <input
+                                  name="userName"
+                                  className="mb-2"
+                                  placeholder="full_name"
+                                  type="text"
+                                  // value={formData.userName}
+                                  onChange={(e)=>{setFullname(e?.target?.value)}}
+                                />
+                                {/* {errors.userName && <span className="error">{errors.userName}</span>} */}
+                                <input
+                                className="mb-0 mt-4"
+                                  name="phone_number"
+                                  placeholder="phone_number"
+                                  type="text"
+                                  // value={formData.email}
+                                  onChange={(e)=>{setphone(e?.target?.value)}}
+                                />
+                                {/* {errors.email && <span className="error">{errors.email}</span>} */}
+                                <input
+                                  className="mb-0 mt-4"
+                                  type="text"
+                                  name="password"
+                                  placeholder="Bio"
+                                  // value={formData.password}
+                                  onChange={(e)=>{setBio(e?.target?.value)}}
+                                  // onChange={handleSignUpChange}
+                                />
+                                <div className="button-box mt-4">
+                                  <button type="submit">
+                                    <span>Updated Profile</span>
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                      </div>
                   )}
                 </div>
               </div>

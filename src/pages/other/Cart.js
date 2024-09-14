@@ -77,6 +77,8 @@ const Cart = () => {
     return acc + itemPrice * item?.count;
   }, 0);
 
+  console.log('CartData==>',CartData)
+
 
   const handleAddtoCart =async (e,item) => {
     // e.preventDefault();
@@ -310,6 +312,7 @@ const Cart = () => {
                         </thead>
                         <tbody>
                           {CartData.map((cartItem, key) => {
+                            const itemSubtotal = cartItem?.productId?.price * cartItem?.count || 0; // Calculate subtotal for each item
                             // const discountedPrice = getDiscountPrice(
                             //   cartItem.price,
                             //   cartItem.discount
@@ -439,16 +442,8 @@ const Cart = () => {
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
-                                  {/* {discountedPrice !== null
-                                    ? currency.currencySymbol +
-                                      (
-                                        finalDiscountedPrice * cartItem.quantity
-                                      ).toFixed(2)
-                                    : currency.currencySymbol +
-                                      (
-                                        finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)} */}
-                                       {totalPrice}
+                                       {/* {totalPrice} */}
+                                       {itemSubtotal}
                                 </td>
 
                                 <td className="product-remove">
