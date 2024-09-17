@@ -11,6 +11,7 @@ import BaseUrl from "../../BaseUrl";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
+import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
 
 const ShopGridStandard = () => {
   const [layout, setLayout] = useState("grid three-column");
@@ -61,6 +62,8 @@ const ShopGridStandard = () => {
 
   const [getCategoriesData, setGetCategoriesData] = useState([]);
 
+  console.log('getCategoriesData==>',getCategoriesData)
+
   const [PaginationData,setPaginationData]=useState()
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,33 +80,92 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
 
   console.log('getProductData==>currentData',currentData)
 
+  const [subCategoryId,setsubcategoryId]=useState()
+
+    console.log('subCategoryId==>',subCategoryId)
+// running code
     // Fetch products on initial render or when the selected category changes
+    // useEffect(() => {
+    //   const fetchProducts = async () => {
+    //     try {
+    //       let url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+    //   if (selectedCategory && !subCategoryId ) {
+    //     url += `&category=${selectedCategory}`;
+    //   }
+    //   else if(selectedCategory && subCategoryId ){
+    //     url += `&category=${selectedCategory}&subCategory=${subCategoryId}`;
+    //   }
+    //   else if(slug == 1 || slug == 2 ){
+    //     url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+    //   } 
+    //   else{
+    //     url += `&category=${slug}`;
+    //   }
+    //       const config = {
+    //         method: "get",
+    //         url: url,
+    //       };
+  
+    //       const response = await axios(config);
+    //       console.log(response, "Product Data");
+    //       setGetProductData(response?.data?.data?.result);
+    //       setPaginationData(response?.data?.data?.pagination)
+    //       setsubcategoryId('')
+    //     } catch (error) {
+    //       console.error(error);
+    //       Swal.fire({
+    //         showCloseButton: true,
+    //         toast: true,
+    //         icon: "error",
+    //         title: error?.response?.data?.message,
+    //         animation: true,
+    //         position: "top-right",
+    //         showConfirmButton: false,
+    //         timer: 3000,
+    //         timerProgressBar: true,
+    //         didOpen: (toast) => {
+    //           toast.addEventListener("mouseenter", Swal.stopTimer);
+    //           toast.addEventListener("mouseleave", Swal.resumeTimer);
+    //         },
+    //       });
+    //     }
+    //   };
+  
+    //   fetchProducts();
+    // }, [selectedCategory,currentPage, limit,slug,subCategoryId]);
+
     useEffect(() => {
       const fetchProducts = async () => {
         try {
-          // let url = `${BaseUrl.baseurl}/api/products/get?page=1&limit=10`;
-          // if (selectedCategory) {
-          //   url += `&category=${selectedCategory}`;
-          // }
           let url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
-      if (selectedCategory) {
-        url += `&category=${selectedCategory}`;
-      }
-      else if(slug == 1 || slug == 2 ){
-        url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
-      } 
-      else{
-        url += `&category=${slug}`;
-      }
+          
+          if (selectedCategory && !subCategoryId) {
+            // Case when only category is selected, but no subcategory
+            url += `&category=${selectedCategory}`;
+          } 
+          else if (selectedCategory && subCategoryId) {
+            // Case when both category and subcategory are selected
+            url += `&category=${selectedCategory}&subCategory=${subCategoryId}`;
+          } 
+          else if (slug == 1 || slug == 2) {
+            // Reset URL if slug is 1 or 2
+            url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+          } 
+          else {
+            // Handle category filtering by slug
+            url += `&category=${slug}`;
+          }
+    
           const config = {
             method: "get",
             url: url,
           };
-  
+    
           const response = await axios(config);
           console.log(response, "Product Data");
           setGetProductData(response?.data?.data?.result);
-          setPaginationData(response?.data?.data?.pagination)
+          setPaginationData(response?.data?.data?.pagination);
+          setsubcategoryId(''); // Reset subcategory after the request
         } catch (error) {
           console.error(error);
           Swal.fire({
@@ -123,10 +185,15 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
           });
         }
       };
-  
+    
       fetchProducts();
-    }, [selectedCategory,currentPage, limit,slug]);
+    }, [selectedCategory, currentPage, limit, slug, subCategoryId]);
+        
   
+    const GetHandleSubCategoryid = (id) =>{
+      console.log('hello==>',id)
+      setsubcategoryId(id)
+    }
 
 // categories data
   useEffect(() => {
@@ -172,6 +239,29 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
   console.log('ahmedCurrent Page:', currentPage);
 
   console.log(productLenght, "getProductLenght");
+
+
+
+  const [filterSubcategoryData, setFilterSubcategoryData] = useState([]);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      // Filter the subcategories based on the selected category
+      const filterSubCategory = getCategoriesData?.filter(
+        (a) => a?._id === selectedCategory
+      );
+      // Update the state with the filtered subcategories
+      setFilterSubcategoryData(filterSubCategory);
+    }
+  }, [selectedCategory, getCategoriesData]);
+  
+  console.log('filterSubcategoryData==>State', filterSubcategoryData);
+
+  // const filterSubCategory=getCategoriesData?.filter((a)=>a?._id == selectedCategory)
+
+  // console.log('filterSubCategory==>',filterSubCategory)
+
+
   return (
     <Fragment>
       <SEO
@@ -191,6 +281,7 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
         <div className="shop-area pt-95 pb-100">
           <div className="container">
             <div className="row">
+            <BrandLogoSliderOne spaceBottomClass="pb-2" GetHandleSubCategoryid={GetHandleSubCategoryid} getCategoriesData={filterSubcategoryData} />
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}
                 <ShopSidebar

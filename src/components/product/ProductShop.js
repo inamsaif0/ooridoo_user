@@ -534,8 +534,9 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
                       {/* <Rating /> */}
 
                       <div className="product-price">
+                      <h4 style={{fontWeight:'bold'}} >{item?.title}</h4>
                         <h4>
-                          <i className="fa fa-dollar"></i>
+                          <i className="fa fa-won"></i>
                           <span>{item?.price}</span>
                           {/* discount price below */}
                           {/* <span className="old" >{e?.price}</span> */}
@@ -550,6 +551,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
                             </>
                           )} */}
                         </h4>
+                        
                       </div>
                     </div>
                   </div>
