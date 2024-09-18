@@ -83,6 +83,14 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
   const [subCategoryId,setsubcategoryId]=useState()
 
     console.log('subCategoryId==>',subCategoryId)
+
+
+    const [StopFlag,setStopFlag]=useState(false)
+
+    console.log('testcaseflag',StopFlag)
+
+    
+
 // running code
     // Fetch products on initial render or when the selected category changes
     // useEffect(() => {
@@ -134,66 +142,301 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
     //   fetchProducts();
     // }, [selectedCategory,currentPage, limit,slug,subCategoryId]);
 
+    // useEffect(() => {
+    //   const fetchProducts = async () => {
+    //     try {
+    //       let url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+          
+    //       if (selectedCategory && !subCategoryId && !StopFlag ) {
+    //         // Case when only category is selected, but no subcategory
+    //         console.log('testcasefirst')
+    //         url += `&category=${selectedCategory}`;
+    //       } 
+    //       else if (selectedCategory && subCategoryId) {
+    //         // Case when both category and subcategory are selected
+    //         console.log('testcasesecond')
+    //         url += `&category=${selectedCategory}&subCategory=${subCategoryId}`;
+    //       } 
+    //       else if ((slug == 1 || slug == 2) && (StopFlag == false )) {
+    //         // Reset URL if slug is 1 or 2
+    //         console.log('testcasethird')
+    //         url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+    //       } 
+    //       // else {
+    //       //   // Handle category filtering by slug
+    //       //   console.log('testcasefourth')
+    //       //   url += `&category=${slug}`;
+    //       // }
+    
+    //       const config = {
+    //         method: "get",
+    //         url: url,
+    //       };
+    
+    //       const response = await axios(config);
+    //       console.log(response, "Product Data");
+    //       setGetProductData(response?.data?.data?.result);
+    //       setPaginationData(response?.data?.data?.pagination);
+    //       setsubcategoryId(''); // Reset subcategory after the request
+    //     } catch (error) {
+    //       console.error(error);
+    //       Swal.fire({
+    //         showCloseButton: true,
+    //         toast: true,
+    //         icon: "error",
+    //         title: error?.response?.data?.message,
+    //         animation: true,
+    //         position: "top-right",
+    //         showConfirmButton: false,
+    //         timer: 3000,
+    //         timerProgressBar: true,
+    //         didOpen: (toast) => {
+    //           toast.addEventListener("mouseenter", Swal.stopTimer);
+    //           toast.addEventListener("mouseleave", Swal.resumeTimer);
+    //         },
+    //       });
+    //     }
+    //   };
+    
+    //   fetchProducts();
+    // }, [selectedCategory, currentPage, limit, slug, subCategoryId]);
+        
+    // useEffect(() => {
+    //   const fetchProducts = async () => {
+    //     try {
+    //       let url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+          
+    //       // If only category is selected, but no subcategory
+    //       if (selectedCategory && !StopFlag) {
+    //         console.log('testcasefirst');
+    //         url += `&category=${selectedCategory}`;
+    //       } 
+          
+    //       // If both category and subcategory are selected
+    //       else if (selectedCategory && subCategoryId) {
+    //         console.log('testcasesecond');
+    //         url += `&category=${selectedCategory}&subCategory=${subCategoryId}`;
+    //       } 
+          
+    //       // If slug is 1 or 2
+    //       else if (slug == 1 || slug == 2) {
+    //         console.log('testcasethird');
+    //         url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+    //       }
+    
+    //       const config = {
+    //         method: "get",
+    //         url: url,
+    //       };
+    
+    //       const response = await axios(config);
+    //       console.log(response, "Product Data");
+    //       setGetProductData(response?.data?.data?.result);
+    //       setPaginationData(response?.data?.data?.pagination);
+    //       setsubcategoryId(''); // Reset subcategory after the request
+    //     } catch (error) {
+    //       console.error(error);
+    //       Swal.fire({
+    //         showCloseButton: true,
+    //         toast: true,
+    //         icon: "error",
+    //         title: error?.response?.data?.message,
+    //         animation: true,
+    //         position: "top-right",
+    //         showConfirmButton: false,
+    //         timer: 3000,
+    //         timerProgressBar: true,
+    //         didOpen: (toast) => {
+    //           toast.addEventListener("mouseenter", Swal.stopTimer);
+    //           toast.addEventListener("mouseleave", Swal.resumeTimer);
+    //         },
+    //       });
+    //     }
+    //   };
+    
+    //   // Only call fetchProducts based on these rules:
+    //   if (subCategoryId) {
+    //     // Call when both category and subcategory are selected
+    //     fetchProducts();
+    //   } else if (selectedCategory) {
+    //     // Call when only category is selected
+    //     fetchProducts();
+    //   } else if (slug) {
+    //     // Call based on slug condition
+    //     fetchProducts();
+    //   }
+    
+    // }, [selectedCategory, subCategoryId, currentPage, limit, slug]);
+    
+
+    // useEffect(() => {
+    //   const fetchProducts = async () => {
+    //     try {
+    //       let url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+    
+    //       // Check if only category is selected, and no subcategory is selected, and StopFlag is false
+    //       if (selectedCategory && !subCategoryId && !StopFlag) {
+    //         console.log('testcasefirst');
+    //         url += `&category=${selectedCategory}`;
+    //       } 
+    //       // Check if both category and subcategory are selected
+    //       else if (selectedCategory && subCategoryId) {
+    //         console.log('testcasesecond');
+    //         url += `&category=${selectedCategory}&subCategory=${subCategoryId}`;
+    //       } 
+    //       // Reset URL if slug is 1 or 2 and StopFlag is false
+    //       else if ((slug == 1 || slug == 2) && (StopFlag == false)) {
+    //         console.log('testcasethird');
+    //         url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+    //       }
+
+    //       console.log('url==>end',url)
+    
+    //       const config = {
+    //         method: 'get',
+    //         url: url,
+    //       };
+    
+    //       const response = await axios(config);
+    //       console.log(response, 'Product Data');
+    //       setGetProductData(response?.data?.data?.result);
+    //       setPaginationData(response?.data?.data?.pagination);
+    //       setsubcategoryId(''); // Reset subcategory after the request
+    //     } catch (error) {
+    //       console.error(error);
+    //       Swal.fire({
+    //         showCloseButton: true,
+    //         toast: true,
+    //         icon: 'error',
+    //         title: error?.response?.data?.message,
+    //         animation: true,
+    //         position: 'top-right',
+    //         showConfirmButton: false,
+    //         timer: 3000,
+    //         timerProgressBar: true,
+    //         didOpen: (toast) => {
+    //           toast.addEventListener('mouseenter', Swal.stopTimer);
+    //           toast.addEventListener('mouseleave', Swal.resumeTimer);
+    //         },
+    //       });
+    //     }
+    //   };
+    
     useEffect(() => {
       const fetchProducts = async () => {
         try {
           let url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
-          
-          if (selectedCategory && !subCategoryId) {
-            // Case when only category is selected, but no subcategory
+    
+          // Check conditions for constructing the URL
+          if (selectedCategory && !subCategoryId && !StopFlag) {
+            // Only category selected, no subcategory
+            console.log('Fetching products by category');
             url += `&category=${selectedCategory}`;
           } 
-          else if (selectedCategory && subCategoryId) {
-            // Case when both category and subcategory are selected
-            url += `&category=${selectedCategory}&subCategory=${subCategoryId}`;
-          } 
-          else if (slug == 1 || slug == 2) {
-            // Reset URL if slug is 1 or 2
+          // else if (selectedCategory && subCategoryId) {
+          //   // Both category and subcategory selected
+          //   console.log('Fetching products by category and subcategory');
+          //   url += `&category=${selectedCategory}&subCategory=${subCategoryId}`;
+          // } 
+          else if ((slug == 1 || slug == 2) && !StopFlag) {
+            // Handling specific slug cases (1 or 2)
+            console.log('Fetching products by slug');
             url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
-          } 
-          else {
-            // Handle category filtering by slug
+          }
+          else if(slug !== 1 || slug !== 2){
+            console.log('Fetching products by slug not 1 and 2');
             url += `&category=${slug}`;
           }
     
-          const config = {
-            method: "get",
-            url: url,
-          };
+          console.log('Final URL:', url);
     
-          const response = await axios(config);
-          console.log(response, "Product Data");
+          // API call
+          const response = await axios.get(url);
+          console.log('Product Data:', response);
           setGetProductData(response?.data?.data?.result);
           setPaginationData(response?.data?.data?.pagination);
-          setsubcategoryId(''); // Reset subcategory after the request
+    
+          // Reset subcategory after successful fetch
+          setsubcategoryId('');
+    
         } catch (error) {
-          console.error(error);
+          console.error('Error fetching products:', error);
           Swal.fire({
             showCloseButton: true,
             toast: true,
-            icon: "error",
-            title: error?.response?.data?.message,
+            icon: 'error',
+            title: error?.response?.data?.message || 'Error fetching products',
             animation: true,
-            position: "top-right",
+            position: 'top-right',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
             },
           });
         }
       };
     
-      fetchProducts();
-    }, [selectedCategory, currentPage, limit, slug, subCategoryId]);
-        
+      // Only call fetchProducts if there's a selected category or slug
+      if (selectedCategory || slug) {
+        fetchProducts();
+      }
+    }, [selectedCategory, currentPage, limit, slug]);
+    
+    
   
     const GetHandleSubCategoryid = (id) =>{
       console.log('hello==>',id)
       setsubcategoryId(id)
+      setStopFlag(true)
     }
+
+
+    // subcategory data
+  useEffect(() => {
+
+    if(subCategoryId && selectedCategory){
+      try {
+        var config = {
+          method: "get",
+          // url: `${BaseUrl.baseurl}products?shop=${slug}`,
+           url: `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}&category=${selectedCategory}&subCategory=${subCategoryId}`,
+        };
+        axios(config)
+          .then(function (response) {
+            // console.log(response?.data?.data?.result, "CategoryData");
+            // setImgurl(response?.data?.subcatoryimagePath);
+            setGetProductData(response?.data?.data?.result);
+            // setGetProductData(response?.data?.data?.result);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          showCloseButton: true,
+          toast: true,
+          icon: "error",
+          title: error?.response?.data?.message,
+          animation: true,
+          position: "top-right",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+      }
+    }
+
+   
+
+  }, [subCategoryId]);
 
 // categories data
   useEffect(() => {

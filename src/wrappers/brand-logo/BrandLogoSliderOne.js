@@ -33,7 +33,7 @@ const BrandLogoSliderOne = ({ spaceBottomClass, spaceTopClass, getCategoriesData
     console.log('ahmedid==>',id)
     GetHandleSubCategoryid(id)
   }
-  console.log('testcase1==>',getCategoriesData)
+  // console.log('testcase1==>',getCategoriesData)
 
   return (
     <div className={clsx("brand-logo-area", spaceBottomClass, spaceTopClass)}>
