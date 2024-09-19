@@ -79,6 +79,15 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                            
                           </Link>
                         </li>
+                     
+                        {/* {getCategories?.slice(0, 1).map((category, index) => (
+        <li key={index}>
+          <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
+          Shop
+          </Link>
+        </li>
+      ))} */}
+
 
                         <li className="mega-menu-title">
                           <Link

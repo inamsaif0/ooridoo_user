@@ -58,6 +58,8 @@ const ShopGridStandard = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  console.log('selectedCategory==>',selectedCategory)
+
   // const [selectedCategory, setSelectedCategory] = useState(null);
 
   const [selectedLanguage, setSelectedLanguage] = useState('english')
@@ -335,7 +337,7 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
           let url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
     
           // Check conditions for constructing the URL
-          if (selectedCategory && !subCategoryId && !StopFlag) {
+          if (selectedCategory && !subCategoryId ) {
             // Only category selected, no subcategory
             console.log('Fetching products by category');
             url += `&category=${selectedCategory}`;
@@ -345,11 +347,12 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
           //   console.log('Fetching products by category and subcategory');
           //   url += `&category=${selectedCategory}&subCategory=${subCategoryId}`;
           // } 
-          else if ((slug == 1 || slug == 2) && !StopFlag) {
-            // Handling specific slug cases (1 or 2)
-            console.log('Fetching products by slug');
-            url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
-          }
+          // else if (slug == 1 || slug == 2 && !selectedCategory) {
+          //   // else if (slug == 1 || slug == 2 && !StopFlag) {
+          //   // Handling specific slug cases (1 or 2)
+          //   console.log('Fetching products by slug');
+          //   url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
+          // }
           // else if(slug !== 1 && slug !== 2){
           else if(slug?.length > 1){
             console.log('Fetching products by slug not 1 and 2');
@@ -389,7 +392,7 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
       };
     
       // Only call fetchProducts if there's a selected category or slug
-      if (selectedCategory || slug?.length > 1) {
+      if (selectedCategory || slug) {
         fetchProducts();
       }
     }, [selectedCategory, currentPage, limit, slug]);
@@ -401,6 +404,50 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
       setsubcategoryId(id)
       setStopFlag(true)
     }
+
+
+    useEffect(() => {
+
+      if(StopFlag !== true ){
+        try {
+          var config = {
+            method: "get",
+            // url: `${BaseUrl.baseurl}products?shop=${slug}`,
+             url: `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`,
+          };
+          axios(config)
+            .then(function (response) {
+              // console.log(response?.data?.data?.result, "CategoryData");
+              // setImgurl(response?.data?.subcatoryimagePath);
+              setGetProductData(response?.data?.data?.result);
+              // setGetProductData(response?.data?.data?.result);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } catch (error) {
+          console.log(error);
+          Swal.fire({
+            showCloseButton: true,
+            toast: true,
+            icon: "error",
+            title: error?.response?.data?.message,
+            animation: true,
+            position: "top-right",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+        }
+      }
+
+      
+  
+    }, [slug]);
 
 
     // subcategory data
@@ -445,7 +492,7 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
 
    
 
-  }, [subCategoryId,selectedLanguage]);
+  }, [ selectedCategory,subCategoryId,selectedLanguage]);
 
 // categories data
   useEffect(() => {
