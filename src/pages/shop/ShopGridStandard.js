@@ -78,6 +78,7 @@ const [limit, setLimit] = useState(10);
 const { slug } = useParams();
 
 console.log('slug==>',slug)
+console.log('slug==>length',slug?.length)
 
 const [searchQuery, setSearchQuery] = useState(""); // Add search query state
   console.log('PaginationData===>',PaginationData)
@@ -349,8 +350,10 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
             console.log('Fetching products by slug');
             url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
           }
-          else if(slug !== 1 || slug !== 2){
+          // else if(slug !== 1 && slug !== 2){
+          else if(slug?.length > 1){
             console.log('Fetching products by slug not 1 and 2');
+            console.log('i am running')
             url += `&category=${slug}`;
           }
     
@@ -386,7 +389,7 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
       };
     
       // Only call fetchProducts if there's a selected category or slug
-      if (selectedCategory || slug) {
+      if (selectedCategory || slug?.length > 1) {
         fetchProducts();
       }
     }, [selectedCategory, currentPage, limit, slug]);
