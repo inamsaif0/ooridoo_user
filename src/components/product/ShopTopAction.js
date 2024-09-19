@@ -6,18 +6,30 @@ const ShopTopAction = ({
   getLayout,
   getFilterSortParams,
   productCount,
-  sortedProductCount
+  sortedProductCount,
+  setSelectedLanguage
 }) => {
+
+  const languagedropdwon=[
+    { value: "arabic", label: "Arabic" },
+{ value: "english", label: "English" },
+{ value: "korean", label: "Korean" }
+]
+
   return (
     <div className="shop-top-bar mb-35">
       <div className="select-shoing-wrap">
         <div className="shop-select">
           <select
-            onChange={e => getFilterSortParams("filterSort", e.target.value)}
+            // onChange={e => getFilterSortParams("filterSort", e.target.value)}
+            onChange={e => setSelectedLanguage(e.target.value)}
+
+        // setSelectedLanguage={setSelectedLanguage}
+
           >
-            <option value="default">Default</option>
-            <option value="priceHighToLow">Price - High to Low</option>
-            <option value="priceLowToHigh">Price - Low to High</option>
+            <option value="english">English</option>
+            <option value="korean">Korean</option>
+            <option value="arabic">Arabic</option>
           </select>
         </div>
         <p>

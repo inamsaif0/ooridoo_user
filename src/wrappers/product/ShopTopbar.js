@@ -6,7 +6,8 @@ const ShopTopbar = ({
   getLayout,
   getFilterSortParams,
   productCount,
-  sortedProductCount
+  sortedProductCount,
+  setSelectedLanguage
 }) => {
   return (
     <Fragment>
@@ -16,6 +17,7 @@ const ShopTopbar = ({
         getFilterSortParams={getFilterSortParams}
         productCount={productCount}
         sortedProductCount={sortedProductCount}
+        setSelectedLanguage={setSelectedLanguage}
       />
     </Fragment>
   );

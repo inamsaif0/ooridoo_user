@@ -58,6 +58,12 @@ const ShopGridStandard = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  // const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const [selectedLanguage, setSelectedLanguage] = useState('english')
+
+  console.log('selectedLanguage==>',selectedLanguage)
+
   const [getProductData, setGetProductData] = useState([]);
 
   const [getCategoriesData, setGetCategoriesData] = useState([]);
@@ -397,12 +403,12 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
     // subcategory data
   useEffect(() => {
 
-    if(subCategoryId && selectedCategory){
+    if(subCategoryId && selectedCategory && selectedLanguage ){
       try {
         var config = {
           method: "get",
           // url: `${BaseUrl.baseurl}products?shop=${slug}`,
-           url: `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}&category=${selectedCategory}&subCategory=${subCategoryId}`,
+           url: `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}&category=${selectedCategory}&subCategory=${subCategoryId}&language=${selectedLanguage}`,
         };
         axios(config)
           .then(function (response) {
@@ -436,7 +442,7 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
 
    
 
-  }, [subCategoryId]);
+  }, [subCategoryId,selectedLanguage]);
 
 // categories data
   useEffect(() => {
@@ -540,6 +546,7 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
                 <ShopTopbar
                   getLayout={getLayout}
                   getFilterSortParams={getFilterSortParams}
+                  setSelectedLanguage={setSelectedLanguage}
                   productCount={productLenght}
                   sortedProductCount={productLenght}
                 />

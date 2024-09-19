@@ -4,11 +4,14 @@ import BaseUrl from "../../BaseUrl";
 
 const CategoryFourSingle = ({ data, sliderClass }) => {
   console.log('category==>data',data)
+
+  let testimage='/assets/img/banner/book7.jpg'
   return (
     <div className="collection-product">
       <div className="collection-img">
         <Link to={`/shop/${data?._id}`}>
-          <img src={`${BaseUrl.baseurl + '/'+ data?.media[0]?.file}`} alt="" />
+          {/* <img src={`${BaseUrl.baseurl + '/'+ data?.media[0]?.file}`} alt="" /> */}
+          <img src={data?.media?.length > 0 ? `${BaseUrl.baseurl + '/' + data.media[0].file}` : testimage} /> 
         </Link>
       </div>
       <div className="collection-content text-center">

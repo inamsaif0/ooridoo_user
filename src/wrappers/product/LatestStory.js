@@ -12,6 +12,7 @@ const LatestStory = () => {
   const [getstories, setGetstories] = useState([]);
   const [imgurl, setImgurl] = useState("");
   const [loader, setLoader] = useState(false);
+    let testimage='/assets/img/banner/book7.jpg'
 
   const [getProductData, setGetProductData] = useState([]);
   useEffect(() => {
