@@ -10,12 +10,18 @@ const Logo = ({ imageUrl, logoClass, role }) => {
           alt="logo"
           src={process.env.PUBLIC_URL + imageUrl}
           // className={"w-100"}
-          style={{width:'50%'}}
+          // style={{width:'50%'}}
+          style={{width:'60%',height:'60%'}}
         />
       </Link>
     </div>
   );
 };
+
+// width: 60%;
+//     height: 60%;
+//     /* height: 100px; */
+//     /* width: 200px;
 
 Logo.propTypes = {
   imageUrl: PropTypes.string,

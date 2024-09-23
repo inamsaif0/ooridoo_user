@@ -498,7 +498,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
                          
                         </div>
                         <div className="pro-same-action pro-cart">
-                          {item?.stock === 0 ? (
+                          {item?.quantity === 0 ? (
                             <button disabled className="active">
                               Out of Stock
                             </button>
