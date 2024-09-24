@@ -312,8 +312,12 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/blog-right-sidebar"}
               element={<BlogRightSidebar />}
             />
-            <Route
+            {/* <Route
               path={process.env.PUBLIC_URL + "/blog-details-standard"}
+              element={<BlogDetailsStandard />}
+            /> */}
+            <Route
+              path={process.env.PUBLIC_URL + "/refund-policy"}
               element={<BlogDetailsStandard />}
             />
 
