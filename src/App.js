@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./helpers/scroll-top";
 import "./App.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import VerifyOtp from "./pages/other/VerifyOtp";
 // import SuccessPage from "./pages/other/SuccessPage";
 // import "/node_modules/video-react/dist/video-react.css"; // import css
 
@@ -335,9 +336,23 @@ const App = () => {
               element={<MyAccount />}
             /> */}
             <Route
-              path={process.env.PUBLIC_URL + "/login-signup"}
+              path={process.env.PUBLIC_URL + "/login"}
               element={<LoginSignUp />}
             />
+            <Route
+              path={process.env.PUBLIC_URL + "/signup"}
+              element={<LoginSignUp />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/complete-profile"}
+              element={<LoginSignUp />}
+            />
+
+            <Route
+              path={process.env.PUBLIC_URL + "/verify-otp"}
+              element={<VerifyOtp />}
+            />
+
             <Route
               path={process.env.PUBLIC_URL + "/forgotPassword"}
               element={<ForgotPassword />}

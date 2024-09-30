@@ -74,28 +74,29 @@ const ProductImageDescription = ({ spaceTopClass, spaceBottomClass }) => {
             >
               {getProduct
                 ? getProduct.map((e) => {
-                    return (
-                      <>
-                        {e?.product_images.map((e) => {
-                          return (
-                            <>
-                              <SwiperSlide>
-                                <div className="swiper-zoom-container">
-                                  <img
-                                    src={imgurl + e.image}
-                                    alt={e.image}
-                                    height={500}
-                                    className="mw-100"
-                                  />
-                                </div>
-                              </SwiperSlide>
-                              ;
-                            </>
-                          );
-                        })}
-                      </>
-                    );
-                  })
+                  return (
+                    <>
+                      {e?.product_images.map((e) => {
+                        return (
+                          <>
+                            <SwiperSlide>
+                              <div className="swiper-zoom-container">
+                                <img
+                                  src={imgurl + e.image}
+                                  alt={e.image}
+                                  height={500}
+                                  className="mw-100"
+                                  style={{ borderRadius: "10px" }}
+                                />
+                              </div>
+                            </SwiperSlide>
+                            ;
+                          </>
+                        );
+                      })}
+                    </>
+                  );
+                })
                 : null}
             </Swiper>
             <br />
@@ -110,26 +111,26 @@ const ProductImageDescription = ({ spaceTopClass, spaceBottomClass }) => {
             >
               {getProduct
                 ? getProduct.map((e) => {
-                    return (
-                      <>
-                        {e?.product_images.map((e) => {
-                          return (
-                            <>
-                              <SwiperSlide>
-                                <img
-                                  src={imgurl + e.image}
-                                  alt={e.image}
-                                  className="w-100 img-thumbnail"
-                                  style={{ height: 50 }}
-                                />
-                              </SwiperSlide>
-                              ;
-                            </>
-                          );
-                        })}
-                      </>
-                    );
-                  })
+                  return (
+                    <>
+                      {e?.product_images.map((e) => {
+                        return (
+                          <>
+                            <SwiperSlide>
+                              <img
+                                src={imgurl + e.image}
+                                alt={e.image}
+                                className="w-100 img-thumbnail"
+                                style={{ height: 50, borderRadius: "10px", }}
+                              />
+                            </SwiperSlide>
+                            ;
+                          </>
+                        );
+                      })}
+                    </>
+                  );
+                })
                 : null}
             </Swiper>
           </div>

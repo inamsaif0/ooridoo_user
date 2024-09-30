@@ -1,4 +1,4 @@
-import { Fragment } from "react"; 
+import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -16,11 +16,11 @@ const Contact = () => {
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
-        <Breadcrumb 
+        <Breadcrumb
           pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Contact", path: process.env.PUBLIC_URL + pathname }
-          ]} 
+            { label: "Home", path: process.env.PUBLIC_URL + "/" },
+            { label: "Contact", path: process.env.PUBLIC_URL + pathname }
+          ]}
         />
         <div className="contact-area pt-100 pb-100">
           <div className="container">
@@ -35,8 +35,10 @@ const Contact = () => {
                       <i className="fa fa-phone" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>+012 345 678 102</p>
-                      <p>+012 345 678 102</p>
+                      <p>010-3322-9798</p>
+                      {/* <p>010-3322-9798</p> */}
+                      {/* <p>+012 345 678 102</p>
+                      <p>+012 345 678 102</p> */}
                     </div>
                   </div>
                   <div className="single-contact-info">
@@ -46,12 +48,12 @@ const Contact = () => {
                     <div className="contact-info-dec">
                       <p>
                         <a href="mailto:yourname@email.com">
-                          yourname@email.com
+                        jfardeheb@yahoo.fr
                         </a>
                       </p>
                       <p>
                         <a href="https://yourwebsitename.com">
-                          yourwebsitename.com
+                        www.ooridoo.com
                         </a>
                       </p>
                     </div>
@@ -62,7 +64,8 @@ const Contact = () => {
                     </div>
                     <div className="contact-info-dec">
                       <p>Address goes here, </p>
-                      <p>street, Crossroad 123.</p>
+                      <p>ncheongwangyeogsi YeonsuGu HannaruRo 133, 4th flour, office Nbr 505..</p>
+                      {/* <p>street, Crossroad 123.</p> */}
                     </div>
                   </div>
                   <div className="contact-social text-center">

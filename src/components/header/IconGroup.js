@@ -58,11 +58,11 @@ const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) =
         <div className="account-dropdown">
           <ul>
            {Token == null ? (  <li>
-              <Link to={process.env.PUBLIC_URL + "/login-signup"}>Login</Link>
+              <Link to={process.env.PUBLIC_URL + "/login"}>Login</Link>
             </li>): null} 
           
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-signup"}>
+              <Link to={process.env.PUBLIC_URL + "/signup"}>
                 Sign Up
               </Link>
             </li>
