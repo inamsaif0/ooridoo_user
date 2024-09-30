@@ -85,8 +85,8 @@ const ProductSlider = () => {
 
         {/* product description with image */}
         <ProductImageDescriptionSlider
-          spaceTopClass="pt-100"
-          spaceBottomClass="pb-100"
+          spaceTopClass="pt-80"
+          spaceBottomClass="pb-80"
           product={ReduxProductData}
         />
 
