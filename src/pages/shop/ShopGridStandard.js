@@ -577,9 +577,9 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
                     ]} 
                 /> */}
 
-        <div className="shop-area pt-95 pb-100">
+        <div className="shop-area pt-30 pb-100">
           <div className="container">
-            <div className="row">
+            <div className="row " >
             <BrandLogoSliderOne spaceBottomClass="pb-2" GetHandleSubCategoryid={GetHandleSubCategoryid} getCategoriesData={filterSubcategoryData} />
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}

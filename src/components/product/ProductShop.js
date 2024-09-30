@@ -447,7 +447,9 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
                           className="default-img"
                           src={`${BaseUrl.baseurl + '/' + item?.media[0]?.file}`}
                           alt=""
-                          style={{ borderRadius: "10px", width: "100%", height: "auto" }}
+                          style={{
+                            borderRadius: "10px", width: "100%", height: "350px",
+                          }}
                         />
                       </div>
                       <div className="product-img-badges">
@@ -474,8 +476,11 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
                         </div>
                       </div>
                     </div>
-                    <div className="product-content text-center">
-                      <h4 style={{ fontWeight: 'bold' }}>{item?.title}</h4>
+                    <div className="product-content text-center" >
+                      <h4 style={{
+                        fontWeight: '400'
+                        // fontWeight: 'bold'
+                      }}>{item?.title}</h4>
                       <h4>
                         <i className="fa fa-won"></i>
                         <span>{item?.price}</span>

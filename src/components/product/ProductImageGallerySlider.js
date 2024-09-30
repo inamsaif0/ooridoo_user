@@ -72,15 +72,15 @@ const ProductImageGallerySlider = ({ product }) => {
     }
   ];
 
-  console.log('product==>image==>Galery',product)
-  
+  console.log('product==>image==>Galery', product)
 
-  
+
+
 
   return (
-    <div className="product-large-image-wrapper product-large-image-wrapper--slider">
+    <div className="product-large-image-wrapper product-large-image-wrapper--slider mx-auto text-center ">
       {/* {product?.image?.length ? ( */}
-        {product?.media?.length ? (
+      {product?.media?.length ? (
         <Swiper options={gallerySwiperParams}>
           {product?.media?.map((single, key) => (
             <SwiperSlide key={key}>
@@ -89,12 +89,13 @@ const ProductImageGallerySlider = ({ product }) => {
                   src={`${BaseUrl.baseurl}${'/'}${single.file} `}
                   className="img-fluid"
                   alt=""
+                  style={{ borderRadius: "5px", width: "95%" }}
                 />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-      ): null}
+      ) : null}
     </div>
   );
 };

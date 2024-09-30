@@ -335,8 +335,10 @@ const Cart = () => {
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      cartItem.id
+                                      "/productDetail"
+                                      // process.env.PUBLIC_URL +
+                                      // "/product/" +
+                                      // cartItem.id
                                     }
                                   >
                                     <img

@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
 
-const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) => {
+const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) => {
 
-          const navigate =useNavigate()
-          const Token = localStorage.getItem("Token")
-          console.log('Token==>',Token)
+  const navigate = useNavigate()
+  const Token = localStorage.getItem("Token")
+  console.log('Token==>', Token)
   const handleClick = e => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -27,11 +27,11 @@ const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) =
     // Remove token and user data from localStorage
     localStorage.removeItem('Token');
     localStorage.removeItem('UserId');
-     
+
     navigate('/')
 
     console.log("Logged out successfully");
-};
+  };
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)} >
       {/* <div className="same-style header-search d-none d-lg-block">
@@ -47,30 +47,30 @@ const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) =
           </form>
         </div>
       </div> */}
-      <div className="same-style account-setting d-none d-lg-block">
+      <div className="same-style account-setting d-none d-lg-block p-0  " style={{ marginTop: "-2px" }}  >
         <button
           className="account-setting-active"
           onClick={e => handleClick(e)}
         >
-          <i className="pe-7s-user-female" />
+          <i className="pe-7s-user-female" style={{ fontSize: "30px" }} />
         </button>
         {/* signup */}
         <div className="account-dropdown">
           <ul>
-           {Token == null ? (  <li>
+            {Token == null ? (<li>
               <Link to={process.env.PUBLIC_URL + "/login"}>Login</Link>
-            </li>): null} 
-          
+            </li>) : null}
+
             <li>
               <Link to={process.env.PUBLIC_URL + "/signup"}>
                 Sign Up
               </Link>
             </li>
-            {Token != null ? ( 
-              <li style={{cursor:'pointer'}} onClick={()=>{handleLogout()}} >
-              Log Out
-           </li>
-            ): null} 
+            {Token != null ? (
+              <li style={{ cursor: 'pointer' }} onClick={() => { handleLogout() }} >
+                Log Out
+              </li>
+            ) : null}
             {/* <li onClick={()=>{handleLogout()}} >
                Log Out
             </li> */}
@@ -91,7 +91,7 @@ const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) =
           </span>
         </Link>
       </div> */}
-      <div className="same-style header-wishlist">
+      <div className="same-style header-wishlist py-1" >
         <Link to={process.env.PUBLIC_URL + "/wishlist"}>
           <i className="pe-7s-like" />
           <span className="count-style">
@@ -100,7 +100,7 @@ const IconGroup = ({ iconWhiteClass ,cartItems ,FavoriteData ,GetAllCartList}) =
         </Link>
       </div>
       {/* cart */}
-      <div className="same-style cart-wrap d-none d-lg-block">
+      <div className="same-style cart-wrap d-none d-lg-block py-1">
         <button className="icon-cart" onClick={e => handleClick(e)}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">

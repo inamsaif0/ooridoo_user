@@ -17,7 +17,7 @@ const Wishlist = () => {
   const dispatch = useDispatch();
   let { pathname } = useLocation();
 
-            const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const currency = useSelector((state) => state.currency);
   // const { wishlistItems } = useSelector((state) => state.wishlist);
@@ -73,11 +73,11 @@ const Wishlist = () => {
   };
 
 
-  const handleRemoveFavorite = async(e) =>{
-    console.log('item==>id',e)
+  const handleRemoveFavorite = async (e) => {
+    console.log('item==>id', e)
     const token = JSON.parse(localStorage.getItem('Token'));
-    const requestBody={
-      favouriteId:e,
+    const requestBody = {
+      favouriteId: e,
     }
     try {
       // setLoader(true);
@@ -96,7 +96,7 @@ const Wishlist = () => {
       };
 
       const response = await axios(config);
-      console.log('==>cart==>api',response)
+      console.log('==>cart==>api', response)
       if (response?.data?.status === true) {
         dispatch(cartFlagfunction(true))
         GetAllFavoriteList()
@@ -130,75 +130,75 @@ const Wishlist = () => {
   }
 
 
-  const handleAddtoCart =async (e,item) => {
+  const handleAddtoCart = async (e, item) => {
     e.preventDefault();
     const token = JSON.parse(localStorage.getItem('Token'));
     const UserId = JSON.parse(localStorage.getItem('UserId'));
-    console.log('userID',UserId,'Token',token,)
-    console.log('data==>',item)
-    if(token == undefined){
-      toast.error( "Please Login to Add to Cart.");
+    console.log('userID', UserId, 'Token', token,)
+    console.log('data==>', item)
+    if (token == undefined) {
+      toast.error("Please Login to Add to Cart.");
       navigate('/login-signup')
       return
     }
 
-    console.log('item==>',item)
+    console.log('item==>', item)
 
-    const requestBody={
-      productId:item?.productId?._id,
-      userId:UserId,
+    const requestBody = {
+      productId: item?.productId?._id,
+      userId: UserId,
     }
 
     // 66e5379b90ab9d205a31ea85
 
-    console.log('RequestBody===>',requestBody)
+    console.log('RequestBody===>', requestBody)
 
 
-      try {
-        // setLoader(true);
-  
-        // const token = JSON.parse(localStorage.getItem('Token'));
-        // if (!token) throw new Error("Authentication token is missing");
-  
-        const config = {
-          method: "POST",
-          url: `${BaseUrl.baseurl}/api/cart/add-to-cart`,
-          data: requestBody,
-          headers: {
-            token: token,
-            "Accept": "application/json",
-          },
-        };
-  
-        const response = await axios(config);
-        console.log('==>cart==>api',response)
-        if (response?.data?.status === true) {
-          toast.success(response?.data?.message);
-          handleRemoveFavorite(item?._id)
-          dispatch(cartFlagfunction(true))
-        } else {
-          // setLoader(false);
-          toast.error(response?.data?.message || "Failed to add review.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        Swal.fire({
-          showCloseButton: true,
-          toast: true,
-          icon: "error",
-          title: error?.response?.data?.message || "Something went wrong!",
-          position: "top-right",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-      } finally {
+    try {
+      // setLoader(true);
+
+      // const token = JSON.parse(localStorage.getItem('Token'));
+      // if (!token) throw new Error("Authentication token is missing");
+
+      const config = {
+        method: "POST",
+        url: `${BaseUrl.baseurl}/api/cart/add-to-cart`,
+        data: requestBody,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+        },
+      };
+
+      const response = await axios(config);
+      console.log('==>cart==>api', response)
+      if (response?.data?.status === true) {
+        toast.success(response?.data?.message);
+        handleRemoveFavorite(item?._id)
+        dispatch(cartFlagfunction(true))
+      } else {
         // setLoader(false);
+        toast.error(response?.data?.message || "Failed to add review.");
       }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message || "Something went wrong!",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } finally {
+      // setLoader(false);
+    }
 
 
   }
@@ -221,7 +221,7 @@ const Wishlist = () => {
         />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
-            {FavoriteData && FavoriteData?.length >  0 ? (
+            {FavoriteData && FavoriteData?.length > 0 ? (
               <Fragment>
                 <h3 className="cart-page-title">Your wishlist items</h3>
                 <div className="row">
@@ -258,9 +258,12 @@ const Wishlist = () => {
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      wishlistItem._id
-                                    }
+                                      "/productDetail"}
+                                  // to={
+                                  // process.env.PUBLIC_URL +
+                                  // "/product/" +
+                                  // wishlistItem._id
+                                  // }
                                   >
                                     <img
                                       className="img-fluid"
@@ -359,11 +362,11 @@ const Wishlist = () => {
                                     </button>
                                   )}
                                 </td> */}
-                              <td className="product-wishlist-cart">
-                                <button onClick={(e)=>{handleAddtoCart(e,wishlistItem)}}   className="active"  >
-                                  Add to cart
-                                </button>
-                              </td>
+                                <td className="product-wishlist-cart">
+                                  <button onClick={(e) => { handleAddtoCart(e, wishlistItem) }} className="active"  >
+                                    Add to cart
+                                  </button>
+                                </td>
                                 {/* <td>hello</td> */}
 
                                 <td className="product-remove">
