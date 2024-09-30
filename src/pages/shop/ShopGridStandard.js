@@ -591,7 +591,7 @@ const [searchQuery, setSearchQuery] = useState(""); // Add search query state
                   sideSpaceClass="mr-30"
                 />
               </div>
-              <div className="col-lg-9 order-1 order-lg-2">
+              <div className="col-lg-9 order-1 order-lg-2" >
                 {/* shop topbar default */}
                 <ShopTopbar
                   getLayout={getLayout}

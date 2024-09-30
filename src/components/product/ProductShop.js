@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { cartFlagfunction, setProductsDetail } from "../../store/slices/productDetail-slice";
 import { toast } from "react-toastify";
 
-const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => {
+const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) => {
   // const [getProduct, setGetProduct] = useState([]);
   // const [imgurl, setImgurl] = useState("");
   // const { slug } = useParams("");
@@ -117,7 +117,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
       tag: ["handmade"],
       stock: 12,
       image: [
-      "/assets/img/product/flowers/book4.jpg",
+        "/assets/img/product/flowers/book4.jpg",
         "/assets/img/product/handmade/5.jpg",
         "/assets/img/product/handmade/6.jpg",
         "/assets/img/product/handmade/7.jpg",
@@ -253,17 +253,17 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
   const navigate = useNavigate()
 
   const [modalShow, setModalShow] = useState(false);
-  
-   const router = useNavigate()
-   const dispatch = useDispatch()
 
-  console.log('Myproduct==>',products)
-  
-  console.log('products==>api==>response==>',products)
+  const router = useNavigate()
+  const dispatch = useDispatch()
 
-  const handleDetailPage = (e) =>{
-   
-    console.log('e==>data',e)
+  console.log('Myproduct==>', products)
+
+  console.log('products==>api==>response==>', products)
+
+  const handleDetailPage = (e) => {
+
+    console.log('e==>data', e)
 
     dispatch(setProductsDetail(e))
 
@@ -272,21 +272,21 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
 
 
 
-  const handleAddtoCart =async (e,item) => {
+  const handleAddtoCart = async (e, item) => {
     e.preventDefault();
     const token = JSON.parse(localStorage.getItem('Token'));
     const UserId = JSON.parse(localStorage.getItem('UserId'));
-    console.log('userID',UserId,'Token',token,)
-    console.log('data==>',item)
-    if(token == undefined){
-      toast.error( "Please Login to Add to Cart.");
+    console.log('userID', UserId, 'Token', token,)
+    console.log('data==>', item)
+    if (token == undefined) {
+      toast.error("Please Login to Add to Cart.");
       navigate('/login-signup')
       return
     }
 
-    const requestBody={
-      productId:item?._id,
-      userId:UserId,
+    const requestBody = {
+      productId: item?._id,
+      userId: UserId,
     }
     // Submit to API
     // fetch(`${BaseUrl.baseurl}/api/cart/add-to-cart`, {
@@ -317,114 +317,114 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
 
 
 
-      try {
-        // setLoader(true);
-  
-        // const token = JSON.parse(localStorage.getItem('Token'));
-        // if (!token) throw new Error("Authentication token is missing");
-  
-        const config = {
-          method: "POST",
-          url: `${BaseUrl.baseurl}/api/cart/add-to-cart`,
-          data: requestBody,
-          headers: {
-            token: token,
-            "Accept": "application/json",
-          },
-        };
-  
-        const response = await axios(config);
-        console.log('==>cart==>api',response)
-        if (response?.data?.status === true) {
-          toast.success(response?.data?.message);
-               dispatch(cartFlagfunction(true))
-        } else {
-          // setLoader(false);
-          toast.error(response?.data?.message || "Failed to add review.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        Swal.fire({
-          showCloseButton: true,
-          toast: true,
-          icon: "error",
-          title: error?.response?.data?.message || "Something went wrong!",
-          position: "top-right",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-      } finally {
+    try {
+      // setLoader(true);
+
+      // const token = JSON.parse(localStorage.getItem('Token'));
+      // if (!token) throw new Error("Authentication token is missing");
+
+      const config = {
+        method: "POST",
+        url: `${BaseUrl.baseurl}/api/cart/add-to-cart`,
+        data: requestBody,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+        },
+      };
+
+      const response = await axios(config);
+      console.log('==>cart==>api', response)
+      if (response?.data?.status === true) {
+        toast.success(response?.data?.message);
+        dispatch(cartFlagfunction(true))
+      } else {
         // setLoader(false);
+        toast.error(response?.data?.message || "Failed to add review.");
       }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message || "Something went wrong!",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } finally {
+      // setLoader(false);
+    }
 
 
   }
 
-  const handleAddtoFavorite =async (e,item) => {
+  const handleAddtoFavorite = async (e, item) => {
     e.preventDefault();
     const token = JSON.parse(localStorage.getItem('Token'));
     // const UserId = JSON.parse(localStorage.getItem('UserId'));
-    console.log('Token',token,)
-    console.log('data==>',item)
-    if(token == undefined){
-      toast.error( "Please Login to Add to Cart.");
+    console.log('Token', token,)
+    console.log('data==>', item)
+    if (token == undefined) {
+      toast.error("Please Login to Add to Cart.");
       navigate('/login-signup')
       return
     }
 
-    const requestBody={
-      productId:item?._id,
-      device_token:'',
+    const requestBody = {
+      productId: item?._id,
+      device_token: '',
     }
-      try {
-        // setLoader(true);
-  
-        // const token = JSON.parse(localStorage.getItem('Token'));
-        // if (!token) throw new Error("Authentication token is missing");
-  
-        const config = {
-          method: "POST",
-          url: `${BaseUrl.baseurl}/api/favourite/add-to-favourite`,
-          data: requestBody,
-          headers: {
-            token: token,
-            "Accept": "application/json",
-          },
-        };
-  
-        const response = await axios(config);
-        console.log('==>cart==>api',response)
-        if (response?.data?.status === true) {
-          toast.success(response?.data?.message);
-          dispatch(cartFlagfunction(true))
-        } else {
-          // setLoader(false);
-          toast.error(response?.data?.message || "Failed to add review.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        Swal.fire({
-          showCloseButton: true,
-          toast: true,
-          icon: "error",
-          title: error?.response?.data?.message || "Something went wrong!",
-          position: "top-right",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-      } finally {
+    try {
+      // setLoader(true);
+
+      // const token = JSON.parse(localStorage.getItem('Token'));
+      // if (!token) throw new Error("Authentication token is missing");
+
+      const config = {
+        method: "POST",
+        url: `${BaseUrl.baseurl}/api/favourite/add-to-favourite`,
+        data: requestBody,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+        },
+      };
+
+      const response = await axios(config);
+      console.log('==>cart==>api', response)
+      if (response?.data?.status === true) {
+        toast.success(response?.data?.message);
+        dispatch(cartFlagfunction(true))
+      } else {
         // setLoader(false);
+        toast.error(response?.data?.message || "Failed to add review.");
       }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message || "Something went wrong!",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } finally {
+      // setLoader(false);
+    }
 
 
   }
@@ -434,68 +434,31 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
 
   return (
     <Fragment>
-      <div className={clsx("product-wrap", spaceBottomClass)}>
+      <div className={clsx("product-wrap", spaceBottomClass)} style={{ padding: "10px" }}>
         <div className="row">
           {products.length > 0 ? (
-            products.map((item) => {
+            products.map((item, index) => {
               return (
-                <>
-                {/* <h1>{`${BaseUrl.baseurl + '/'+ item?.media[0]?.file}`}</h1> */}
-                  <div className="col-xl-4 col-md-5 col-sm-6  shadow p-3 mb-5 bg-body rounded">
+                <div key={index} className="col-xl-4 col-md-6 col-sm-6 d-flex align-items-stretch">
+                  <div className="shadow p-3 mb-5 bg-body rounded w-100">
                     <div className="product-img">
-                      {/* <Link
-                        // to={
-                        //   process.env.PUBLIC_URL +
-                        //   "/productDetail/" +
-                        //   item?.id
-                        // }
-                        to={
-                          process.env.PUBLIC_URL +
-                          "/productDetail"
-                        }
-                      > */}
-                      <div onClick={()=>{handleDetailPage(item)}} >
+                      <div onClick={() => handleDetailPage(item)}>
                         <img
                           className="default-img"
-                          src={`${BaseUrl.baseurl + '/'+ item?.media[0]?.file}` }
+                          src={`${BaseUrl.baseurl + '/' + item?.media[0]?.file}`}
                           alt=""
+                          style={{ borderRadius: "10px", width: "100%", height: "auto" }}
                         />
-                        </div>
-                      {/* </Link> */}
-
-                      {/* <h1 className="title" >{item.title}</h1> */}
-                      <div className="product-img-badges">
-                        {item?.saleCount === 0 ||
-                        item?.saleCount === null ? null : (
-                          <span className="bg-success">Sale</span>
-                        )}
-                        {item?.new === 0 || item?.new === null ? null : (
-                          <span className="purple">New</span>
-                        )}
                       </div>
-
+                      <div className="product-img-badges">
+                        {item?.saleCount ? <span className="bg-success">Sale</span> : null}
+                        {item?.new ? <span className="purple">New</span> : null}
+                      </div>
                       <div className="product-action">
                         <div className="pro-same-action pro-wishlist">
-                        {/* {
-                          item.isFavourite == true ?
-                           (
-                           <button disabled  className="active" title={"Add to wishlist"}  >
+                          <button title={"Add to wishlist"} onClick={(e) => handleAddtoFavorite(e, item)}>
                             <i className="pe-7s-like" />
                           </button>
-                          ) : 
-                          ( <button  title={"Add to wishlist"}  >
-                            <i className="pe-7s-like" />
-                          </button>
-                          )
-                        } */}
- 
-                          
-                        <button  title={"Add to wishlist"} onClick={(e)=>{handleAddtoFavorite(e,item)}} >
-                            <i className="pe-7s-like" />
-                          </button>
-                          
-
-                         
                         </div>
                         <div className="pro-same-action pro-cart">
                           {item?.quantity === 0 ? (
@@ -503,59 +466,23 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
                               Out of Stock
                             </button>
                           ) : (
-                            // <Link
-                            //   to={`#`}
-                            // >
-                              <button  onClick={(e)=>{handleAddtoCart(e,item)}}  >
+                            <button onClick={(e) => handleAddtoCart(e, item)}>
                               <i className="pe-7s-cart"></i>
-                              Add To Cart 
-                              </button>
+                              Add To Cart
+                            </button>
                           )}
                         </div>
-                        {/* <div className="pro-same-action pro-quickview">
-                          <button title="Quick View">
-                            <i className="pe-7s-look" />
-                          </button>
-                        </div> */}
                       </div>
                     </div>
                     <div className="product-content text-center">
-                      {/* <h3>
-                        <Link
-                          to={
-                            process.env.PUBLIC_URL +
-                            "/productDetail/" +
-                            e?.id
-                          }
-                        >
-                          {e?.name}
-                        </Link>
-                      </h3> */}
-                      {/* <Rating /> */}
-
-                      <div className="product-price">
-                      <h4 style={{fontWeight:'bold'}} >{item?.title}</h4>
-                        <h4>
-                          <i className="fa fa-won"></i>
-                          <span>{item?.price}</span>
-                          {/* discount price below */}
-                          {/* <span className="old" >{e?.price}</span> */}
-                          {/* {e?.saleCount === 0 || e?.saleCount === null ? (
-                            <>
-                              <span>{e?.regular_price}</span>
-                            </>
-                          ) : (
-                            <>
-                              <span>{e?.saleCount}</span>{" "}
-                              <span className="old">{e?.regular_price}</span>
-                            </>
-                          )} */}
-                        </h4>
-                        
-                      </div>
+                      <h4 style={{ fontWeight: 'bold' }}>{item?.title}</h4>
+                      <h4>
+                        <i className="fa fa-won"></i>
+                        <span>{item?.price}</span>
+                      </h4>
                     </div>
                   </div>
-                </>
+                </div>
               );
             })
           ) : (
@@ -563,132 +490,8 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght,products }) => 
           )}
         </div>
       </div>
-      {/* <div className="shop-list-wrap mb-30">
-        {Myproduct
-          ? Myproduct.map((e) => {
-              return (
-                <>
-                  <div className="row mb-5 shadow p-3 mb-5 bg-body rounded">
-                    <div className="col-xl-4 col-md-5 col-sm-6 ">
-                      <div className="product-list-image-wrap">
-                        <div className="product-img">
-                          <Link
-                            to={
-                              process.env.PUBLIC_URL +
-                              "/product/Furniture/" +
-                              e?.slug
-                            }
-                          >
-                            <img
-                              className="default-img img-fluid"
-                              src={imgurl + e?.product_images[0].image}
-                              alt=""
-                            />
-                          </Link>
-                          <div className="product-img-badges">
-                            {e?.sale_price === 0 ||
-                            e?.sale_price === null ? null : (
-                              <span className="bg-success">Sale</span>
-                            )}
-                            {e?.is_new === 0 || e?.is_new === null ? null : (
-                              <span className="purple">New</span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-8 col-md-7 col-sm-6">
-                      <div className="shop-list-content">
-                        <h3>
-                          <Link
-                            to={
-                              process.env.PUBLIC_URL +
-                              "/product/Furniture/" +
-                              e?.slug
-                            }
-                          >
-                            {e?.name}{" "}
-                          </Link>
-                        </h3>
-                        <div className="product-list-price">
-                          <i className="fa fa-dollar"></i>
-
-                          {e?.sale_price === 0 || e?.sale_price === null ? (
-                            <>
-                              <span>{e?.regular_price}</span>
-                            </>
-                          ) : (
-                            <>
-                              <span>{e?.sale_price}</span>{" "}
-                              <span className="old">{e?.regular_price}</span>
-                            </>
-                          )}
-                        </div>
-
-                        <div className="rating-review">
-                          <div className="product-list-rating">
-                            <Rating />
-                          </div>
-                        </div>
-
-                        <div
-                          dangerouslySetInnerHTML={{ __html: e?.description }}
-                        />
-
-                        <div className="shop-list-actions d-flex align-items-center">
-                          <div className="shop-list-btn btn-hover">
-                            {e?.in_stock === 0 ? (
-                              <button disabled className="active">
-                                Out of Stock
-                              </button>
-                            ) : (
-                              <Link
-                                to={`${process.env.PUBLIC_URL}/product/Furniture/" + ${e?.slug}`}
-                              >
-                                <i className="pe-7s-cart"></i>
-                                Add To Cart
-                              </Link>
-                            )}
-                          </div>
-
-                          <div className="shop-list-wishlist ml-10">
-                            <button
-                              className={"active"}
-                              title={"Add to wishlist"}
-                            >
-                              <i className="pe-7s-like" />
-                            </button>
-                          </div>
-                          <div className="shop-list-compare ml-10">
-                            <button
-                              className={"active"}
-                              title={"Add to compare"}
-                            >
-                              <i className="pe-7s-shuffle" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              );
-            })
-          : null}
-      </div> */}
-      {/* product modal */}
-      {/* <ProductModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        product={product}
-        currency={currency}
-        discountedPrice={discountedPrice}
-        finalProductPrice={finalProductPrice}
-        finalDiscountedPrice={finalDiscountedPrice}
-        wishlistItem={wishlistItem}
-        compareItem={compareItem}
-      /> */}
     </Fragment>
+
   );
 };
 

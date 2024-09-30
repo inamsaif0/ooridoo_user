@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
@@ -21,34 +21,46 @@ const LoginSignUp = () => {
   const [Fullname, setFullname] = useState(null);
   const [Bio, setBio] = useState(null);
   const [phone, setphone] = useState(null);
-    const inputRef = useRef(null);
+  const inputRef = useRef(null);
 
-    // function handleImageUpload(event) {
-    //     const file = event?.target?.files[0];
-    //     setProfilePriviewImage2(file)
-    //     const imageUrl = URL.createObjectURL(file);
-    //     setProfileImage(imageUrl);
-    // }
-    const handleImageUpload = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        // Create a preview of the selected image
-        const imageUrl = URL.createObjectURL(file);
-        setProfilePriviewImage2(file); // Set the selected image file to be sent to the API
-        setProfileImage(imageUrl); // Display the selected image as a preview
-      }
-    };
-
-    const handleImage = () => {
-        inputRef.current.click();
+  // function handleImageUpload(event) {
+  //     const file = event?.target?.files[0];
+  //     setProfilePriviewImage2(file)
+  //     const imageUrl = URL.createObjectURL(file);
+  //     setProfileImage(imageUrl);
+  // }
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Create a preview of the selected image
+      const imageUrl = URL.createObjectURL(file);
+      setProfilePriviewImage2(file); // Set the selected image file to be sent to the API
+      setProfileImage(imageUrl); // Display the selected image as a preview
     }
- const navigate =  useNavigate()
+  };
+
+  const handleImage = () => {
+    inputRef.current.click();
+  }
+  const navigate = useNavigate()
 
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isLogin, setIsLogin] = useState(pathname === "/login")
+  const [isProfile, setIsProfile] = useState(false)
+  useEffect(() => {
+    if (pathname === "/complete-profile") {
+      setIsProfile(true)
+    } else {
+      setIsLogin(pathname === "/login");
+      setIsProfile(false)
+    }
+  }, [pathname]);
+
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    userName:""
+    userName: ""
   });
   const [errors, setErrors] = useState({});
 
@@ -70,10 +82,10 @@ const LoginSignUp = () => {
     const formErrors = validateLoginForm();
     if (Object.keys(formErrors).length === 0) {
 
-      const requestBody={
-        email:formData?.email,
-        password:formData?.password,
-        device_token:'123'
+      const requestBody = {
+        email: formData?.email,
+        password: formData?.password,
+        device_token: '123'
 
       }
       // Submit to API
@@ -86,17 +98,17 @@ const LoginSignUp = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log('response==>',data?.data?.token)
+          console.log('response==>', data?.data?.token)
           // Handle success
-          if(data?.status == true){
+          if (data?.status == true) {
             toast.success(data?.message);
             localStorage.setItem('Token', JSON.stringify(data?.data?.token));
             localStorage.setItem('UserId', JSON.stringify(data?.data?.User?._id));
             navigate('/')
-          LoginTabRef.current.click()
+            LoginTabRef.current.click()
             console.log("Success:", data);
           }
-          else{
+          else {
             toast.error(data?.message);
           }
         })
@@ -115,48 +127,84 @@ const LoginSignUp = () => {
     setErrors({ ...errors, [name]: "" });
   };
 
+
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password.length < minLength) {
+      return false; // Must be at least 8 characters long
+    }
+
+    if (!hasUpperCase || !hasLowerCase || !hasNumber || !hasSpecialChar) {
+      return false; // Must have at least one of each
+    }
+
+    return true; // Valid password
+  };
+
+
   const handleSubmitSignUp = (e) => {
     e.preventDefault();
     const formErrors = validateSignUpForm();
     if (Object.keys(formErrors).length === 0) {
-
-        const requestBody={
-          email:formData?.email,
-          password:formData?.password,
-          name:formData?.userName,
-          role:'user'
-  
-        }
-        // Submit to API
-        fetch(`${BaseUrl.baseurl}/api/auth/register`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('response==>',data?.data?.token)
-            // Handle success
-            if(data?.status == true){
-              toast.success(data?.message);
-              localStorage.setItem('Token', JSON.stringify(data?.data?.token));
-              // navigate('/login-signup')
-              setIsSignUp(true)
-              console.log("Success:", data);
-            }
-            else{
-              toast.error(data?.message);
-            }
-          })
-          .catch((error) => {
-            // Handle error
-            console.error("Error:", error);
-          });
-      } else {
-        setErrors(formErrors);
+      if (!validatePassword(formData?.password)) {
+        toast.error("Please enter valid password")
+        // alert('Password does not meet requirements');
+        return; // Stop further processing
       }
+
+      const requestBody = {
+        email: formData?.email,
+        password: formData?.password,
+        name: formData?.userName,
+        role: 'user'
+
+      }
+      // Submit to API
+      fetch(`${BaseUrl.baseurl}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('response==>', data?.data?.token)
+          // Handle success
+          if (data?.status == true) {
+            toast.success(data?.message);
+            localStorage.setItem('Token', JSON.stringify(data?.data?.token));
+            fetch(`${BaseUrl.baseurl}/api/otp/generate`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                "email": formData?.email
+              }),
+            }).then((res) => {
+              console.log(res)
+              navigate("/verify-otp")
+              // setIsSignUp(true)
+            })
+            console.log("Success:", data);
+          }
+          else {
+            toast.error(data?.message);
+          }
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error:", error);
+        });
+    } else {
+      setErrors(formErrors);
+    }
   };
 
   const validateSignUpForm = () => {
@@ -170,7 +218,7 @@ const LoginSignUp = () => {
     return formErrors;
   };
 
-  const handleSubmitProfile =async (e) => {
+  const handleSubmitProfile = async (e) => {
     e.preventDefault();
     const token = JSON.parse(localStorage.getItem('Token'));
 
@@ -184,7 +232,7 @@ const LoginSignUp = () => {
     // formData.append('full_name', Fullname);
     // formData.append('phone_number', phone);
     // formData.append('bio', Bio);
-  
+
     // fetch(`${BaseUrl.baseurl}/api/user/complete-profile`, {
     //   method: "POST",
     //   // headers: myHeaders,
@@ -210,7 +258,7 @@ const LoginSignUp = () => {
       return;
     }
 
-    console.log('profilePriviewImage2==>',profilePriviewImage2)
+    console.log('profilePriviewImage2==>', profilePriviewImage2)
 
     // const requestBody={
     //   profile_image:profilePriviewImage2,
@@ -229,51 +277,51 @@ const LoginSignUp = () => {
 
 
 
-      try {
-        const config = {
-          method: "POST",
-          url: `${BaseUrl.baseurl}/api/user/complete-profile`,
-          // data: requestBody,
-          data: formData,
-          headers: {
-            token: token,
-            "Accept": "application/json",
-            'Content-Type': 'multipart/form-data', // Ensure multipart/form-data is used
-          },
-        };
-  
-        const response = await axios(config);
-        console.log('==>cart==>api',response)
-        if (response?.data?.status === true) {
-          toast.success(response?.data?.message);
-           navigate('/')
-          // dispatch(cartFlagfunction(true))
-        } else {
-          // setLoader(false);
-          toast.error(response?.data?.message || "Failed to add review.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        Swal.fire({
-          showCloseButton: true,
-          toast: true,
-          icon: "error",
-          title: error?.response?.data?.message || "Something went wrong!",
-          position: "top-right",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-      } finally {
+    try {
+      const config = {
+        method: "POST",
+        url: `${BaseUrl.baseurl}/api/user/complete-profile`,
+        // data: requestBody,
+        data: formData,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+          'Content-Type': 'multipart/form-data', // Ensure multipart/form-data is used
+        },
+      };
+
+      const response = await axios(config);
+      console.log('==>cart==>api', response)
+      if (response?.data?.status === true) {
+        toast.success(response?.data?.message);
+        navigate('/')
+        // dispatch(cartFlagfunction(true))
+      } else {
         // setLoader(false);
+        toast.error(response?.data?.message || "Failed to add review.");
       }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message || "Something went wrong!",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } finally {
+      // setLoader(false);
+    }
 
   };
-  
+
 
 
   return (
@@ -291,23 +339,26 @@ const LoginSignUp = () => {
             <div className="row">
               <div className="col-lg-7 col-md-12 ms-auto me-auto">
                 <div className="login-register-wrapper">
-                  {!isSignUp ? (
-                    <Tab.Container defaultActiveKey="login">
-                      <Nav variant="pills" className="login-register-tab-list">
+                  {!isSignUp && !isProfile ? (
+                    <Tab.Container activeKey={isLogin ? "/login" : "/signup"}>
+                      <Nav variant="pills" className="login-register-tab-list" onSelect={(k) => {
+                        navigate(k)
+                        setIsLogin(k === "/login")
+                      }}>
                         <Nav.Item>
-                          <Nav.Link eventKey="login" ref={LoginTabRef}>
+                          <Nav.Link eventKey="/login" ref={LoginTabRef}>
                             <h4>Login</h4>
                           </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                          <Nav.Link eventKey="sign-up">
+                          <Nav.Link eventKey="/signup">
                             <h4>Sign Up</h4>
                           </Nav.Link>
                         </Nav.Item>
                       </Nav>
                       <Tab.Content>
-                      
-                        <Tab.Pane eventKey="login">
+
+                        <Tab.Pane eventKey="/login">
                           <div className="login-form-container">
                             <div className="login-register-form">
                               <form onSubmit={handleSubmitLogin}>
@@ -342,11 +393,11 @@ const LoginSignUp = () => {
                             </div>
                           </div>
                         </Tab.Pane>
-                        <Tab.Pane eventKey="sign-up">
+                        <Tab.Pane eventKey="/signup">
                           <div className="login-form-container">
                             <div className="login-register-form">
                               <form onSubmit={handleSubmitSignUp}>
-                              <input
+                                <input
                                   name="userName"
                                   className="mb-2"
                                   placeholder="User Name"
@@ -356,7 +407,7 @@ const LoginSignUp = () => {
                                 />
                                 {errors.userName && <span className="error">{errors.userName}</span>}
                                 <input
-                                className="mb-0 mt-4"
+                                  className="mb-0 mt-4"
                                   name="email"
                                   placeholder="Email"
                                   type="email"
@@ -373,7 +424,7 @@ const LoginSignUp = () => {
                                   onChange={handleSignUpChange}
                                 />
                                 {errors.password && <span className="error ml-2">{errors.password}</span>}
-                                <small className={errors.password ? "ml-4" : "" }  >Use 8 or more characters, with a mix of letters, numbers, and symbols</small>
+                                <small className={errors.password ? "ml-4" : ""}  ><br />Use 8 or more characters <br /> With a mix of letters, numbers, and symbols</small>
                                 <div className="button-box">
                                   <div className="login-toggle-btn mb-3">
                                     <Link to={"#"} onClick={() => LoginTabRef.current.click()}>
@@ -414,15 +465,16 @@ const LoginSignUp = () => {
                     //     </div>
                     //   </div>
                     // </div>
-                    // profile work
+
+                    // ----------- profile work --------------
                     <div>
-                       <div className="login-form-container">
-                            <div className="login-register-form">
-                              <form onSubmit={handleSubmitProfile}>
-                              {/* <div className='row' >
+                      <div className="login-form-container" >
+                        <div className="login-register-form">
+                          <form onSubmit={handleSubmitProfile}>
+                            {/* <div className='row' >
                         <div className='col-md-4'> */}
-                         
-                         {/* <div className='col-md-4 text-center ' >
+
+                            {/* <div className='col-md-4 text-center ' >
                         <h4 className='' >Upload Profile Image</h4>   
                         <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
                         <img className='profile-image' onClick={() => handleImage()} src={profileImage ? profileImage : defaultUser} alt="Profile" />
@@ -433,61 +485,61 @@ const LoginSignUp = () => {
 
                     </div> */}
 
-                    {/* <div>
+                            {/* <div>
                       
                     </div> */}
- 
 
-                            <h3 className='fw-bold text-decoration-underline  text-center'>Upload Profile Image</h3>
+
+                            <h3 className='fw-bold text-decoration-underline  text-center'>Complete Profile</h3>
                             <div className='d-flex align-items-center gap-4 mt-5'>
-                                <div className="text-center" >
-                                    <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
-                                    <img className='profile-image' style={{height:'200px',width:'200px',borderRadius:'12px'}} onClick={() => handleImage()} 
-                                    
-                                    // src={profileImage ? profileImage : defaultUser}
-                                    src={profileImage || defaultUser}  // Show defaultUser if no profile image is uploaded
-                                    alt="Profile" />
-                                </div>
+                              <div className="text-center" >
+                                <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
+                                <img className='profile-image' style={{ height: '200px', width: '200px', borderRadius: '12px' }} onClick={() => handleImage()}
+
+                                  // src={profileImage ? profileImage : defaultUser}
+                                  src={profileImage || defaultUser}  // Show defaultUser if no profile image is uploaded
+                                  alt="Profile" />
+                              </div>
                             </div>
                             <button type='button' className='btn btn-outline-primary mt-4 ms-4 mb-4' onClick={handleImage}>Update Photo</button>
-                        {/* </div>
+                            {/* </div>
                     </div> */}
-                              <input
-                                  name="userName"
-                                  className="mb-2"
-                                  placeholder="full_name"
-                                  type="text"
-                                  // value={formData.userName}
-                                  onChange={(e)=>{setFullname(e?.target?.value)}}
-                                />
-                                {/* {errors.userName && <span className="error">{errors.userName}</span>} */}
-                                <input
-                                className="mb-0 mt-4"
-                                  name="phone_number"
-                                  placeholder="phone_number"
-                                  type="text"
-                                  // value={formData.email}
-                                  onChange={(e)=>{setphone(e?.target?.value)}}
-                                />
-                                {/* {errors.email && <span className="error">{errors.email}</span>} */}
-                                <input
-                                  className="mb-0 mt-4"
-                                  type="text"
-                                  name="password"
-                                  placeholder="Bio"
-                                  // value={formData.password}
-                                  onChange={(e)=>{setBio(e?.target?.value)}}
-                                  // onChange={handleSignUpChange}
-                                />
-                                <div className="button-box mt-4">
-                                  <button type="submit">
-                                    <span>Updated Profile</span>
-                                  </button>
-                                </div>
-                              </form>
+                            <input
+                              name="userName"
+                              className="mb-2"
+                              placeholder="Full name"
+                              type="text"
+                              // value={formData.userName}
+                              onChange={(e) => { setFullname(e?.target?.value) }}
+                            />
+                            {/* {errors.userName && <span className="error">{errors.userName}</span>} */}
+                            <input
+                              className="mb-0 mt-4"
+                              name="phone_number"
+                              placeholder="Phone number"
+                              type="text"
+                              // value={formData.email}
+                              onChange={(e) => { setphone(e?.target?.value) }}
+                            />
+                            {/* {errors.email && <span className="error">{errors.email}</span>} */}
+                            <input
+                              className="mb-0 mt-4"
+                              type="text"
+                              name="password"
+                              placeholder="Bio"
+                              // value={formData.password}
+                              onChange={(e) => { setBio(e?.target?.value) }}
+                            // onChange={handleSignUpChange}
+                            />
+                            <div className="button-box mt-4">
+                              <button type="submit">
+                                <span>Save</span>
+                              </button>
                             </div>
-                          </div>
+                          </form>
+                        </div>
                       </div>
+                    </div>
                   )}
                 </div>
               </div>
