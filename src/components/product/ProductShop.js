@@ -267,7 +267,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
 
     dispatch(setProductsDetail(e))
 
-    router('/productDetail')
+    router(`/productDetail/${e?._id}`)
   }
 
 
@@ -468,7 +468,9 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
                               Out of Stock
                             </button>
                           ) : (
-                            <button onClick={(e) => handleAddtoCart(e, item)}>
+                            <button 
+                            onClick={(e) => handleAddtoCart(e, item)}
+                            >
                               <i className="pe-7s-cart"></i>
                               Add To Cart
                             </button>

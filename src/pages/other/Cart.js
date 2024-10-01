@@ -335,7 +335,7 @@ const Cart = () => {
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +
-                                      "/productDetail"
+                                      `/productDetail/${cartItem?.productId?._id}`
                                       // process.env.PUBLIC_URL +
                                       // "/product/" +
                                       // cartItem.id

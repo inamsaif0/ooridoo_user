@@ -3,8 +3,29 @@ import PropTypes from "prop-types";
 import Swiper, { SwiperSlide } from "../../components/swiper";
 import BaseUrl from "../../BaseUrl";
 
-const ProductImageGallerySlider = ({ product }) => {
+const ProductImageGallerySlider = ({ product,productdetailstate }) => {
   // swiper slider settings
+  const gallerySwiperParams2 = {
+    spaceBetween: 15,
+    slidesPerView: 3,
+    loop: true,
+    navigation: true,
+    breakpoints: {
+      320: {
+        slidesPerView: 1
+      },
+      640: {
+        slidesPerView: 2
+      },
+      768: {
+        slidesPerView: 2
+      },
+      1024: {
+        slidesPerView: 3
+      }
+    }
+  };
+
   const gallerySwiperParams = {
     spaceBetween: 15,
     slidesPerView: 3,
@@ -25,6 +46,14 @@ const ProductImageGallerySlider = ({ product }) => {
       }
     }
   };
+
+  // Get the media images
+  const mediaImages = productdetailstate?.media || [];
+
+  // If the number of images is less than slidesPerView, fill the empty slots by duplicating the last image
+  const filledMediaImages = mediaImages?.length < gallerySwiperParams.slidesPerView
+    ? [...mediaImages, ...Array(gallerySwiperParams?.slidesPerView - mediaImages?.length).fill(mediaImages[mediaImages?.length - 1])]
+    : mediaImages;
 
 
   const DemoProduct = [
@@ -80,13 +109,15 @@ const ProductImageGallerySlider = ({ product }) => {
   return (
     <div className="product-large-image-wrapper product-large-image-wrapper--slider mx-auto text-center ">
       {/* {product?.image?.length ? ( */}
-      {product?.media?.length ? (
+      {/* {product?.media?.length ? ( */}
+      {filledMediaImages?.length ? (
         <Swiper options={gallerySwiperParams}>
-          {product?.media?.map((single, key) => (
+                    {/* {product?.media?.map((single, key) => ( */}
+          {filledMediaImages?.map((single, key) => (
             <SwiperSlide key={key}>
               <div className="single-image">
                 <img
-                  src={`${BaseUrl.baseurl}${'/'}${single.file} `}
+                  src={`${BaseUrl.baseurl}${'/'}${single?.file} `}
                   className="img-fluid"
                   alt=""
                   style={{ borderRadius: "5px", width: "95%" }}
@@ -105,3 +136,76 @@ ProductImageGallerySlider.propTypes = {
 };
 
 export default ProductImageGallerySlider;
+
+
+
+
+// import PropTypes from "prop-types";
+// import Swiper, { SwiperSlide } from "../../components/swiper";
+// import BaseUrl from "../../BaseUrl";
+
+// const ProductImageGallerySlider = ({ product, productdetailstate }) => {
+//   // swiper slider settings
+//   const gallerySwiperParams = {
+//     spaceBetween: 15,
+//     slidesPerView: 3,
+//     loop: true,
+//     navigation: true,
+//     breakpoints: {
+//       320: {
+//         slidesPerView: 1
+//       },
+//       640: {
+//         slidesPerView: 2
+//       },
+//       768: {
+//         slidesPerView: 2
+//       },
+//       1024: {
+//         slidesPerView: 3
+//       }
+//     }
+//   };
+
+//   // Get the media images
+//   const mediaImages = productdetailstate?.media || [];
+
+//   // If the number of images is less than slidesPerView, fill the empty slots by duplicating the last image
+//   const filledMediaImages = mediaImages.length < gallerySwiperParams.slidesPerView
+//     ? [...mediaImages, ...Array(gallerySwiperParams.slidesPerView - mediaImages.length).fill(mediaImages[mediaImages.length - 1])]
+//     : mediaImages;
+
+//   return (
+//     <div className="product-large-image-wrapper product-large-image-wrapper--slider mx-auto text-center">
+//       {filledMediaImages?.length ? (
+//         <Swiper options={gallerySwiperParams}>
+//           {filledMediaImages?.map((single, key) => (
+//             <SwiperSlide key={key}>
+//               <div className="single-image">
+//                 <img
+//                   src={`${BaseUrl.baseurl}/${single?.file}`}
+//                   className="img-fluid"
+//                   alt=""
+//                   style={{ borderRadius: "5px", width: "95%" }}
+//                 />
+//               </div>
+//             </SwiperSlide>
+//           ))}
+//         </Swiper>
+//       ) : null}
+//     </div>
+//   );
+// };
+
+// ProductImageGallerySlider.propTypes = {
+//   product: PropTypes.shape({}),
+//   productdetailstate: PropTypes.shape({
+//     media: PropTypes.arrayOf(
+//       PropTypes.shape({
+//         file: PropTypes.string
+//       })
+//     )
+//   })
+// };
+
+// export default ProductImageGallerySlider;

@@ -258,7 +258,7 @@ const Wishlist = () => {
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +
-                                      "/productDetail"}
+                                      `/productDetail/${wishlistItem?.productId?._id}`}
                                   // to={
                                   // process.env.PUBLIC_URL +
                                   // "/product/" +
@@ -363,9 +363,16 @@ const Wishlist = () => {
                                   )}
                                 </td> */}
                                 <td className="product-wishlist-cart">
-                                  <button onClick={(e) => { handleAddtoCart(e, wishlistItem) }} className="active"  >
-                                    Add to cart
-                                  </button>
+                                   
+                                 {
+                                  wishlistItem?.productId?.quantity > 0 ? (  <button onClick={(e) => { handleAddtoCart(e, wishlistItem) }} className="active"  >
+                                  Add to cart
+                                </button>):(<button disabled className="active">
+                                    Out of stock
+                                  </button>)
+                                 }  
+
+                                
                                 </td>
                                 {/* <td>hello</td> */}
 

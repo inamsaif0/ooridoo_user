@@ -1,12 +1,17 @@
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getProductCartQuantity } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 import { addToCart } from "../../store/slices/cart-slice";
 import { addToWishlist } from "../../store/slices/wishlist-slice";
 import { addToCompare } from "../../store/slices/compare-slice";
+import { toast } from "react-toastify";
+import BaseUrl from "../../BaseUrl";
+import Swal from "sweetalert2";
+import { cartFlagfunction } from "../../store/slices/productDetail-slice";
+import axios from "axios";
 
 const ProductDescriptionInfoSlider = ({
   product,
@@ -17,6 +22,7 @@ const ProductDescriptionInfoSlider = ({
   cartItems,
   wishlistItem,
   compareItem,
+  productdetailstate
 }) => {
   const dispatch = useDispatch();
   const [selectedProductColor, setSelectedProductColor] = useState(
@@ -36,12 +42,171 @@ const ProductDescriptionInfoSlider = ({
     selectedProductColor,
     selectedProductSize
   );
+  const navigate = useNavigate()
+  const handleAddtoCart = async (e, item) => {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem('Token'));
+    const UserId = JSON.parse(localStorage.getItem('UserId'));
+    console.log('userID', UserId, 'Token', token,)
+    console.log('data==>', item)
+    if (token == undefined) {
+      toast.error("Please Login to Add to Cart.");
+      navigate('/login-signup')
+      return
+    }
+
+    const requestBody = {
+      productId: item?._id,
+      userId: UserId,
+    }
+    // Submit to API
+    // fetch(`${BaseUrl.baseurl}/api/cart/add-to-cart`, {
+    //   method: "POST",
+    //   headers: {
+    //     token: token,
+    //     "Accept": "application/json",
+    //   },
+    //   // body: JSON.stringify(requestBody),
+    //   data: requestBody,
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log('response==>',data)
+    //     // Handle success
+    //     if(data?.status == true){
+    //       toast.success(data?.message);
+    //       console.log("Success:", data);
+    //     }
+    //     else{
+    //       toast.error(data?.message);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     // Handle error
+    //     console.error("Error:", error);
+    //   });
+
+
+
+    try {
+      // setLoader(true);
+
+      // const token = JSON.parse(localStorage.getItem('Token'));
+      // if (!token) throw new Error("Authentication token is missing");
+
+      const config = {
+        method: "POST",
+        url: `${BaseUrl.baseurl}/api/cart/add-to-cart`,
+        data: requestBody,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+        },
+      };
+
+      const response = await axios(config);
+      console.log('==>cart==>api', response)
+      if (response?.data?.status === true) {
+        toast.success(response?.data?.message);
+        dispatch(cartFlagfunction(true))
+      } else {
+        // setLoader(false);
+        toast.error(response?.data?.message || "Failed to add review.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message || "Something went wrong!",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } finally {
+      // setLoader(false);
+    }
+
+
+  }
+
+  const handleAddtoFavorite = async (e, item) => {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem('Token'));
+    // const UserId = JSON.parse(localStorage.getItem('UserId'));
+    console.log('Token', token,)
+    console.log('data==>', item)
+    if (token == undefined) {
+      toast.error("Please Login to Add to Cart.");
+      navigate('/login-signup')
+      return
+    }
+
+    const requestBody = {
+      productId: item?._id,
+      device_token: '',
+    }
+    try {
+      // setLoader(true);
+
+      // const token = JSON.parse(localStorage.getItem('Token'));
+      // if (!token) throw new Error("Authentication token is missing");
+
+      const config = {
+        method: "POST",
+        url: `${BaseUrl.baseurl}/api/favourite/add-to-favourite`,
+        data: requestBody,
+        headers: {
+          token: token,
+          "Accept": "application/json",
+        },
+      };
+
+      const response = await axios(config);
+      console.log('==>cart==>api', response)
+      if (response?.data?.status === true) {
+        toast.success(response?.data?.message);
+        dispatch(cartFlagfunction(true))
+      } else {
+        // setLoader(false);
+        toast.error(response?.data?.message || "Failed to add review.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        showCloseButton: true,
+        toast: true,
+        icon: "error",
+        title: error?.response?.data?.message || "Something went wrong!",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } finally {
+      // setLoader(false);
+    }
+
+
+  }
+
+
 
   return (
     <div className="product-details-content pro-details-slider-content">
-      <h2>{product.name}</h2>
+      <h2>{productdetailstate?.title}</h2>
       <div className="product-details-price justify-content-center">
-        {discountedPrice !== null ? (
+        {/* {discountedPrice !== null ? (
           <Fragment>
             <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
             <span className="old">
@@ -50,9 +215,10 @@ const ProductDescriptionInfoSlider = ({
           </Fragment>
         ) : (
           <span>{currency.currencySymbol + finalProductPrice} </span>
-        )}
+        )} */}
+      <span>{'₩' + productdetailstate?.price} </span>
       </div>
-      {product.rating && product.rating > 0 ? (
+      {/* {product.rating && product.rating > 0 ? (
         <div className="pro-details-rating-wrap justify-content-center">
           <div className="pro-details-rating mr-0">
             <Rating ratingValue={product.rating} />
@@ -60,12 +226,12 @@ const ProductDescriptionInfoSlider = ({
         </div>
       ) : (
         ""
-      )}
+      )} */}
       <div className="pro-details-list">
-        <p>{product.shortDescription}</p>
+        <p>{productdetailstate?.description}</p>
       </div>
 
-      {product.variation ? (
+      {/* {product.variation ? (
         <div className="pro-details-size-color justify-content-center">
           <div className="pro-details-color-wrap">
             <span>Color</span>
@@ -133,7 +299,7 @@ const ProductDescriptionInfoSlider = ({
         </div>
       ) : (
         ""
-      )}
+      )} */}
       {product.affiliateLink ? (
         <div className="pro-details-quality justify-content-center">
           <div className="pro-details-cart btn-hover ml-0">
@@ -148,10 +314,10 @@ const ProductDescriptionInfoSlider = ({
         </div>
       ) : (
         <div className="pro-details-quality justify-content-center">
-          <div className="cart-plus-minus">
+          {/* <div className="cart-plus-minus">
             <button
               onClick={() =>
-                setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)
+                handleRemovetoCart(productdetailstate?.quantity,productdetailstate?._id)
               }
               className="dec qtybutton"
             >
@@ -160,34 +326,32 @@ const ProductDescriptionInfoSlider = ({
             <input
               className="cart-plus-minus-box"
               type="text"
-              value={quantityCount}
+              value={productdetailstate?.quantity}
               readOnly
             />
             <button
               onClick={() =>
-                setQuantityCount(
-                  quantityCount < productStock - productCartQty
-                    ? quantityCount + 1
-                    : quantityCount
-                )
+                handleAddtoCart(productdetailstate?.quantity,productdetailstate?._id)
               }
               className="inc qtybutton"
             >
               +
             </button>
-          </div>
+          </div> */}
           <div className="pro-details-cart btn-hover">
-            {productStock && productStock > 0 ? (
+            {productdetailstate && productdetailstate?.quantity > 0 ? (
               <button
-                onClick={() =>
-                  dispatch(addToCart({
-                    ...product,
-                    quantity: quantityCount,
-                    selectedProductColor: selectedProductColor ? selectedProductColor : product.selectedProductColor ? product.selectedProductColor : null,
-                    selectedProductSize: selectedProductSize ? selectedProductSize : product.selectedProductSize ? product.selectedProductSize : null
-                  }))
-                }
-                disabled={productCartQty >= productStock}
+                // onClick={() =>
+                //   // dispatch(addToCart({
+                //   //   ...product,
+                //   //   quantity: quantityCount,
+                //   //   selectedProductColor: selectedProductColor ? selectedProductColor : product.selectedProductColor ? product.selectedProductColor : null,
+                //   //   selectedProductSize: selectedProductSize ? selectedProductSize : product.selectedProductSize ? product.selectedProductSize : null
+                //   // }))
+                //   handleAddtoCart(productdetailstate?.productdetailstate,productdetailstate?._id)
+                // }
+                onClick={(e) => handleAddtoCart(e, productdetailstate)}
+                disabled={productdetailstate?.quantity == 0}
               >
                 {" "}
                 Add To Cart{" "}
@@ -197,7 +361,7 @@ const ProductDescriptionInfoSlider = ({
             )}
           </div>
           <div className="pro-details-wishlist">
-            <button
+            {/* <button
               className={wishlistItem !== undefined ? "active" : ""}
               disabled={wishlistItem !== undefined}
               title={
@@ -208,7 +372,10 @@ const ProductDescriptionInfoSlider = ({
               onClick={() => dispatch(addToWishlist(product))}
             >
               <i className="pe-7s-like" />
-            </button>
+            </button> */}
+             <button title={"Add to wishlist"} onClick={(e) => handleAddtoFavorite(e, productdetailstate)}>
+                            <i className="pe-7s-like" />
+                          </button>
           </div>
           {/* <div className="pro-details-compare">
             <button
@@ -226,11 +393,16 @@ const ProductDescriptionInfoSlider = ({
           </div> */}
         </div>
       )}
-      {product.category ? (
+      {productdetailstate?.category ? (
         <div className="pro-details-meta justify-content-center">
-          <span>Categories :</span>
+          <span>Category :</span>
           <ul>
-            {product.category.map((single, key) => {
+          <li >
+                 
+                    {productdetailstate?.category?.title}
+             
+                </li>
+            {/* {product.category.map((single, key) => {
               return (
                 <li key={key}>
                   <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
@@ -238,17 +410,22 @@ const ProductDescriptionInfoSlider = ({
                   </Link>
                 </li>
               );
-            })}
+            })} */}
           </ul>
         </div>
       ) : (
         ""
       )}
-      {product.tag ? (
+      {productdetailstate?.language ? (
         <div className="pro-details-meta justify-content-center">
-          <span>Tags :</span>
+          <span>Language :</span>
           <ul>
-            {product.tag.map((single, key) => {
+          <li >
+                 
+                 {productdetailstate?.language}
+          
+             </li>
+            {/* {product.tag.map((single, key) => {
               return (
                 <li key={key}>
                   <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
@@ -256,14 +433,14 @@ const ProductDescriptionInfoSlider = ({
                   </Link>
                 </li>
               );
-            })}
+            })} */}
           </ul>
         </div>
       ) : (
         ""
       )}
 
-      <div className="pro-details-social">
+      {/* <div className="pro-details-social">
         <ul className="justify-content-center">
           <li>
             <a href="//facebook.com">
@@ -291,7 +468,7 @@ const ProductDescriptionInfoSlider = ({
             </a>
           </li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };

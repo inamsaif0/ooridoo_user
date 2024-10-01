@@ -295,6 +295,12 @@ const App = () => {
               element={<ProductSlider />}
             />
 
+<Route
+              path={process.env.PUBLIC_URL + "/productDetail/:id"}
+              // path={process.env.PUBLIC_URL + "/product-slider/:id"}
+              element={<ProductSlider />}
+            />
+
             <Route
               path={process.env.PUBLIC_URL + "/product-fixed-image/:id"}
               element={<ProductFixedImage />}

@@ -4,8 +4,20 @@ import clsx from "clsx";
 import { getDiscountPrice } from "../../helpers/product";
 import ProductImageGallerySlider from "../../components/product/ProductImageGallerySlider";
 import ProductDescriptionInfoSlider from "../../components/product/ProductDescriptionInfoSlider";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import BaseUrl from "../../BaseUrl";
+import { toast } from "react-toastify";
 
-const ProductImageDescription = ({ spaceTopClass, spaceBottomClass, product }) => {
+const ProductImageDescription = ({ spaceTopClass, spaceBottomClass}) => {
+
+  let { id } = useParams();
+
+  console.log('id==>',id)
+
+  const { products } = useSelector((state) => state.product);
+  const product = products.find(product => product.id == '1');
+
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
   const { wishlistItems } = useSelector((state) => state.wishlist);
@@ -19,17 +31,70 @@ const ProductImageDescription = ({ spaceTopClass, spaceBottomClass, product }) =
     discountedPrice * currency.currencyRate
   ).toFixed(2);
 
+  const[productdetailstate,setproductdetailstate]=useState({})
+
+  console.log('productdetailstate==>',productdetailstate)
+
+useEffect(()=>{
+
+  if(id){
+    getproductdetail()
+  }
+
+},[id])
+
+const getproductdetail = () =>{
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+    // const otpValue = otp.join('');
+    // console.log("OTP Entered: ", otpValue);
+
+    fetch(`${BaseUrl.baseurl}/api/products/get-product-by-id`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "productId": id
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('getdetaildata==>',data)
+            if (data?.status == true) {
+                // localStorage.setItem('Token', JSON.stringify(data?.data?.token));
+                // navigate("/complete-profile")
+                setproductdetailstate(data?.data)
+                // toast.success(data?.message);
+            } else {
+                toast.error(data?.message);
+            }
+
+            console.log("otp verify api")
+        }).catch((err) => {
+            console.error(err)
+            toast.error(err?.message);
+
+        })
+
+// };
+
+
+}
+
+
   return (
     <div className={clsx("shop-area", spaceTopClass, spaceBottomClass)}>
       <div className="container">
         <div className="row">
           <div className="col-lg-12 mb-50">
             {/* product image gallery */}
-            <ProductImageGallerySlider product={product} />
+            <ProductImageGallerySlider product={product} productdetailstate={productdetailstate} />
           </div>
           <div className="col-lg-12 text-center">
             {/* product description info */}
-            {/* <ProductDescriptionInfoSlider
+            <ProductDescriptionInfoSlider
               product={product}
               discountedPrice={discountedPrice}
               currency={currency}
@@ -38,7 +103,8 @@ const ProductImageDescription = ({ spaceTopClass, spaceBottomClass, product }) =
               cartItems={cartItems}
               wishlistItem={wishlistItem}
               compareItem={compareItem}
-            /> */}
+              productdetailstate={productdetailstate}
+            />
           </div>
         </div>
       </div>
