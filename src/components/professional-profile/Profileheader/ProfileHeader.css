@@ -1,0 +1,40 @@
+/* .uploadfile-div {
+    position: relative;
+    display: flex;
+    top: 30px;
+    justify-content:flex-start;
+    margin-bottom: 20%;
+    margin-top: 100px;
+}
+
+.uploadfile-div img {
+    position: absolute;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    box-shadow: #000 0px 5px 5px;
+}
+
+input[type="file"] {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+ */
+
+ .profile-image{
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    box-shadow: #9999998c 0px 0px 0px 8px;
+ }
+
+ .hr-line {
+    /* margin: 0 5% 0 5%; */
+    border-top: 2px solid #eeeeee;
+    width: 90%;
+  }

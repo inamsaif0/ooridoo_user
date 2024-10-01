@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "image": "/assets/img/icon-img/support-1.png",
+    "title": "Home Design & Remodeling",
+    "subtitle": "198 Open Positions"
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/icon-img/support-2.png",
+    "title": "Outdoor & Garden",
+    "subtitle": "198 Open Positions"
+  },
+  {
+    "id": 3,
+    "image": "/assets/img/icon-img/support-3.png",
+    "title": "Home Improvement",
+    "subtitle": "198 Open Positions"
+  },
+  {
+    "id": 4,
+    "image": "/assets/img/icon-img/support-4.png",
+    "title": "Home Services",
+    "subtitle": "198 Open Positions"
+  },
+  {
+    "id": 5,
+    "image": "/assets/img/icon-img/support-1.png",
+    "title": "Cleaning Services",
+    "subtitle": "198 Open Positions"
+  },
+  {
+    "id": 6,
+    "image": "/assets/img/icon-img/support-2.png",
+    "title": "Home Additions",
+    "subtitle": "198 Open Positions"
+  },
+  {
+    "id": 7,
+    "image": "/assets/img/icon-img/support-3.png",
+    "title": "Universal Design",
+    "subtitle": "198 Open Positions"
+  },
+  {
+    "id": 8,
+    "image": "/assets/img/icon-img/support-4.png",
+    "title": "Basement Remodeling",
+    "subtitle": "198 Open Positions"
+  }
+]

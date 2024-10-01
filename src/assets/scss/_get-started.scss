@@ -1,0 +1,321 @@
+/*------ 24. get-started Page  --------*/
+
+.get-started-wrapper {
+  .get-started-tab-list {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+
+    .nav-item {
+      position: relative;
+
+      a {
+        background: none;
+        padding: 0;
+
+        h4 {
+          font-size: 25px;
+          font-weight: 700;
+          margin: 0 20px;
+          text-transform: capitalize;
+          transition: all 0.3s ease 0s;
+        }
+
+        &:last-child::before {
+          display: none;
+        }
+      }
+
+      a.active h4 {
+        color: $theme-color;
+      }
+
+      &:before {
+        background-color: #454545;
+        bottom: 5px;
+        content: "";
+        height: 18px;
+        margin: 0 auto;
+        position: absolute;
+        right: -2px;
+        transition: all 0.4s ease 0s;
+        width: 1px;
+      }
+
+      &:last-child {
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .get-started-container {
+    background: transparent none repeat scroll 0 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+    padding: 80px;
+    text-align: left;
+
+    @media #{$lg-layout} {
+      padding: 80px 50px;
+    }
+
+    @media #{$xs-layout} {
+      padding: 40px 15px;
+    }
+
+    .get-started-form {
+      form {
+        label {
+          margin-bottom: 0.3rem;
+
+          span {
+            color: grey;
+          }
+
+          .required {
+            color: $theme-color;
+          }
+        }
+
+        .addAddress2 {
+          color: $theme-color;
+          font-size: 15px;
+          margin-bottom: 1rem;
+          cursor: pointer;
+        }
+
+        input {
+          background-color: transparent;
+          border: 1px solid #ebebeb;
+          color: #333;
+          font-size: 14px;
+          height: 45px;
+          margin-bottom: 30px;
+          padding: 0 15px;
+        }
+
+        input[type="checkbox"] {
+          height: 15px;
+          margin: 0;
+          position: relative;
+          top: 1px;
+          width: 17px;
+        }
+
+        input[type="radio"] {
+          height: 15px;
+          margin: 0;
+          position: relative;
+          top: 1px;
+          width: 17px;
+        }
+
+        .radioBox {
+          margin-right: 0.5rem;
+        }
+
+        select {
+          background-color: transparent;
+          border: 1px solid #ebebeb;
+          color: #333;
+          font-size: 14px;
+          height: 45px;
+          margin-bottom: 30px;
+          padding: 0 15px;
+        }
+
+        .button-box {
+          .login-toggle-btn {
+            padding: 10px 0 19px;
+
+            label {
+              color: #242424;
+              font-size: 15px;
+              font-weight: 400;
+
+              @media #{$xs-layout} {
+                font-size: 14px;
+              }
+            }
+
+            a {
+              color: #242424;
+              float: right;
+              font-size: 15px;
+
+              @media #{$xs-layout} {
+                font-size: 14px;
+              }
+
+              transition: all 0.3s ease 0s;
+
+              &:hover {
+                color: $theme-color;
+              }
+            }
+          }
+
+          button {
+            background-color: #f2f2f2;
+            border: medium none;
+            color: #333;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1;
+            padding: 11px 30px;
+            text-transform: uppercase;
+            transition: all 0.3s ease 0s;
+
+            &:hover {
+              background-color: $theme-color;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+
+    .get-started-form2 {
+      form {
+        label {
+          font-size: 1rem;
+
+          span {
+            color: grey;
+          }
+
+          .required {
+            color: $theme-color;
+          }
+        }
+
+        .addAddress2 {
+          color: $theme-color;
+          font-size: 15px;
+          margin-bottom: 1rem;
+          cursor: pointer;
+        }
+
+        input {
+          background-color: transparent;
+          border: 1px solid #ebebeb;
+          color: #333;
+          font-size: 14px;
+          height: 45px;
+          margin-bottom: 30px;
+          padding: 0 15px;
+        }
+
+        input[type="checkbox"] {
+          margin: 0;
+          position: relative;
+          top: 1px;
+          width: 30px;
+        }
+
+        input[type="radio"] {
+          height: 15px;
+          margin: 0;
+          position: relative;
+          top: 1px;
+          width: 17px;
+        }
+
+        .radioBox {
+          margin-right: 0.5rem;
+        }
+
+        select {
+          background-color: transparent;
+          border: 1px solid #ebebeb;
+          color: #333;
+          font-size: 14px;
+          height: 45px;
+          margin-bottom: 30px;
+          padding: 0 15px;
+        }
+
+        .button-box {
+          .login-toggle-btn {
+            padding: 10px 0 19px;
+
+            label {
+              color: #242424;
+              font-size: 15px;
+              font-weight: 400;
+
+              @media #{$xs-layout} {
+                font-size: 14px;
+              }
+            }
+
+            a {
+              color: #242424;
+              float: right;
+              font-size: 15px;
+
+              @media #{$xs-layout} {
+                font-size: 14px;
+              }
+
+              transition: all 0.3s ease 0s;
+
+              &:hover {
+                color: $theme-color;
+              }
+            }
+          }
+
+          button {
+            background-color: #f2f2f2;
+            border: medium none;
+            color: #333;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1;
+            padding: 11px 30px;
+            text-transform: uppercase;
+            transition: all 0.3s ease 0s;
+
+            &:hover {
+              background-color: $theme-color;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+
+    .get-started-form4 {
+      .profile-image {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        box-shadow: #9999998c 0px 0px 0px 8px;
+      }
+    }
+  }
+}
+
+.get-started-area {
+  @media #{$xs-layout} {
+    &.pb-100 {
+      padding-bottom: 60px;
+    }
+  }
+}
+
+
+.get-started-footer {
+  padding: 1rem;
+  background-color: #f7f7f7;
+
+  button {
+    background-color: $theme-color;
+    color: #fff;
+    padding: 0.5rem 6rem;
+  }
+}
