@@ -8,6 +8,7 @@ const ProductImageGallerySlider = ({ product,productdetailstate }) => {
   const gallerySwiperParams2 = {
     spaceBetween: 15,
     slidesPerView: 3,
+    // slidesPerView: productdetailstate?.media?.length < 3 ? productdetailstate?.media?.length : 3, // Dynamically set slidesPerView
     loop: true,
     navigation: true,
     breakpoints: {
@@ -19,8 +20,12 @@ const ProductImageGallerySlider = ({ product,productdetailstate }) => {
       },
       768: {
         slidesPerView: 2
+        // slidesPerView: mediaImages.length < 2 ? mediaImages.length : 2, 
+        // slidesPerView: productdetailstate?.media?.length < 3 ? productdetailstate?.media?.length : 3, // 
       },
       1024: {
+        // slidesPerView: mediaImages.length < 3 ? mediaImages.length : 3, 
+        // slidesPerView: productdetailstate?.media?.length < 3 ? productdetailstate?.media?.length : 3, // 
         slidesPerView: 3
       }
     }
@@ -109,11 +114,11 @@ const ProductImageGallerySlider = ({ product,productdetailstate }) => {
   return (
     <div className="product-large-image-wrapper product-large-image-wrapper--slider mx-auto text-center ">
       {/* {product?.image?.length ? ( */}
-      {/* {product?.media?.length ? ( */}
-      {filledMediaImages?.length ? (
+      {productdetailstate?.media?.length ? (
+      // {filledMediaImages?.length ? (
         <Swiper options={gallerySwiperParams}>
-                    {/* {product?.media?.map((single, key) => ( */}
-          {filledMediaImages?.map((single, key) => (
+                    {productdetailstate?.media?.map((single, key) => (
+          //  {filledMediaImages?.map((single, key) => (
             <SwiperSlide key={key}>
               <div className="single-image">
                 <img
