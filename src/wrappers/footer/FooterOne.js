@@ -118,8 +118,8 @@ const FooterOne = ({
         <div className="row mt-4">
           <div className="col-lg-12">
             <div className="footer-widget mb-30">
-              <div className="footer-info" style={{ display: "flex", }}>
-                <ul style={{ display: "flex", listStyle: "none", padding: 0, margin: 0, textAlign: "center" }}>
+              <div className="footer-info flex-wrap " style={{ display: "flex", flexWrap: "wrap" }}>
+                <ul style={{ display: "flex", listStyle: "none", padding: 0, margin: 0, textAlign: "center" , flexWrap: "wrap" }}>
                   <li style={{ marginRight: "10px" }}>Ooridoo</li>
                   <li style={{ marginRight: "10px" }}>|</li>
                   <li style={{ marginRight: "10px" }}>Fardeheb Jalil Tawfiq</li>

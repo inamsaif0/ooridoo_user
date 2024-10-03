@@ -150,7 +150,7 @@ const ProductImageGallerySlider = ({ product }) => {
   return (
     <div className="product-details-container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
       {/* Product Image Slider */}
-      <div className="product-large-image-wrapper" style={{ flex: "1 1 35%", borderRadius: "5px", height: "auto", maxWidth: "500px", }}>
+      <div className="product-large-image-wrapper" style={{ flex: "1 1 35%", borderRadius: "5px", height: "auto", maxWidth: "100%", }}>
         {product?.media?.length ? (
           <>
             {/* Main Image Swiper */}
@@ -163,7 +163,7 @@ const ProductImageGallerySlider = ({ product }) => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div style={{ marginTop: "15px", margin: "15px auto", textAlign: "center" }}>
+            <div style={{  margin: "15px auto", textAlign: "center" }}>
               <Swiper options={thumbnailSwiperParams}>
                 {product?.media?.map((single, key) => (
                   <SwiperSlide key={key}>
@@ -195,7 +195,7 @@ const ProductImageGallerySlider = ({ product }) => {
       {/* Product Details Section */}
       <div className="product-details" style={{ flex: "1 1 60%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: "600px" }}>
         <h2>{product?.title || "Product Title"}</h2>
-        <span>Price: <b>{product?.price}$</b></span>
+        <span>Price: <b>{product?.price} ¥</b></span>
         <p style={{ fontStyle: "italic", marginBottom: "10px" }}>by {product?.author || "Author Name"}</p>
         <p>{product?.description || "Product Description goes here."}</p>
 
