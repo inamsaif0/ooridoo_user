@@ -7,9 +7,36 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { cartFlagfunction } from "../../store/slices/productDetail-slice";
+import { Email, Facebook, Pinterest, Twitter } from "@material-ui/icons";
+import { BsTwitter } from "react-icons/bs";
+import { useState } from "react";
+// import "./style.css"
+
+// Custom next arrow component (no additional styling)
+function NextArrow(props) {
+  const { onClick } = props;
+  return (
+    <div className="next-arrow" onClick={onClick}>
+      &gt;
+    </div>
+  );
+}
+
+// Custom prev arrow component (no additional styling)
+function PrevArrow(props) {
+  const { onClick } = props;
+  return (
+    <div className="prev-arrow" onClick={onClick}>
+      &lt;
+    </div>
+  );
+}
 
 const ProductImageGallerySlider = ({ product }) => {
-  // swiper slider settings
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const gallerySwiperParams = {
     spaceBetween: 15,
     slidesPerView: 1, // Show only 1 image at a time
@@ -31,231 +58,166 @@ const ProductImageGallerySlider = ({ product }) => {
     },
   };
 
-  const navigate = useNavigate()
-  // const router = useNavigate()
-  const dispatch = useDispatch()
+  const thumbnailSwiperParams = {
+    spaceBetween: 10,
+    slidesPerView: 4,
+    freeMode: true,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+  };
 
-
-  const handleAddtoCart = async (e, item) => {
-    e.preventDefault();
+  const handleAddtoCart = async (item) => {
     const token = JSON.parse(localStorage.getItem('Token'));
     const UserId = JSON.parse(localStorage.getItem('UserId'));
-    console.log('userID', UserId, 'Token', token,)
-    console.log('data==>', item)
-    if (token == undefined) {
+
+    if (!token) {
       toast.error("Please Login to Add to Cart.");
-      navigate('/login')
-      return
+      navigate('/login');
+      return;
     }
 
     const requestBody = {
       productId: item?._id,
       userId: UserId,
-    }
-    try {
+    };
 
+    try {
       const config = {
         method: "POST",
         url: `${BaseUrl.baseurl}/api/cart/add-to-cart`,
         data: requestBody,
-        headers: {
-          token: token,
-          "Accept": "application/json",
-        },
+        headers: { token: token, "Accept": "application/json" },
       };
 
       const response = await axios(config);
-      console.log('==>cart==>api', response)
       if (response?.data?.status === true) {
         toast.success(response?.data?.message);
-        dispatch(cartFlagfunction(true))
+        dispatch(cartFlagfunction(true));
       } else {
-        // setLoader(false);
-        toast.error(response?.data?.message || "Failed to add review.");
+        toast.error(response?.data?.message || "Failed to add to cart.");
       }
     } catch (error) {
-      console.error("Error:", error);
       Swal.fire({
-        showCloseButton: true,
         toast: true,
         icon: "error",
         title: error?.response?.data?.message || "Something went wrong!",
         position: "top-right",
-        showConfirmButton: false,
         timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
       });
-    } finally {
-      // setLoader(false);
     }
+  };
 
-
-  }
-
-  const handleAddtoFavorite = async (e, item) => {
-    e.preventDefault();
+  const handleAddtoFavorite = async (item) => {
     const token = JSON.parse(localStorage.getItem('Token'));
-    // const UserId = JSON.parse(localStorage.getItem('UserId'));
-    console.log('Token', token,)
-    console.log('data==>', item)
-    if (token == undefined) {
-      toast.error("Please Login to Add to Cart.");
-      navigate('/login')
-      return
+
+    if (!token) {
+      toast.error("Please Login to Add to Favorites.");
+      navigate('/login');
+      return;
     }
 
     const requestBody = {
       productId: item?._id,
       device_token: '',
-    }
+    };
+
     try {
-      // setLoader(true);
-
-      // const token = JSON.parse(localStorage.getItem('Token'));
-      // if (!token) throw new Error("Authentication token is missing");
-
       const config = {
         method: "POST",
         url: `${BaseUrl.baseurl}/api/favourite/add-to-favourite`,
         data: requestBody,
-        headers: {
-          token: token,
-          "Accept": "application/json",
-        },
+        headers: { token: token, "Accept": "application/json" },
       };
 
       const response = await axios(config);
-      console.log('==>cart==>api', response)
       if (response?.data?.status === true) {
         toast.success(response?.data?.message);
-        dispatch(cartFlagfunction(true))
+        dispatch(cartFlagfunction(true));
       } else {
-        // setLoader(false);
-        toast.error(response?.data?.message || "Failed to add review.");
+        toast.error(response?.data?.message || "Failed to add to favorites.");
       }
     } catch (error) {
-      console.error("Error:", error);
       Swal.fire({
-        showCloseButton: true,
         toast: true,
         icon: "error",
         title: error?.response?.data?.message || "Something went wrong!",
         position: "top-right",
-        showConfirmButton: false,
         timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
       });
-    } finally {
-      // setLoader(false);
     }
-
-
-  }
+  };
 
   return (
-    <div
-      className="product-details-container "
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        gap: "20px",
-        // padding: "20px",
-      }}
-    >
+    <div className="product-details-container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
       {/* Product Image Slider */}
-      <div
-        className="product-large-image-wrapper product-large-image-wrapper--slider"
-        style={{
-          flex: "1 1 35%", // Adjust the flex basis to reduce slider width
-          // border: "1px solid gray",
-          borderRadius: "5px",
-          height: "70vh",
-          maxWidth: "500px", // Set a smaller maxWidth for the slider
-        }}
-      >
+      <div className="product-large-image-wrapper" style={{ flex: "1 1 35%", borderRadius: "5px", height: "auto", maxWidth: "500px", }}>
         {product?.media?.length ? (
-          <Swiper options={gallerySwiperParams}>
-            {product?.media?.map((single, key) => (
-              <SwiperSlide key={key}>
-                <div
-                  className="single-image"
-                  style={{
-                    height: "70vh", // Ensure the container fills the height
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <img
-                    src={`${BaseUrl.baseurl}${"/"}${single.file}`}
-                    className="img-fluid"
-                    alt=""
-                    style={{
-                      height: "100%", // Ensure the image does not overflow the container's height
-                      width: "auto",
-                      objectFit: "contain", // Maintain aspect ratio inside the container
-                    }}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <>
+            {/* Main Image Swiper */}
+            <Swiper options={gallerySwiperParams}>
+              {product?.media?.map((single, key) => (
+                <SwiperSlide key={key}>
+                  <div className="single-image" style={{ height: "70vh", display: "flex", justifyContent: "center", width: "100%" }}>
+                    <img src={`${BaseUrl.baseurl}/${single.file}`} alt="" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div style={{ marginTop: "15px", margin: "15px auto", textAlign: "center" }}>
+              <Swiper options={thumbnailSwiperParams}>
+                {product?.media?.map((single, key) => (
+                  <SwiperSlide key={key}>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                      <img
+                        src={`${BaseUrl.baseurl}/${single.file}`}
+                        alt="Product Thumbnail"
+                        style={{
+                          height: "80px",
+                          width: "80px",
+                          borderRadius: "5px",
+                          cursor: "pointer",
+                          objectFit: "cover",
+                        }}
+                        onClick={() => setSelectedImageIndex(key)}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+
+
+            {/* Thumbnail Swiper */}
+          </>
         ) : null}
       </div>
 
       {/* Product Details Section */}
-      <div
-        className="product-details"
-        style={{
-          // border: "1px solid red",
-          flex: "1 1 60%", // Adjust the flex basis for the details section
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          maxWidth: "600px",
-        }}
-      >
+      <div className="product-details" style={{ flex: "1 1 60%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: "600px" }}>
         <h2>{product?.title || "Product Title"}</h2>
-        <p style={{ fontStyle: "italic", marginBottom: "10px" }}>
-          by {product?.author || "Author Name"}
-        </p>
+        <span>Price: <b>{product?.price}$</b></span>
+        <p style={{ fontStyle: "italic", marginBottom: "10px" }}>by {product?.author || "Author Name"}</p>
         <p>{product?.description || "Product Description goes here."}</p>
 
+        <span className="my-2"><b>Schedule Arrival</b>: in 1 day</span>
+        <span className="my-2"><b>SKU</b>: {product?.sku || "not found"}</span>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <span><b>Share</b>:</span>
+          <BsTwitter size={24} style={{ margin: "0px 5px", color: "#1DA1F2" }} />
+          <Facebook size={24} style={{ margin: "0px 5px", color: "#1877F2" }} />
+          <Pinterest size={24} style={{ margin: "0px 5px", color: "#E60023" }} />
+          <Email size={24} style={{ margin: "0px 5px", color: "#000000" }} />
+        </div>
+
         <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
-          <button
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#ff6347",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-            onClick={handleAddtoCart}
-          >
+          <button style={{ padding: "5px 10px", backgroundColor: "#ff6347", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }} onClick={() => handleAddtoCart(product)}>
             Add to Cart
           </button>
-          <button
-            style={{
-              padding: "10px 20px",
-              // backgroundColor: "#ddd",
-              color: "red",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-            onClick={handleAddtoFavorite}
-          >
-            <i className="pe-7s-like" style={{ fontSize: "32px" }} />
 
+          <button style={{ padding: "10px 20px", backgroundColor: "transparent", color: "red", border: "none", borderRadius: "5px", cursor: "pointer", display: "flex", alignItems: "center" }} onClick={() => handleAddtoFavorite(product)}>
+            <i className={product?.isFavourite ? "pe-7s-like2" : "pe-7s-like"} style={{ fontSize: "25px", marginRight: "10px", cursor: "pointer" }} />
+            <span>Add to wishlist</span>
           </button>
         </div>
       </div>

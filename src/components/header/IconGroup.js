@@ -47,15 +47,19 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
           </form>
         </div>
       </div> */}
-      <div className="same-style account-setting d-none d-lg-block p-0  " style={{ marginTop: "2px" }}  >
+      <div className="same-style account-setting d-none d-lg-block p-0  "   >
         <button
           className="account-setting-active"
           onClick={e => handleClick(e)}
+          style={{ marginTop: "0px" }}
+        // style={{ border: "1px solid red" }}
         >
-          <i className="pe-7s-user-female" style={{ fontSize: "32px" }} />
+          <i className="pe-7s-user-female" style={{ fontSize: "35px" }} />
         </button>
         {/* signup */}
-        <div className="account-dropdown">
+        <div className="account-dropdown"
+          style={{ marginTop: "-45px" }}
+        >
           <ul>
             {Token == null ? (<li>
               <Link to={process.env.PUBLIC_URL + "/login"}>Login</Link>
@@ -96,7 +100,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
 
         <div className="same-style header-wishlist py-1" >
           <Link to={process.env.PUBLIC_URL + "/wishlist"}>
-            <i className="pe-7s-like" style={{ fontSize: "32px" }} />
+            <i className="pe-7s-like" style={{ fontSize: "30px" }} />
             <span className="count-style" style={{ display: FavoriteData && FavoriteData.length ? "block" : "none" }}>
               {FavoriteData && FavoriteData.length ? FavoriteData.length : 0}
             </span>
@@ -127,7 +131,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
             className="mobile-aside-button"
             onClick={() => triggerMobileMenu()}
           >
-            <i className="pe-7s-menu" style={{ fontSize: "32px" }} />
+            <i className="pe-7s-menu" style={{ fontSize: "30px" }} />
           </button>
         </div>
       </div>

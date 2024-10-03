@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
 
-
 const FooterOne = ({
   backgroundColorClass,
   spaceTopClass,
@@ -16,13 +15,11 @@ const FooterOne = ({
   sideMenu
 }) => {
   return (
-    <footer className={clsx("footer-area", backgroundColorClass, spaceTopClass, spaceBottomClass, extraFooterClass, spaceLeftClass, spaceRightClass )}>
+    <footer className={clsx("footer-area", backgroundColorClass, spaceTopClass, spaceBottomClass, extraFooterClass, spaceLeftClass, spaceRightClass)}>
       <div className={`${containerClass ? containerClass : "container"}`}>
         <div className="row">
           <div
-            className={`${
-              sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
-            }`}
+            className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"}`}
           >
             {/* footer copyright */}
             <FooterCopyright
@@ -31,9 +28,7 @@ const FooterOne = ({
             />
           </div>
           <div
-            className={`${
-              sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
-            }`}
+            className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"}`}
           >
             <div className="footer-widget mb-30 ml-30">
               <div className="footer-title">
@@ -45,36 +40,22 @@ const FooterOne = ({
                     <Link to={process.env.PUBLIC_URL + "/about"}>About us</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Store location
-                    </Link>
+                    <Link to={process.env.PUBLIC_URL + "#/"}>Store location</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/contact"}>
-                      Contact
-                    </Link>
+                    <Link to={process.env.PUBLIC_URL + "/contact"}>Contact</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Orders tracking
-                    </Link>
+                    <Link to={process.env.PUBLIC_URL + "#/"}>Orders tracking</Link>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
           <div
-            className={`${
-              sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
-            }`}
+            className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"}`}
           >
-            <div
-              className={`${
-                sideMenu
-                  ? "footer-widget mb-30 ml-95"
-                  : "footer-widget mb-30 ml-50"
-              }`}
-            >
+            <div className={`${sideMenu ? "footer-widget mb-30 ml-95" : "footer-widget mb-30 ml-50"}`}>
               <div className="footer-title">
                 <h3>USEFUL LINKS</h3>
               </div>
@@ -84,9 +65,7 @@ const FooterOne = ({
                     <Link to={process.env.PUBLIC_URL + "#/"}>Returns</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/refund-policy"}>
-                      Refund Policy
-                    </Link>
+                    <Link to={process.env.PUBLIC_URL + "/refund-policy"}>Refund Policy</Link>
                   </li>
                   <li>
                     <Link to={process.env.PUBLIC_URL + "#/"}>Size guide</Link>
@@ -99,66 +78,32 @@ const FooterOne = ({
             </div>
           </div>
           <div
-            className={`${
-              sideMenu ? "col-xl-3 col-sm-4" : "col-lg-2 col-sm-6"
-            }`}
+            className={`${sideMenu ? "col-xl-3 col-sm-4" : "col-lg-2 col-sm-6"}`}
           >
-            <div
-              className={`${
-                sideMenu
-                  ? "footer-widget mb-30 ml-145"
-                  : "footer-widget mb-30 ml-75"
-              }`}
-            >
+            <div className={`${sideMenu ? "footer-widget mb-30 ml-145" : "footer-widget mb-30 ml-75"}`}>
               <div className="footer-title">
                 <h3>FOLLOW US</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
-                    <a
-                      href="//www.facebook.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Facebook
-                    </a>
+                    <a href="//www.facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
                   </li>
                   <li>
-                    <a
-                      href="//www.twitter.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Twitter
-                    </a>
+                    <a href="//www.twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
                   </li>
                   <li>
-                    <a
-                      href="//www.instagram.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Instagram
-                    </a>
+                    <a href="//www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
                   </li>
                   <li>
-                    <a
-                      href="//www.youtube.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Youtube
-                    </a>
+                    <a href="//www.youtube.com" target="_blank" rel="noopener noreferrer">Youtube</a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
           <div
-            className={`${
-              sideMenu ? "col-xl-3 col-sm-8" : "col-lg-4 col-sm-6"
-            }`}
+            className={`${sideMenu ? "col-xl-3 col-sm-8" : "col-lg-4 col-sm-6"}`}
           >
             {/* footer newsletter */}
             <FooterNewsletter
@@ -166,6 +111,38 @@ const FooterOne = ({
               spaceLeftClass="ml-70"
               sideMenu={sideMenu}
             />
+          </div>
+        </div>
+        <hr />
+        {/* Company Information Section */}
+        <div className="row mt-4">
+          <div className="col-lg-12">
+            <div className="footer-widget mb-30">
+              <div className="footer-info" style={{ display: "flex", }}>
+                <ul style={{ display: "flex", listStyle: "none", padding: 0, margin: 0, textAlign: "center" }}>
+                  <li style={{ marginRight: "10px" }}>Ooridoo</li>
+                  <li style={{ marginRight: "10px" }}>|</li>
+                  <li style={{ marginRight: "10px" }}>Fardeheb Jalil Tawfiq</li>
+                  <li style={{ marginRight: "10px" }}>|</li>
+                  <li style={{ marginRight: "10px" }}>508-13-09975</li>
+                  <li style={{ marginRight: "10px" }}>|</li>
+                  <li style={{ marginRight: "10px" }}>505, 4F, 133 Hana-ro, Yeonsu-gu, Incheon-si, Republic of Korea</li>
+                  <li style={{ marginRight: "10px" }}>|</li>
+                  <li style={{ marginRight: "10px" }}>010-3322-9798</li>
+                  <li style={{ marginRight: "10px" }}>|</li>
+                  <li>
+                    <a href="mailto:jfardeheb@yahoo.fr">jfardeheb@yahoo.fr</a>
+                  </li>
+                  <li style={{ marginRight: "10px" }}>|</li>
+                  <li>
+                    <a href="http://www.ooridoo.com" target="_blank" rel="noopener noreferrer">
+                      www.ooridoo.com
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
           </div>
         </div>
       </div>
