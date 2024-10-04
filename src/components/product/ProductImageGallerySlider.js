@@ -75,6 +75,9 @@ const ProductImageGallerySlider = ({ product }) => {
       navigate('/login');
       return;
     }
+    if (item?.quantity == 0) {
+      toast.error("Item is out of stock currently. Try later")
+    }
 
     const requestBody = {
       productId: item?._id,
@@ -163,7 +166,7 @@ const ProductImageGallerySlider = ({ product }) => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div style={{  margin: "15px auto", textAlign: "center" }}>
+            <div style={{ margin: "15px auto", textAlign: "center" }}>
               <Swiper options={thumbnailSwiperParams}>
                 {product?.media?.map((single, key) => (
                   <SwiperSlide key={key}>
@@ -195,7 +198,7 @@ const ProductImageGallerySlider = ({ product }) => {
       {/* Product Details Section */}
       <div className="product-details" style={{ flex: "1 1 60%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: "600px" }}>
         <h2>{product?.title || "Product Title"}</h2>
-        <span>Price: <b>{product?.price} ¥</b></span>
+        <span>Price: <b>{product?.price} ₩</b></span>
         <p style={{ fontStyle: "italic", marginBottom: "10px" }}>by {product?.author || "Author Name"}</p>
         <p>{product?.description || "Product Description goes here."}</p>
 
@@ -211,10 +214,20 @@ const ProductImageGallerySlider = ({ product }) => {
         </div>
 
         <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
-          <button style={{ padding: "5px 10px", backgroundColor: "#ff6347", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }} onClick={() => handleAddtoCart(product)}>
-            Add to Cart
+          <button
+            style={{
+              padding: "5px 10px",
+              backgroundColor: product?.quantity !== 0 ? "#ff6347" : "#f5a191", // Lighter color when disabled
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: product?.quantity !== 0 ? "pointer" : "not-allowed",
+              opacity: product?.quantity !== 0 ? 1 : 0.6
+            }}
+            onClick={() => product?.quantity !== 0 && handleAddtoCart(product)}
+          >
+            {product.quantity !== 0 ? "Add to Cart" : "Out of Stock"}
           </button>
-
           <button style={{ padding: "10px 20px", backgroundColor: "transparent", color: "red", border: "none", borderRadius: "5px", cursor: "pointer", display: "flex", alignItems: "center" }} onClick={() => handleAddtoFavorite(product)}>
             <i className={product?.isFavourite ? "pe-7s-like2" : "pe-7s-like"} style={{ fontSize: "25px", marginRight: "10px", cursor: "pointer" }} />
             <span>Add to wishlist</span>

@@ -2,23 +2,30 @@ import React from "react";
 
 const SliderCard = (props) => {
 
-  console.log('==>props.image',props)
+  console.log('==>props.image', props)
   return (
     <>
       {/* <div className="container w-100 border shadow p-3 mb-5 bg-body rounded" > */}
-      <div className="container w-100 border shadow p-3 mb-5 bg-body rounded" 
+      <div className="container w-100 border shadow p-3 mb-5 bg-body rounded"
       // style={{height:'340px'}}
-       >
+      >
         <div className="my-3">
           <img
             src={props.image}
-            class="rounded mw-100 w-100"
+            class="rounded sm:h-10 mw-100 w-100"
             alt="No img Found"
             // height={161.19}
-            style={{objectFit:'fill'}}
+            style={{ objectFit: 'fill', }}
             height={320}
           />
-          <h5 class={props.className ? props.className : "text-center mt-3"}>
+          <h5
+            className={props.className ? props.className : "text-center mt-3"}
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap"
+            }}
+          >
             {props.productName}
           </h5>
           <div
