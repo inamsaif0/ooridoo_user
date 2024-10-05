@@ -1,0 +1,15 @@
+@media (min-width: 576px) {
+
+    /* Small screens (sm breakpoint and above) */
+    .custom-height {
+        height: 272px;
+    }
+}
+
+@media (min-width: 992px) {
+
+    /* Large screens (lg breakpoint and above) */
+    .custom-height {
+        height: 400px;
+    }
+}

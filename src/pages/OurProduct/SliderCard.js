@@ -1,4 +1,5 @@
 import React from "react";
+import "./style.css"
 
 const SliderCard = (props) => {
 
@@ -9,14 +10,12 @@ const SliderCard = (props) => {
       <div className="container w-100 border shadow p-3 mb-5 bg-body rounded"
       // style={{height:'340px'}}
       >
-        <div className="my-3">
+        <div className="lg-my-3">
           <img
             src={props.image}
-            class="rounded sm:h-10 mw-100 w-100"
+            className="rounded w-100  custom-height"
             alt="No img Found"
-            // height={161.19}
-            style={{ objectFit: 'fill', }}
-            height={320}
+            style={{ objectFit: 'fill' }}
           />
           <h5
             className={props.className ? props.className : "text-center mt-3"}
