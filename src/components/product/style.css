@@ -8,10 +8,21 @@
         /* Ensure the image maintains aspect ratio */
     }
 }
+
 /* In your CSS file or a style block */
 .responsive-image {
     height: 350px;
     /* Default height for larger screens */
 }
 
-/* Media query for smaller screens */
+@media (min-width: 768px) {
+    .product-large-image-wrapper {
+        max-width: 40%;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-large-image-wrapper {
+        max-width: 100%;
+    }
+}

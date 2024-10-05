@@ -27,10 +27,10 @@ const SliderCard = (props) => {
           >
             {props.productName}
           </h5>
-          <div
-            className="text-start text-capitalize"
-            dangerouslySetInnerHTML={{ __html: props.description }}
-          />{" "}
+          <div className="text-start text-capitalize">
+            <span dangerouslySetInnerHTML={{ __html: props.description }} />
+            {" ₩"}
+          </div>
         </div>
       </div>
     </>

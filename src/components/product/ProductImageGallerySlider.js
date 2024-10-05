@@ -10,7 +10,7 @@ import { cartFlagfunction } from "../../store/slices/productDetail-slice";
 import { Email, Facebook, Pinterest, Twitter } from "@material-ui/icons";
 import { BsTwitter } from "react-icons/bs";
 import { useState } from "react";
-// import "./style.css"
+import "./style.css"
 
 // Custom next arrow component (no additional styling)
 function NextArrow(props) {
@@ -153,7 +153,7 @@ const ProductImageGallerySlider = ({ product }) => {
   return (
     <div className="product-details-container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
       {/* Product Image Slider */}
-      <div className="product-large-image-wrapper" style={{ flex: "1 1 35%", borderRadius: "5px", height: "auto", maxWidth: "100%", }}>
+      <div className="product-large-image-wrapper" style={{ flex: "1 1 35%", borderRadius: "5px", height: "auto", }}>
         {product?.media?.length ? (
           <>
             {/* Main Image Swiper */}
@@ -196,7 +196,7 @@ const ProductImageGallerySlider = ({ product }) => {
       </div>
 
       {/* Product Details Section */}
-      <div className="product-details" style={{ flex: "1 1 60%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: "600px" }}>
+      <div className="product-details" style={{ flex: "1 1 60%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: "600px", }}>
         <h2>{product?.title || "Product Title"}</h2>
         <span>Price: <b>{product?.price} ₩</b></span>
         <p style={{ fontStyle: "italic", marginBottom: "10px" }}>by {product?.author || "Author Name"}</p>
