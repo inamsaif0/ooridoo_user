@@ -33,7 +33,7 @@ const CustomForm = ({ status, message, onValidated }) => {
         </div>
       </div>
 
-      {status === "sending" && (
+      {/* {status === "sending" && (
         <div style={{ color: "#3498db", fontSize: "12px" }}>sending...</div>
       )}
       {status === "error" && (
@@ -47,7 +47,7 @@ const CustomForm = ({ status, message, onValidated }) => {
           style={{ color: "#2ecc71", fontSize: "12px" }}
           dangerouslySetInnerHTML={{ __html: message }}
         />
-      )}
+      )} */}
     </div>
   );
 };

@@ -10,7 +10,20 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
   const Token = localStorage.getItem("Token")
   console.log('Token==>', Token)
   const handleClick = e => {
-    e.currentTarget.nextSibling.classList.toggle("active");
+    // e.currentTarget.nextSibling.classList.toggle("active");
+    e.stopPropagation(); // Prevent the click event from propagating to the document
+    const targetElement = e.currentTarget.nextSibling;
+    targetElement.classList.toggle("active");
+  
+    // Add a global click listener to close the active element
+    const closeActive = (event) => {
+      if (!targetElement.contains(event.target)) {
+        targetElement.classList.remove("active");
+        document.removeEventListener("click", closeActive); // Remove listener after closing
+      }
+    };
+  
+    document.addEventListener("click", closeActive);
   };
 
   const triggerMobileMenu = () => {
