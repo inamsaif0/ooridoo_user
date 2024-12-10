@@ -80,7 +80,7 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
 
 
   return (
-    <div className="shopping-cart-content">
+    <div className="shopping-cart-content header-icon-dropdown">
       {ahmed && ahmed.length > 0 ? (
         <Fragment>
           <ul>

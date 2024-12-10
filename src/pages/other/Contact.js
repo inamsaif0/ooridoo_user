@@ -47,12 +47,12 @@ const Contact = () => {
                     </div>
                     <div className="contact-info-dec">
                       <p>
-                        <a href="mailto:yourname@email.com">
-                        jfardeheb@yahoo.fr
+                        <a href="mailto:Ooridoo.contact@gmail.com">
+                        Ooridoo.contact@gmail.com
                         </a>
                       </p>
                       <p>
-                        <a href="https://yourwebsitename.com">
+                        <a href="https://ooridoo.com">
                         www.ooridoo.com
                         </a>
                       </p>

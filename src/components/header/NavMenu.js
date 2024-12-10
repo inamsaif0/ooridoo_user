@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import BaseUrl from "../../BaseUrl";
 import axios from "axios";
 import Swal from "sweetalert2";
+import book1 from "../../assets/img/books/book1.jpg"
+import book2 from "../../assets/img/books/book2.jpg"
 
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const { t } = useTranslation();
@@ -97,7 +99,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                            
                           </Link>
                         </li>
-                        <li>
+          <li>
             <Link to={process.env.PUBLIC_URL + "/shop/1"}>
               {t("Categories")}
               {sidebarMenu ? (
@@ -108,95 +110,131 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                 <i className="fa fa-angle-down" />
               )}
             </Link>
-            <ul className="mega-menu mega-menu-padding">
-              {/* part one */}
-              <li>
-                <ul>
-                  {/* <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
-                      {t("Books & Media")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
-                      {t("Health & Beauty")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
-                      {t("Health & Beauty")}
-                    </Link>
-                  </li> */}
-                   {getCategories?.slice(0, 2).map((category, index) => (
-        <li key={index}>
-          <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
-            {t(category.title)}
-          </Link>
-        </li>
-      ))}
-                </ul>
-              </li>
+              <ul className="mega-menu mega-menu-padding">
+                <li className="w-100">
+                  <ul className="d-flex justify-content-center ">
+                  {/* style={{ maxWidth: "1280px", width: "100%" }} */}
+                    <li className="">
+                      <ul>
+                        {/* part one */}
+                        <li className="mb-lg-1 mb-xl-3">
+                          <ul className="d-flex gap-3 justify-content-end">
+                            {/* <li>
+                              <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+                                {t("Books & Media")}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+                                {t("Health & Beauty")}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+                                {t("Health & Beauty")}
+                              </Link>
+                            </li> */}
+                            {getCategories?.slice(0, 4).map((category, index) => (
+                                <li key={index}>
+                                  {/* <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
+                                  {category?.media?.[0]?.file && console.log(category.media[0].file)}
+                                    {t(category.title)}
+                                  </Link> */}
+                                  <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
+                                    <div className="category-list-item" >
+                                      <img
+                                        src={category?.media?.[0]?.file && `${BaseUrl.baseurl}/${category.media[0].file}`}
+                                        // src={book1}
+                                        className="w-100 h-100"
+                                        alt=""
+                                        />
+                                        <p>
 
-              {/* part two */}
-              <li>
-                <ul>
-                  {/* <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop/1"}>
-                      {t("Hajj & Umrah")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop/2"}>
-                      {t("Home Decor")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop/3"}>
-                      {t("Clothing")}
-                    </Link>
-                  </li> */}
+                                        {t(category.title)}         
+                                        </p>
+                                    </div>
+                                  </Link>
+                                </li>
+                              ))}
+                          </ul>
+                        </li>
 
-{getCategories?.slice(2, 4).map((category, index) => (
-        <li key={index}>
-          <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
-            {t(category.title)}
-          </Link>
-        </li>
-      ))}
-                </ul>
-              </li>
+                        {/* part two */}
+                        <li>
+                          <ul className="d-flex gap-3 justify-content-end">
+                            {/* <li>
+                              <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+                                {t("Hajj & Umrah")}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={process.env.PUBLIC_URL + "/shop/2"}>
+                                {t("Home Decor")}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={process.env.PUBLIC_URL + "/shop/3"}>
+                                {t("Clothing")}
+                              </Link>
+                            </li> */}
 
-               {/* image */}
-              <li>
-                <ul>
-                  <li className="mega-menu-img">
-                    <Link to={process.env.PUBLIC_URL + "/shop/2"}>
-                      <img
-                        src={
-                          process.env.PUBLIC_URL +
-                          "/assets/img/banner/book1.jpg"
-                        }
-                        height={240}
-                        width={240}
-                        alt=""
-                      />
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+                            {getCategories?.slice(4, 8).map((category, index) => (
+                              <li key={index}>
+                                <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
+                                <div className="category-list-item" >
+                                      <img
+                                        src={category?.media?.[0]?.file && `${BaseUrl.baseurl}/${category.media[0].file}`}
+                                        // src={book2}
+                                        className="w-100 h-100"
+                                        alt=""
+                                        />
+                                        <p>
+                                          {t(category.title)}
+                                        </p>
+                                          
+                                          
+                                  </div>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
 
-            </ul>
+                    {/* image */}
+                    <li className="">
+                      <ul>
+                        <li className="mega-menu-img">
+                          <Link to={process.env.PUBLIC_URL + "/shop/2"} className="text-start ps-5 shop2-link">
+                            <img
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/assets/img/banner/book1.jpg"
+                              }
+                              // height={240}
+                              // width={240}
+                              alt=""
+                            />
+                          </Link>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul> 
+                </li>
+
+              </ul>
           </li>
 
 
-                        <li className="mega-menu-title">
+                        {/* <li className="mega-menu-title">
                           <Link
                             to={process.env.PUBLIC_URL + `/shop/1`}
                           >
                             Brands
                            
                           </Link>
-                        </li>
+                        </li> */}
 
                         {/* <li className="mega-menu-title">
                           <Link

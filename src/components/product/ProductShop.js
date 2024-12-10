@@ -252,15 +252,15 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
                         </div>
                       </div>
                     </div>
-                    <div className="product-content text-center" >
-                      <h4 style={{
+                    <div className="product-content text-start" >
+                      <h3 style={{
                         fontWeight: '400'
                         // fontWeight: 'bold'
-                      }}>{item?.title}</h4>
-                      <h4>
+                      }}>{item?.title}</h3>
+                      <h3>
                         <i className="fa fa-won"></i>
                         <span>{item?.price}</span>
-                      </h4>
+                      </h3>
                     </div>
                   </div>
                 </div>
