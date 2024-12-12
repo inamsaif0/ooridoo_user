@@ -11,7 +11,7 @@ const CategoryFourSingle = ({ data, sliderClass }) => {
       <div className="collection-img">
         <Link to={`/shop/${data?._id}`}>
           {/* <img src={`${BaseUrl.baseurl + '/'+ data?.media[0]?.file}`} alt="" /> */}
-          <img className="category_img" src={data?.media?.length > 0 ? `${BaseUrl.baseurl + '/' + data.media[0].file}` : testimage} /> 
+          <img className="category_img" src={data?.media?.length > 0 ? `${BaseUrl.baseurl + '/' + data.media.file}` : testimage} /> 
         </Link>
       </div>
       <div className="collection-content text-center">
