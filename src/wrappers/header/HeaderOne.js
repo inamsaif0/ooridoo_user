@@ -164,7 +164,7 @@ const HeaderOne = ({
         )}
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
-          <div className="row">
+          <div className="row" style={{ alignItems: "center" }}>
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
               <Logo imageUrl="/assets/img/logo/logoIslamic.jpeg" logoClass="logo" />

@@ -12,6 +12,7 @@ import defaultUser from '../../assets/img/default-user.png';
 import GetStartedStep4 from "../../components/get-started/step4";
 import axios from "axios";
 import Swal from "sweetalert2";
+
 const LoginSignUp = () => {
   const { pathname } = useLocation();
   const LoginTabRef = useRef(null);

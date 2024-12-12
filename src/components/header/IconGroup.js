@@ -1,15 +1,32 @@
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
+import axios from "axios";
+import BaseUrl from "../../BaseUrl";
 
 const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) => {
 
   const navigate = useNavigate()
   const Token = localStorage.getItem("Token")
   console.log('Token==>', Token)
-  const handleClick = e => {
+  
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll(".header-icon-dropdown").forEach((menu) => {
+      if (!menu.previousElementSibling.contains(e.target)) {
+        menu.classList.remove("active");
+      }
+    });
+  });
+  
+  const handleClick = (e) => {
+    document.querySelectorAll(".header-icon-dropdown").forEach((menu) => {
+      if (menu !== e.currentTarget.nextSibling) {
+        menu.classList.remove("active");
+      }
+    });
     e.currentTarget.nextSibling.classList.toggle("active");
   };
 
@@ -32,6 +49,36 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
 
     console.log("Logged out successfully");
   };
+
+
+  const [profileImage, setProfileImage] = useState(null);
+
+  useEffect(() => {
+    const fetchProfileImage = async () => {
+      const token = JSON.parse(localStorage.getItem("Token"));
+      try {
+        const response = await axios.get(`${BaseUrl.baseurl}/api/user/complete-profile`, {
+          headers: {
+            token: token,
+            // "Accept": "application/json",
+            // 'Content-Type': 'multipart/form-data'
+          },
+        });
+        if (response.data.data.status === true) {
+          setProfileImage(response); // Assuming `profile_image` contains the URL
+          console.log(profileImage, "Profile Image URL")
+        } else {
+          console.error("Error fetching profile image:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching profile image:", error);
+      }
+    };
+
+    fetchProfileImage();
+  }, []);
+
+
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
       {/* Large Screen User Icon */}
@@ -43,7 +90,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
         >
           <i className="pe-7s-user-female" style={{ fontSize: "35px" }} />
         </button>
-        <div className="account-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
+        <div className="account-dropdown header-icon-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
           <ul>
             {Token == null ? (
               <li>
@@ -75,7 +122,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
         >
           <i className="pe-7s-user-female" style={{ fontSize: "35px" }} />
         </button>
-        <div className="account-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
+        <div className="account-dropdown header-icon-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
           <ul>
             {Token == null ? (
               <li>
