@@ -11,7 +11,9 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
 
   const navigate = useNavigate()
   const Token = localStorage.getItem("Token")
+  const UserId = localStorage.getItem("UserId")
   console.log('Token==>', Token)
+  console.log('UserId==>', UserId)
   
   document.addEventListener("click", (e) => {
     document.querySelectorAll(".header-icon-dropdown").forEach((menu) => {
@@ -57,16 +59,17 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
     const fetchProfileImage = async () => {
       const token = JSON.parse(localStorage.getItem("Token"));
       try {
-        const response = await axios.get(`${BaseUrl.baseurl}/api/user/complete-profile`, {
+        const response = await axios.get(`${BaseUrl.baseurl}/api/user/get-all-users`, {
           headers: {
             token: token,
             // "Accept": "application/json",
             // 'Content-Type': 'multipart/form-data'
           },
         });
-        if (response.data.data.status === true) {
-          setProfileImage(response); // Assuming `profile_image` contains the URL
-          console.log(profileImage, "Profile Image URL")
+        if (response.data.status === true) {
+          const users = response.data.data;
+          const currentUser = users.find(user => user._id === JSON.parse(UserId))
+          setProfileImage(currentUser.profileImage.file)
         } else {
           console.error("Error fetching profile image:", response);
         }
@@ -88,7 +91,14 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
           onClick={e => handleClick(e)}
         // style={{ border: "1px solid red" }}
         >
-          <i className="pe-7s-user-female" style={{ fontSize: "35px" }} />
+          {!UserId ? 
+            (<i className="pe-7s-user-female" style={{ fontSize: "35px" }} />)
+            :
+            (<img
+              src={`${BaseUrl.baseurl}/${profileImage}`}
+              style={{width: "30px", height: "35px", objectFit: "cover"}}
+            />)
+          }
         </button>
         <div className="account-dropdown header-icon-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
           <ul>
@@ -120,7 +130,14 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
           onClick={(e) => handleClick(e)}
           style={{ margin: "0px" }}
         >
-          <i className="pe-7s-user-female" style={{ fontSize: "35px" }} />
+          {!UserId ? 
+            (<i className="pe-7s-user-female" style={{ fontSize: "35px" }} />)
+            :
+            (<img
+              src={`${BaseUrl.baseurl}/${profileImage}`}
+              style={{width: "30px", height: "35px", objectFit: "cover"}}
+            />)
+          }
         </button>
         <div className="account-dropdown header-icon-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
           <ul>

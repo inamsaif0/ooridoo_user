@@ -13,9 +13,9 @@ const SliderCard = (props) => {
         <div className="lg-my-3">
           <img
             src={props.image}
-            className="rounded w-100  custom-height"
+            className="rounded w-100 custom-height"
             alt="No img Found"
-            style={{ objectFit: 'fill' }}
+            style={{ objectFit: 'cover' }}
           />
           <h5
             className={props.className ? props.className : "text-center mt-3"}

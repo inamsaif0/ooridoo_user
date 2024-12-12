@@ -100,6 +100,7 @@ const LoginSignUp = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log('response==>', data?.data?.token)
+          console.log('UserId response', data?.data?.User)
           // Handle success
           if (data?.status == true) {
             toast.success(data?.message);
