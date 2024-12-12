@@ -143,7 +143,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                                   <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
                                     <div className="category-list-item" >
                                       <img
-                                        src={category?.media?.[0]?.file && `${BaseUrl.baseurl}/${category.media[0].file}`}
+                                        src={category?.media?.[0]?.file && `${BaseUrl.baseurl}/${category.media.file}`}
                                         // src={book1}
                                         className="w-100 h-100"
                                         alt=""
