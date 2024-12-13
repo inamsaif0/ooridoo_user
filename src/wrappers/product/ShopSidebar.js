@@ -11,7 +11,7 @@ import ShopCategories from "../../components/product/ShopCategories";
 import ShopColor from "../../components/product/ShopColor";
 
 
-const ShopSidebar = ({ products, getSortParams, sideSpaceClass ,setSelectedCategory,setSearchQuery}) => {
+const ShopSidebar = ({ products, getSortParams, sideSpaceClass, selectedCategory ,setSelectedCategory,setSearchQuery}) => {
 
   
 

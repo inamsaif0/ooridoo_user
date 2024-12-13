@@ -136,6 +136,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                             </li> */}
                             {getCategories?.slice(0, 4).map((category, index) => (
                                 <li key={index}>
+                                  {console.log(category.media.file)}
                                   {/* <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
                                   {category?.media?.[0]?.file && console.log(category.media[0].file)}
                                     {t(category.title)}
@@ -143,7 +144,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                                   <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
                                     <div className="category-list-item" >
                                       <img
-                                        src={category?.media?.[0]?.file && `${BaseUrl.baseurl}/${category.media[0].file}`}
+                                        src={category?.media?.file && `${BaseUrl.baseurl}/${category.media.file}`}
                                         // src={book1}
                                         className="w-100 h-100"
                                         alt=""
@@ -183,7 +184,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                                 <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
                                 <div className="category-list-item" >
                                       <img
-                                        src={category?.media?.[0]?.file && `${BaseUrl.baseurl}/${category.media[0].file}`}
+                                        src={category?.media?.file && `${BaseUrl.baseurl}/${category.media.file}`}
                                         // src={book2}
                                         className="w-100 h-100"
                                         alt=""

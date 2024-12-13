@@ -28,9 +28,6 @@ const ShopCategories = ({ categories, getSortParams ,setSelectedCategory}) => {
     setActiveSort(e)
 
   }
-
-
-
   return (
     <div className="sidebar-widget">
       <h4 className="pro-sidebar-title">Categories </h4>

@@ -25,6 +25,7 @@ const ShopGridStandard = () => {
   const [currentData, setCurrentData] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const { products } = useSelector((state) => state.product);
+  const [authors, setAuthors] = useState([])
 
   const pageLimit = 15;
   // let { pathname } = useLocation();
@@ -44,7 +45,9 @@ const ShopGridStandard = () => {
   };
 
   useEffect(() => {
-    let sortedProducts = getSortedProducts(products, sortType, sortValue);
+    // let allProducts = [...getProductData]
+    let sortedProducts = getSortedProducts(currentData, sortType, sortValue);
+    console.log(sortedProducts)
     const filterSortedProducts = getSortedProducts(
       sortedProducts,
       filterSortType,
@@ -52,9 +55,18 @@ const ShopGridStandard = () => {
     );
     sortedProducts = filterSortedProducts;
     setSortedProducts(sortedProducts);
-    setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-  }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
+    setGetProductData(sortedProducts.slice(offset, offset + pageLimit));
+    
+  }, [offset, getProductData, sortType, sortValue, filterSortType, filterSortValue]);
 
+
+  console.log(currentData)
+
+  useEffect(() => {
+    const authorsName = getProductData?.map(product => product.author)
+    setAuthors(authorsName)
+    
+  }, [])
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -367,6 +379,7 @@ const ShopGridStandard = () => {
         console.log('Product Data:', response);
         setGetProductData(response?.data?.data?.result);
         setPaginationData(response?.data?.data?.pagination);
+        setCurrentData(response?.data?.data?.result)
 
         // Reset subcategory after successful fetch
         setsubcategoryId('');
@@ -560,6 +573,8 @@ const ShopGridStandard = () => {
 
   // console.log('filterSubCategory==>',filterSubCategory)
 
+    console.log("Sorting", sortType)
+    console.log("Sorting", sortValue)
 
   return (
     <Fragment>
@@ -594,12 +609,16 @@ const ShopGridStandard = () => {
               <div className="col-lg-9 order-1 order-lg-2" >
                 {/* shop topbar default */}
                 <ShopTopbar
+                  selectedCategory={selectedCategory}
+                  categories={getCategoriesData}
                   layout={layout}
                   getLayout={getLayout}
                   getFilterSortParams={getFilterSortParams}
+                  getSortParams={getSortParams}
                   setSelectedLanguage={setSelectedLanguage}
                   productCount={productLenght}
                   sortedProductCount={productLenght}
+                  authors={authors}
                 />
 
                 {/* shop page content default */}

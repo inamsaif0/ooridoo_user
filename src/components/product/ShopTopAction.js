@@ -8,14 +8,46 @@ const ShopTopAction = ({
   productCount,
   sortedProductCount,
   setSelectedLanguage,
-  layout
+  layout,
+  categories,
+  selectedCategory,
+  getSortParams,
+  authors
 }) => {
+
+  const baseDropdown = [
+    {value: "default", label: "Default"}
+  ]
+
   const languageDropdown = [
     { value: "arabic", label: "Arabic" },
     { value: "english", label: "English" },
     { value: "korean", label: "Korean" }
   ];
 
+  const sortDropdown = [
+    {value: "default", label: "Default"},
+    {value: "priceLowToHigh", label: "Price: Low to High"},
+    {value: "priceHighToLow", label: "Price: High to Low"}
+  ]
+
+  // const authorsDropdown = authors.map(author => ({
+  //   value: author,
+  //   label: author
+  // }));
+
+  // const authorsFinalDropdown = [...baseDropdown, ...authorsDropdown]
+
+  const authorsDropdown = [
+    {value: "default", label: "Default"},
+    {value: "Jamshed", label: "Jamshed"},
+    {value: "Salman Ahmed", label: "Salman Ahmed"},
+  ]
+
+  // const isBook = !!categories.find(category => category.title.toLowerCase().includes("books"));
+
+  const category = categories.find(category => category._id == selectedCategory);
+  const bookTitle = category?.title
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,7 +72,7 @@ const ShopTopAction = ({
   return (
     <div className="shop-top-bar mb-35">
       <div className="select-shoing-wrap">
-        <div className="shop-select">
+        {bookTitle?.toLowerCase().includes("books") && <div className="shop-select">
           <select
             onChange={e => setSelectedLanguage(e.target.value)}
           >
@@ -50,7 +82,29 @@ const ShopTopAction = ({
               </option>
             ))}
           </select>
+        </div>}
+        <div className="shop-select">
+          <select
+            onChange={e => getSortParams("filterSort",e.target.value)}
+          >
+            {sortDropdown.map((sort) => (
+              <option key={sort.value} value={sort.value}>
+                {sort.label}
+              </option>
+            ))}
+          </select>
         </div>
+        {bookTitle?.toLowerCase().includes("books") && <div className="shop-select">
+          <select
+            onChange={e => getSortParams("authorname",e.target.value)}
+          >
+            {authorsDropdown.map((author) => (
+              <option key={author.value} value={author.value}>
+                {author.label}
+              </option>
+            ))}
+          </select>
+        </div>}
         <p>
           Showing {sortedProductCount} of {productCount} result
         </p>

@@ -12,7 +12,7 @@ const HeroSliderSevenSingle = ({ data }) => {
       className="single-slider-2 slider-height-18 d-flex align-items-center slider-overly-res bg-cover"
       style={{
         // backgroundImage: `url(${process.env.PUBLIC_URL + data.image})`,
-        backgroundImage:`url(${BaseUrl.baseurl + '/'+ data?.media[0]?.file})`,
+        backgroundImage:`url(${BaseUrl.baseurl + '/'+ data?.media?.file})`,
        backgroundPosition:'center',
        backgroundSize:'cover'
       }}

@@ -8,7 +8,11 @@ const ShopTopbar = ({
   productCount,
   sortedProductCount,
   setSelectedLanguage,
-  layout
+  layout,
+  categories,
+  selectedCategory,
+  getSortParams,
+  authors
 }) => {
   return (
     <Fragment>
@@ -20,6 +24,10 @@ const ShopTopbar = ({
         productCount={productCount}
         sortedProductCount={sortedProductCount}
         setSelectedLanguage={setSelectedLanguage}
+        categories={categories}
+        selectedCategory={selectedCategory}
+        getSortParams={getSortParams}
+        authors={authors}
       />
     </Fragment>
   );
