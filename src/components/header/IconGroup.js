@@ -96,8 +96,13 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
             :
             (<img
               src={`${BaseUrl.baseurl}/${profileImage}`}
-              style={{width: "30px", height: "35px", objectFit: "cover"}}
-            />)
+              style={{ 
+                width: "34px", 
+                height: "33px", 
+                objectFit: "cover", 
+                borderRadius: "50%" 
+              }}
+                          />)
           }
         </button>
         <div className="account-dropdown header-icon-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
