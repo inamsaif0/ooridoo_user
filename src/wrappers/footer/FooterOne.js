@@ -131,7 +131,7 @@ const FooterOne = ({
                   <li style={{ marginRight: "10px" }}>010-3322-9798</li>
                   <li style={{ marginRight: "10px" }}>|</li>
                   <li>
-                    <a href="mailto:jfardeheb@yahoo.fr">jfardeheb@yahoo.fr</a>
+                    <a href="mailto:jfardeheb@yahoo.fr">Ooridoo.contact@gmail.com</a>
                   </li>
                   <li style={{ marginRight: "10px" }}>|</li>
                   <li>
