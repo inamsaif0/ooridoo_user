@@ -64,7 +64,7 @@ const Contact = () => {
                     </div>
                     <div className="contact-info-dec">
                       <p>Address goes here, </p>
-                      <p>ncheongwangyeogsi YeonsuGu HannaruRo 133, 4th flour, office Nbr 505..</p>
+                      <p>505, 4F, 133 Hana-ro, Yeonsu-gu, Incheon-si, Republic of Korea</p>
                       {/* <p>street, Crossroad 123.</p> */}
                     </div>
                   </div>
