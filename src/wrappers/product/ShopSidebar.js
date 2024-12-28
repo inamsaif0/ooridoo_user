@@ -11,7 +11,7 @@ import ShopCategories from "../../components/product/ShopCategories";
 import ShopColor from "../../components/product/ShopColor";
 
 
-const ShopSidebar = ({ products, getSortParams, sideSpaceClass, selectedCategory ,setSelectedCategory,setSearchQuery}) => {
+const ShopSidebar = ({ products, getSortParams, sideSpaceClass,setsubcategoryId ,selectedCategory ,setSelectedCategory,setSearchQuery}) => {
 
   
 
@@ -32,7 +32,9 @@ const ShopSidebar = ({ products, getSortParams, sideSpaceClass, selectedCategory
       <ShopCategories
         categories={products}
         setSelectedCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
         getSortParams={getSortParams}
+        setsubcategoryId={setsubcategoryId}
       />
 
       {/* filter by color */}

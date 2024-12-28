@@ -26,6 +26,8 @@ const ShopGridStandard = () => {
   const [sortedProducts, setSortedProducts] = useState([]);
   const { products } = useSelector((state) => state.product);
   const [authors, setAuthors] = useState([])
+  const [childSubCategory, setChildSubCategory] = useState([])
+  const [reChildSubCategory, setReChildSubCategory] = useState([])
 
   const pageLimit = 15;
   // let { pathname } = useLocation();
@@ -349,11 +351,24 @@ const ShopGridStandard = () => {
         let url = `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}`;
 
         // Check conditions for constructing the URL
-        if (selectedCategory && !subCategoryId) {
+        if (selectedCategory) { 
           // Only category selected, no subcategory
           console.log('Fetching products by category');
           url += `&category=${selectedCategory}`;
-        }
+        } 
+        // else if (selectedCategory && subCategoryId && !childSubCategory && !reChildSubCategory) { 
+        //   // Both category and subcategory selected
+        //   console.log('Fetching products by category and subcategory');
+        //   url += `&category=${selectedCategory}&subCategory=${subCategoryId}`;
+        // } else if (selectedCategory && subCategoryId && childSubCategory && !reChildSubCategory) {
+        //   // Both category and subcategory selected
+        //   console.log('Fetching products by category and subcategory');
+        //   url += `&category=${selectedCategory}&subCategory=${subCategoryId}&childSubCategory=${childSubCategory}`;
+        // } else if (selectedCategory && subCategoryId && childSubCategory && reChildSubCategory) {
+        //   // Both category and subcategory selected
+        //   console.log('Fetching products by category and subcategory');
+        //   url += `&category=${selectedCategory}&subCategory=${subCategoryId}&childSubCategory=${childSubCategory}&reChildSubCategory=${reChildSubCategory}`;
+        // }
         // else if (selectedCategory && subCategoryId) {
         //   // Both category and subcategory selected
         //   console.log('Fetching products by category and subcategory');
@@ -466,12 +481,54 @@ const ShopGridStandard = () => {
   // subcategory data
   useEffect(() => {
 
-    if (subCategoryId && selectedCategory && selectedLanguage) {
+    if (subCategoryId && selectedCategory) {
       try {
         var config = {
           method: "get",
           // url: `${BaseUrl.baseurl}products?shop=${slug}`,
-          url: `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}&category=${selectedCategory}&subCategory=${subCategoryId}&language=${selectedLanguage}`,
+          url: `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}&category=${selectedCategory}&subCategory=${subCategoryId}`,
+        };
+        axios(config)
+          .then(function (response) {
+            // console.log(response?.data?.data?.result, "CategoryData");
+            // setImgurl(response?.data?.subcatoryimagePath);
+            setGetProductData(response?.data?.data?.result);
+            // setGetProductData(response?.data?.data?.result);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          showCloseButton: true,
+          toast: true,
+          icon: "error",
+          title: error?.response?.data?.message,
+          animation: true,
+          position: "top-right",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+      }
+    }
+  }, [selectedCategory, subCategoryId]);
+
+
+  // childSubCategory data
+  useEffect(() => {
+
+    if (subCategoryId && selectedCategory && childSubCategory) {
+      try {
+        var config = {
+          method: "get",
+          // url: `${BaseUrl.baseurl}products?shop=${slug}`,
+          url: `${BaseUrl.baseurl}/api/products/get?page=${currentPage}&limit=${limit}&category=${selectedCategory}&subCategory=${subCategoryId}&childSubCategory=${childSubCategory}`,
         };
         axios(config)
           .then(function (response) {
@@ -505,7 +562,7 @@ const ShopGridStandard = () => {
 
 
 
-  }, [selectedCategory, subCategoryId, selectedLanguage]);
+  }, [selectedCategory, subCategoryId, childSubCategory]);
 
   // categories data
   useEffect(() => {
@@ -513,13 +570,13 @@ const ShopGridStandard = () => {
       var config = {
         method: "get",
         // url: `${BaseUrl.baseurl}products?shop=${slug}`,
-        url: `${BaseUrl.baseurl}/api/categories/get`,
+        url: `${BaseUrl.baseurl}/api/categories/getAllCategories`,
       };
       axios(config)
         .then(function (response) {
           // console.log(response?.data?.data?.result, "CategoryData");
           // setImgurl(response?.data?.subcatoryimagePath);
-          setGetCategoriesData(response?.data?.data?.result)
+          setGetCategoriesData(response?.data?.data)
           // setGetProductData(response?.data?.data?.result);
         })
         .catch((error) => {
@@ -576,6 +633,10 @@ const ShopGridStandard = () => {
     console.log("Sorting", sortType)
     console.log("Sorting", sortValue)
 
+    console.log(subCategoryId)
+    console.log(childSubCategory)
+    console.log(reChildSubCategory) 
+
   return (
     <Fragment>
       <SEO
@@ -595,14 +656,24 @@ const ShopGridStandard = () => {
         <div className="shop-area pt-15 pb-100">
           <div className="container">
             <div className="row " >
-              <BrandLogoSliderOne spaceBottomClass="pb-2" GetHandleSubCategoryid={GetHandleSubCategoryid} getCategoriesData={filterSubcategoryData} />
+              <BrandLogoSliderOne 
+              spaceBottomClass="pb-2" 
+              GetHandleSubCategoryid={GetHandleSubCategoryid} 
+              getCategoriesData={filterSubcategoryData} 
+              setsubcategoryId={setsubcategoryId}
+              subCategoryId={subCategoryId}
+              setChildSubCategory={setChildSubCategory}
+              setReChildSubCategory={setReChildSubCategory}
+              />
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}
                 <ShopSidebar
                   products={getCategoriesData}
                   setSearchQuery={setSearchQuery}
                   setSelectedCategory={setSelectedCategory}
+                  selectedCategory={selectedCategory}
                   getSortParams={getSortParams}
+                  setsubcategoryId={setsubcategoryId}
                   sideSpaceClass="mr-30"
                 />
               </div>

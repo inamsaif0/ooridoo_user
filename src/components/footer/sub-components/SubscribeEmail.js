@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 
 const CustomForm = ({ status, message, onValidated }) => {
@@ -14,6 +15,8 @@ const CustomForm = ({ status, message, onValidated }) => {
     emailInput.value = "";
   };
 
+  const {t} = useTranslation()
+
   return (
     <div className="subscribe-form">
       <div className="mc-form">
@@ -23,12 +26,12 @@ const CustomForm = ({ status, message, onValidated }) => {
             className="email"
             ref={node => (email = node)}
             type="email"
-            placeholder="Enter your email address..."
+            placeholder={t("footer.subscribe.line_1")}
           />
         </div>
         <div className="clear">
           <button className="button" onClick={submit}>
-            SUBSCRIBE
+          {t("footer.subscribe.line_1")}
           </button>
         </div>
       </div>

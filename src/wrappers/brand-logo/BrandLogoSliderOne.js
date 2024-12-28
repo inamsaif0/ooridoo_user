@@ -1,71 +1,108 @@
 import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import Swiper, { SwiperSlide } from "../../components/swiper";
 import BrandLogoOneSingle from "../../components/brand-logo/BrandLogoOneSingle";
 import BaseUrl from "../../BaseUrl";
-import SectionTitleFive from "../../components/section-title/SectionTitleFive";
 
 const settings = {
   loop: false,
   autoplay: false,
   grabCursor: true,
+  spaceBetween: 30,
   breakpoints: {
     320: {
-      slidesPerView: 2
+      slidesPerView: 2,
     },
     640: {
-      slidesPerView: 3
-    },
-    1024: {
-      slidesPerView: 10
+      slidesPerView: 3,
     },
     768: {
-      slidesPerView: 4
-    }
-  }
+      slidesPerView: 4,
+    },
+    1024: {
+      slidesPerView: 5,
+    },
+  },
 };
 
-const BrandLogoSliderOne = ({ spaceBottomClass, spaceTopClass, getCategoriesData ,GetHandleSubCategoryid }) => {
+const BrandLogoSliderOne = (
+  { spaceBottomClass, 
+    spaceTopClass, 
+    getCategoriesData, 
+    GetHandleSubCategoryid, 
+    setsubcategoryId, 
+    subCategoryId,
+    setChildSubCategory,
+    setReChildSubCategory 
+  }) => {
+  const [currentSubcategories, setCurrentSubcategories] = useState([]);
+  const [clickCount, setClickCount] = useState(0);
 
+  console.log('subCategoryId==>',subCategoryId)
 
-  const HandleSubCategory =(id) =>{
+  useEffect(() => {
+    // Initialize with level 0 subcategories
+    if (getCategoriesData.length && getCategoriesData[0].subcategoryId) {
+      setCurrentSubcategories(getCategoriesData[0].subcategoryId);
+    }
+  }, [getCategoriesData]);
 
-    console.log('ahmedid==>',id)
-    GetHandleSubCategoryid(id)
-  }
-  // console.log('testcase1==>',getCategoriesData)
+  const handleSubCategoryClick = (subcategory) => {
+    setClickCount(clickCount + 1);
+    if (subcategory.subcategoryId && subcategory.subcategoryId.length > 0) {
+      // Update to display clicked subcategory's children
+      setCurrentSubcategories(subcategory.subcategoryId);
+    } 
+    if(clickCount === 0) { 
+    GetHandleSubCategoryid(subcategory._id);
+    } else if(clickCount === 1) {
+      setChildSubCategory(subcategory?._id);
+    } else if(clickCount === 2) { 
+      setReChildSubCategory(subcategory?._id);
+    }
+  };
+
+  // const resetsubcategory = () => {
+  //   if (getCategoriesData.length && getCategoriesData[0].subcategoryId) {
+  //     setCurrentSubcategories(getCategoriesData[0].subcategoryId);
+  //   }
+  //   setsubcategoryId(null);
+  // };
 
   return (
     <div className={clsx("brand-logo-area", spaceBottomClass, spaceTopClass)}>
       <div className="container">
         <div className="brand-logo-active">
-          <h3 className="section-title-4">{getCategoriesData.length ? 'Sub Categories' : '' }</h3>
-          {/* <SectionTitleFive titleText={'Sub Category'} /> */}
-          {getCategoriesData[0]?.subcategories && (
+          {/* <button onClick={resetsubcategory}>reset subcategory</button> */}
+          <h3 className="section-title-4">
+            {currentSubcategories.length ? "Sub Categories" : ""}
+          </h3>
+          {currentSubcategories.length > 0 && (
             <Swiper options={settings}>
-              {getCategoriesData[0]?.subcategories.map((single, key) => (
-                <SwiperSlide key={key}>
+              {currentSubcategories.map((subcategory, index) => (
+                <SwiperSlide key={index} className="brand-logo-slide "> 
                   <BrandLogoOneSingle
-                    data={`${BaseUrl.baseurl}/${single?.subcategoryMedia?.file}`}
-                    title={single?.title}
+                    data={`${BaseUrl.baseurl}/${subcategory.media?.file}`}
+                    title={subcategory.title}
                     spaceBottomClass="mb-30"
-                    onclick={()=>{HandleSubCategory(single._id)}}
+                    onclick={() => handleSubCategoryClick(subcategory)}
                   />
-                  {console.log('Single Subcategory Data:', single)}
                 </SwiperSlide>
               ))}
             </Swiper>
           )}
         </div>
       </div>
-  </div>
+    </div>
   );
 };
 
 BrandLogoSliderOne.propTypes = {
   spaceBottomClass: PropTypes.string,
   spaceTopClass: PropTypes.string,
-  getCategoriesData: PropTypes.object.isRequired, // Ensure getCategoriesData is passed
+  getCategoriesData: PropTypes.array.isRequired,
+  GetHandleSubCategoryid: PropTypes.func.isRequired,
 };
 
 export default BrandLogoSliderOne;

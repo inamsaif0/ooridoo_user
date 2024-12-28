@@ -1,5 +1,63 @@
 {
-    "home": "Home",
+    "header": {
+        "nav": {
+            "home": "Home",
+            "shop": "Shop",
+            "contact_us": "Contact Us",
+            "categories": "Categories"
+        }
+    },
+    "home_hero_heading": "Wants to a Read Book? Find Best Books You Can Trust",
+    "home_hero_para": "The Noble Quran: English Translation of the Meanings and Commentary - King Fahad Publication wil be delivered within 3 days",
+    "home_top_categories": "Top Categories",
+    "home_featured_products": "Featured Products",
+    "shop":{
+        "search": "Search",
+        "search_input": "Search here..."
+    },
+    "contact": {
+        "form": {
+            "heading": "Get In Touch",
+            "name": "Name",
+            "email": "Email",
+            "subject": "Subject",
+            "message": "Your Message",
+            "send": "Send"
+        }
+    },
+    "footer": {
+        "copyright": {
+            "line_1": "Ooridoo",
+            "line_2": "All Rights Reserved"
+        },
+        "about": {
+            "line_1": "ABOUT",
+            "line_2": "About us",
+            "line_3": "Store location",
+            "line_4": "Contact",
+            "line_5": "Orders tracking"
+        },
+        "useful_links": {
+            "line_1": "USEFUL LINKS",
+            "line_2": "Returns",
+            "line_3": "Refund Policy",
+            "line_4": "Size guide",
+            "line_5": "FAQs"
+        },
+        "follow_us": {
+            "line_1": "FOLLOW US",
+            "line_2": "Facebook",
+            "line_3": "Twitter",
+            "line_4": "Instagram",
+            "line_5": "Youtube"
+        },
+        "subscribe": {
+            "line_1": "SUBSCRIBE",
+            "line_2": "Get E-mail updates about our latest shop and special offers.",
+            "line_3": "Enter your email address...",
+            "line_4": "SUBSCRIBE"
+        }
+    },
     "home_group_one": "Home Group One",
     "home_group_two": "Home Group Two",
     "home_group_three": "Home Group Three",
@@ -41,7 +99,6 @@
     "home_black_friday": "Home Black Friday",
     "home_black_friday_two": "Home Black Friday Two",
     "home_valentines_day": "Home Valentines Day",
-    "shop": "Shop",
     "shop_layout": "Shop Layout",
     "shop_grid_standard": "Shop Grid Standard",
     "shop_grid_filter": "Shop Grid Filter",

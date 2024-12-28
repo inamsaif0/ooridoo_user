@@ -5,6 +5,7 @@ import Pepsi from "../../assets/img/Pepsi.png";
 import { Button } from "react-bootstrap";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const heroSliderData = [
   {
     id: 1,
@@ -19,6 +20,8 @@ const HeroSliderOne = () => {
   const [, setPublicIPAddress] = useState("");
   const [zipCode, setZipCode] = useState("");
    const navigate =useNavigate()
+
+   const {t} = useTranslation()
 
   // useEffect(() => {
   //   // Fetch public IP address
@@ -56,9 +59,9 @@ const HeroSliderOne = () => {
                 <div className="row">
                   <div className="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
                     <div className=" slider-animated-1">
-                      <h2 className="animated text-white">Wants to a Read Book? Find Best Books You Can Trust </h2>
+                      <h2 className="animated text-white">{t("home_hero_heading")}</h2>
                       <br />
-                      <h4 className="animated text-warning">The Noble Quran: English Translation of the Meanings and Commentary - King Fahad Publication wil be delivered within 3 days</h4>
+                      <h4 className="animated text-warning">{t("home_hero_para")}</h4>
                       <br />
                       <div className="slider-btn btn-hover">
                         <div className="row">

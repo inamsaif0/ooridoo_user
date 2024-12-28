@@ -6,6 +6,7 @@ import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
 import axios from "axios";
 import BaseUrl from "../../BaseUrl";
+import LanguageSelector from "../../helpers/language-selector";
 
 const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) => {
 
@@ -84,6 +85,9 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
+      <div className="d-none d-lg-block">
+        <LanguageSelector />
+      </div>
       {/* Large Screen User Icon */}
       <div className="same-style account-setting d-none d-lg-block p-0">
         <button
@@ -96,7 +100,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
             :
             (<img
               src={`${BaseUrl.baseurl}/${profileImage}`}
-              style={{width: "30px", height: "35px", objectFit: "cover"}}
+              style={{width: "30px", height: "30px", borderRadius: "15px" , objectFit: "cover"}}
             />)
           }
         </button>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import BaseUrl from '../../BaseUrl'; // Adjust the import path as needed
+import { useTranslation } from 'react-i18next';
 
 const ShopSearch = ({ setSearchQuery }) => {
   const [query, setQuery] = useState('');
@@ -37,14 +38,16 @@ const ShopSearch = ({ setSearchQuery }) => {
     }
   };
 
+  const {t} = useTranslation();
+
   return (
     <div className="sidebar-widget">
-      <h4 className="pro-sidebar-title">Search</h4>
+      <h4 className="pro-sidebar-title">{t("shop.search")}</h4>
       <div className="pro-sidebar-search mb-50 mt-25">
         <form className="pro-sidebar-search-form" onSubmit={handleSearch}>
           <input
             type="text"
-            placeholder="Search here..."
+            placeholder={t("shop.search_input")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />

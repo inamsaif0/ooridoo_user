@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
+import { useTranslation } from "react-i18next";
 
 const FooterOne = ({
   backgroundColorClass,
@@ -14,6 +15,9 @@ const FooterOne = ({
   extraFooterClass,
   sideMenu
 }) => {
+
+  const {t} = useTranslation()
+
   return (
     <footer className={clsx("footer-area", backgroundColorClass, spaceTopClass, spaceBottomClass, extraFooterClass, spaceLeftClass, spaceRightClass)}>
       <div className={`${containerClass ? containerClass : "container"}`}>
@@ -32,21 +36,21 @@ const FooterOne = ({
           >
             <div className="footer-widget mb-30 ml-30">
               <div className="footer-title">
-                <h3>ABOUT US</h3>
+                <h3>{t("footer.about.line_1")}</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/about"}>About us</Link>
+                    <Link to={process.env.PUBLIC_URL + "/about"}>{t("footer.about.line_2")}</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Store location</Link>
+                    <Link to={process.env.PUBLIC_URL + "#/"}>{t("footer.about.line_3")}</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/contact"}>Contact</Link>
+                    <Link to={process.env.PUBLIC_URL + "/contact"}>{t("footer.about.line_4")}</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Orders tracking</Link>
+                    <Link to={process.env.PUBLIC_URL + "#/"}>{t("footer.about.line_5")}</Link>
                   </li>
                 </ul>
               </div>
@@ -57,21 +61,21 @@ const FooterOne = ({
           >
             <div className={`${sideMenu ? "footer-widget mb-30 ml-95" : "footer-widget mb-30 ml-50"}`}>
               <div className="footer-title">
-                <h3>USEFUL LINKS</h3>
+                <h3>{t("footer.useful_links.line_1")}</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Returns</Link>
+                    <Link to={process.env.PUBLIC_URL + "#/"}>{t("footer.useful_links.line_2")}</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/refund-policy"}>Refund Policy</Link>
+                    <Link to={process.env.PUBLIC_URL + "/refund-policy"}>{t("footer.useful_links.line_3")}</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Size guide</Link>
+                    <Link to={process.env.PUBLIC_URL + "#/"}>{t("footer.useful_links.line_4")}</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>FAQs</Link>
+                    <Link to={process.env.PUBLIC_URL + "#/"}>{t("footer.useful_links.line_5")}</Link>
                   </li>
                 </ul>
               </div>
@@ -82,21 +86,21 @@ const FooterOne = ({
           >
             <div className={`${sideMenu ? "footer-widget mb-30 ml-145" : "footer-widget mb-30 ml-75"}`}>
               <div className="footer-title">
-                <h3>FOLLOW US</h3>
+                <h3>{t("footer.follow_us.line_1")}</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
-                    <a href="//www.facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    <a href="//www.facebook.com" target="_blank" rel="noopener noreferrer">{t("footer.follow_us.line_2")}</a>
                   </li>
                   <li>
-                    <a href="//www.twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
+                    <a href="//www.twitter.com" target="_blank" rel="noopener noreferrer">{t("footer.follow_us.line_3")}</a>
                   </li>
                   <li>
-                    <a href="//www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="//www.instagram.com" target="_blank" rel="noopener noreferrer">{t("footer.follow_us.line_4")}</a>
                   </li>
                   <li>
-                    <a href="//www.youtube.com" target="_blank" rel="noopener noreferrer">Youtube</a>
+                    <a href="//www.youtube.com" target="_blank" rel="noopener noreferrer">{t("footer.follow_us.line_5")}</a>
                   </li>
                 </ul>
               </div>

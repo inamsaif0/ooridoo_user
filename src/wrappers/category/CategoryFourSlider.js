@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BaseUrl from "../../BaseUrl.js";
+import { useTranslation } from "react-i18next";
 
 // swiper slider settings
 const settings = {
@@ -38,14 +39,14 @@ const CategoryfourSlider = ({ spaceTopClass, spaceBottomClass }) => {
     try {
       var config = {
         method: "get",
-        url: `${BaseUrl.baseurl}/api/categories/get`,
+        url: `${BaseUrl.baseurl}/api/categories/getAllCategories`,
       };
       axios(config)
         .then(function (response) {
           // setLoader(false);
           console.log(response, "story");
           // setImgurl(response?.data?.imagePath);
-          setGetCategoryData(response?.data?.data?.result);
+          setGetCategoryData(response?.data?.data);
           // setGetstories(response?.data?.story);
         })
         .catch((error) => {
@@ -76,13 +77,15 @@ const CategoryfourSlider = ({ spaceTopClass, spaceBottomClass }) => {
   }, []);
 
 
+  const { t } = useTranslation()
+
   return (
     <div className={clsx("collections-area m-4", spaceTopClass, spaceBottomClass)}>
       <div className="container">
         <div className="collection-wrap  pt-100 pb-70">
           <div className="collection-active">
           <SectionTitle
-        titleText="Top Categories"
+        titleText={t("home_top_categories")}
         positionClass="text-center"
       />
             {getCategoryData && (

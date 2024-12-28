@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-
+import React, { useState, useEffect } from "react";
 import { setActiveSort } from "../../helpers/product";
 
-const ShopCategories = ({ categories, getSortParams ,setSelectedCategory}) => {
+const ShopCategories = ({ categories, getSortParams ,setSelectedCategory, setsubcategoryId, selectedCategory}) => {
 
   const myCategory=[
       "Books & Media",
@@ -19,21 +19,48 @@ const ShopCategories = ({ categories, getSortParams ,setSelectedCategory}) => {
 
   console.log('categories==>',categories)
 
-  const handleCheckbox = (e,category) =>{
+  useEffect(() => {
+    if (selectedCategory) {
+      getSortParams("category", selectedCategory);
+    }
+  }, [selectedCategory]);
 
-    console.log('checkmark==>',category)
+  const handleCheckbox = (e, category) => {
+    if (selectedCategory === category?._id) {
+      // If the clicked category is already selected, reset the subcategory state
+      setsubcategoryId(null);
+      setSelectedCategory(category?._id);
+      // Fetch and display the main category products
+      getSortParams("category", category?._id);
+    } else {
+      setSelectedCategory(category?._id);
+    }
+    setActiveSort(e);
+  };
 
-    setSelectedCategory(category?._id)
+  // const handleCheckbox = (e,category) =>{
 
-    setActiveSort(e)
+  //   console.log('checkmark==>',category)
 
-  }
+  //   setSelectedCategory(category?._id)
+
+  //   setsubcategoryId("")
+
+  //   setActiveSort(e)
+
+  // }
   return (
     <div className="sidebar-widget">
       <h4 className="pro-sidebar-title">Categories </h4>
       <div className="sidebar-widget-list mt-30">
         {categories ? (
-          <ul>
+          <ul 
+            style={{
+              maxHeight: "300px", // Limit the height for the scrollbar
+              overflowY: "auto",  // Add vertical scrollbar when content exceeds the height
+              paddingRight: "10px" // Adjust padding to avoid scrollbar overlapping
+            }}
+          >
             {/* <li>
               <div className="sidebar-widget-list-left">
                 <button

@@ -1,8 +1,12 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const FooterCopyright = ({ spaceBottomClass, colorClass }) => {
+
+  const {t} = useTranslation()
+
   return (
     <div className={clsx("copyright", spaceBottomClass, colorClass)}>
       <div>
@@ -18,9 +22,9 @@ const FooterCopyright = ({ spaceBottomClass, colorClass }) => {
           // rel="noopener noreferrer"
           // target="_blank"
         >
-          Ooridoo
+          {t("footer.copyright.line_1")}
         </a>
-        .<br /> All Rights Reserved
+        .<br /> {t("footer.copyright.line_2")}
       </p>
     </div>
   );

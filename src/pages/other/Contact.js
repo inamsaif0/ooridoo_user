@@ -4,9 +4,11 @@ import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import GoogleMap from "../../components/google-map"
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
   let { pathname } = useLocation();
+  const { t } = useTranslation()
 
   return (
     <Fragment>
@@ -103,31 +105,31 @@ const Contact = () => {
               <div className="col-12 col-lg-8 col-md-7">
                 <div className="contact-form">
                   <div className="contact-title mb-30">
-                    <h2>Get In Touch</h2>
+                    <h2>{t("contact.form.heading")}</h2>
                   </div>
                   <form className="contact-form-style">
                     <div className="row">
                       <div className="col-lg-6">
-                        <input name="name" placeholder="Name*" type="text" />
+                        <input name="name" placeholder={t("contact.form.name")+"*"} type="text" />
                       </div>
                       <div className="col-lg-6">
-                        <input name="email" placeholder="Email*" type="email" />
+                        <input name="email" placeholder={t("contact.form.email")+"*"} type="email" />
                       </div>
                       <div className="col-lg-12">
                         <input
                           name="subject"
-                          placeholder="Subject*"
+                          placeholder={t("contact.form.subject")+"*"}
                           type="text"
                         />
                       </div>
                       <div className="col-lg-12">
                         <textarea
                           name="message"
-                          placeholder="Your Message*"
+                          placeholder={t("contact.form.message")+"*"}
                           defaultValue={""}
                         />
                         <button className="submit" type="submit">
-                          SEND
+                        {t("contact.form.send")}
                         </button>
                       </div>
                     </div>

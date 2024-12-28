@@ -5,6 +5,7 @@ import Swiper, { SwiperSlide } from "../../components/swiper";
 import { getProducts } from "../../helpers/product";
 import SectionTitle from "../../components/section-title/SectionTitle";
 import ProductGridSingleTwelve from "../../components/product/ProductGridSingleTwelve";
+import { useTranslation } from "react-i18next";
 
 const settings = {
   loop: false,
@@ -34,12 +35,13 @@ const ProductSliderSix = ({ spaceBottomClass, spaceTopClass, category }) => {
   const { wishlistItems } = useSelector((state) => state.wishlist);
   const { compareItems } = useSelector((state) => state.compare);
   const prods = getProducts(products, category, null, 6)
+  const {t} = useTranslation();
 
   return (
     <div className={clsx("related-product-area", spaceBottomClass, spaceTopClass)}>
       <div className="container">
         <SectionTitle
-          titleText="Featured Products"
+          titleText={t("home_featured_products")}
           subtitleText="Choose Your Favorite Product"
           subtitleColorClass="grey"
           positionClass="text-center"

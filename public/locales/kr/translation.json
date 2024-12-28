@@ -1,0 +1,62 @@
+{
+    "header": {
+        "nav": {
+            "home": "집",
+            "shop": "가게",
+            "contact_us": "저희에게 연락주세요",
+            "categories": "카테고리"
+        }
+    },
+    "home_hero_heading": "책을 읽고 싶으신가요? 신뢰할 수 있는 최고의 책 찾기",
+    "home_hero_para": "고귀한 꾸란: 의미와 해설의 영어 번역 - 파하드 왕 출판물은 3일 이내에 배달됩니다.",
+    "home_top_categories": "상위 카테고리",
+    "home_featured_products": "주요 제품",
+    "shop": {
+        "search": "찾다",
+        "search_input": "여기에서 검색하세요"
+    },
+    "contact": {
+        "form": {
+            "heading": "연락하기",
+            "name": "이름",
+            "email": "이메일",
+            "subject": "주제",
+            "message": "당신의 메시지",
+            "send": "보내다"
+        }
+    },
+    "footer": {
+        "copyright": {
+            "line_1": "우리두",
+            "line_2": "모든 권리 보유"
+        },
+        "about": {
+            "line_1": "~에 대한",
+            "line_2": "회사 소개",
+            "line_3": "매장 위치",
+            "line_4": "연락하다",
+            "line_5": "주문 추적"
+        },
+        "useful_links": {
+            "line_1": "유용한 링크",
+            "line_2": "보고",
+            "line_3": "환불 정책",
+            "line_4": "사이즈 가이드",
+            "line_5": "자주 묻는 질문"
+        },
+        "follow_us": {
+            "line_1": "우리를 따르라",
+            "line_2": "페이스북",
+            "line_3": "지저귀다",
+            "line_4": "인스타그램",
+            "line_5": "유튜브"
+        },
+        "subscribe": {
+            "line_1": "구독하다",
+            "line_2": "최신 매장 및 특별 행사에 대한 업데이트를 이메일로 받아보세요.페이스북",
+            "line_3": "이메일 주소를 입력하세요...",
+            "line_4": "구독하다"
+        }
+    }
+
+}

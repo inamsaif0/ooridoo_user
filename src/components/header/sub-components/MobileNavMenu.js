@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import LanguageSelector from "../../../helpers/language-selector";
 
 const MobileNavMenu = () => {
   const { t } = useTranslation();
@@ -71,6 +72,9 @@ const MobileNavMenu = () => {
           <Link to={process.env.PUBLIC_URL + "/shop/1"}>
             {t("Offers")}
           </Link>
+        </li>
+        <li className="mt-5">
+          <LanguageSelector />
         </li>
       </ul>
     </nav>

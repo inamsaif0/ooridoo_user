@@ -169,11 +169,11 @@ const HeaderOne = ({
               {/* header logo */}
               <Logo imageUrl="/assets/img/logo/logoIslamic.jpeg" logoClass="logo" />
             </div>
-            <div className="col-xl-8 col-lg-8 d-none d-lg-block">
+            <div className="col-xl-6 col-lg-7 d-none d-lg-block">
               {/* Nav menu */}
               <NavMenu />
             </div>
-            <div className="col-xl-2 col-lg-2 col-md-6 col-8">
+            <div className="col-xl-4 col-lg-3 col-md-6 col-8">
               {/* Icon group */}
               <IconGroup cartItems={CartData} FavoriteData={FavoriteData} GetAllCartList={GetAllCartList} />
             </div>

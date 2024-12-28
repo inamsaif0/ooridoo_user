@@ -7,6 +7,7 @@ import BaseUrl from "../../BaseUrl";
 import Swal from "sweetalert2";
 import SliderCard from "../../pages/OurProduct/SliderCard";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const LatestStory = () => {
   const [getstories, setGetstories] = useState([]);
@@ -112,10 +113,13 @@ const LatestStory = () => {
       price:100,
     }
 ]
+
+  const {t} = useTranslation()
+
   return (
     <>
     <div  className=" pt-100 pb-70" > 
-      <SectionTitle titleText="Featured Products " positionClass="text-center m-4" />
+      <SectionTitle titleText={t("home_featured_products")} positionClass="text-center m-4" />
       <Swiper
         slidesPerView={4}
         spaceBetween={8}
