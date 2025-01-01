@@ -85,9 +85,9 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
-      <div className="d-none d-lg-block">
+      {/* <div className="d-none d-lg-block">
         <LanguageSelector />
-      </div>
+      </div> */}
       {/* Large Screen User Icon */}
       <div className="same-style account-setting d-none d-lg-block p-0">
         <button
