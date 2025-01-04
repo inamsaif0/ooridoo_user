@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const BannerThirtySix = ({ spaceBottomClass }) => {
+  const { t } = useTranslation();
   return (
     <div className={clsx("banner-area", spaceBottomClass)}>
       <div className="container padding-20-row-col">
@@ -19,7 +21,7 @@ const BannerThirtySix = ({ spaceBottomClass }) => {
               </Link>
               <div className="banner-content-6">
                 <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                  SHOP NOW
+                {t("global.shop_now")}
                 </Link>
               </div>
             </div>

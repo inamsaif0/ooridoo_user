@@ -9,13 +9,15 @@ import Swal from "sweetalert2";
 import BaseUrl from "../../BaseUrl";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const Checkout = () => {
   let cartTotalPrice = 0;
   let { pathname } = useLocation();
   const currency = useSelector((state) => state.currency);
   const { cartItems } = useSelector((state) => state.cart);
-
+  const { t } = useTranslation();
+ 
   const navigate = useNavigate()
 
   const [CartData,setCartData]=useState([])
@@ -131,31 +133,31 @@ const Checkout = () => {
     let errors = {};
 
     if (!formData.firstName.trim()) {
-      errors.firstName = "First name is required";
+      errors.firstName = t("checkout_form.formErrors.firstName");
     }
 
     if (!formData.lastName.trim()) {
-      errors.lastName = "Last name is required";
+      errors.lastName = t("checkout_form.formErrors.lastName");
     }
 
     if (!formData.address.trim()) {
-      errors.address = "Street address is required";
+      errors.address = t("checkout_form.formErrors.streetAddress");
     }
 
     if (!formData.postcode.trim()) {
-      errors.postcode = "Postcode is required";
+      errors.postcode = t("checkout_form.formErrors.postcode");
     }
 
     if (!formData.phone.trim()) {
-      errors.phone = "Phone number is required";
+      errors.phone = t("checkout_form.formErrors.phone.required");
     } else if (!/^\d+$/.test(formData.phone)) {
-      errors.phone = "Phone number is invalid";
+      errors.phone = t("checkout_form.formErrors.phone.invalid");
     }
 
     if (!formData.email.trim()) {
-      errors.email = "Email address is required";
+      errors.email = t("checkout_form.formErrors.email.required");
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Email address is invalid";
+      errors.email = t("checkout_form.formErrors.email.invalid");
     }
 
     setErrors(errors);
@@ -275,8 +277,8 @@ const Checkout = () => {
       <LayoutOne headerTop="visible">
         <Breadcrumb
           pages={[
-            { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Checkout", path: process.env.PUBLIC_URL + pathname },
+            { label: t("checkout_form.breadcrumb.home"), path: process.env.PUBLIC_URL + "/" },
+            { label: t("checkout_form.breadcrumb.checkout"), path: process.env.PUBLIC_URL + pathname },
           ]}
         />
         <div className="checkout-area pt-95 pb-100">
@@ -284,13 +286,13 @@ const Checkout = () => {
             <div className="row">
               <div className="col-lg-7">
                 <div className="billing-info-wrap">
-                  <h3>Billing Details</h3>
+                  <h3>{t("checkout_form.title.billingDetails")}</h3>
                   <form onSubmit={handleSubmit}>
                   {/* <form onSubmit={handleSubmit}> */}
                     <div className="row">
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>First Name</label>
+                          <label>{t("checkout_form.formLabels.firstName")}</label>
                           <input
                             type="text"
                             name="firstName"
@@ -304,7 +306,7 @@ const Checkout = () => {
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>Last Name</label>
+                          <label>{t("checkout_form.formLabels.lastName")}</label>
                           <input
                             type="text"
                             name="lastName"
@@ -318,10 +320,10 @@ const Checkout = () => {
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
-                          <label>Street Address</label>
+                          <label>{t("checkout_form.formLabels.streetAddress")}</label>
                           <input
                             className="billing-address"
-                            placeholder="House number and street name"
+                            placeholder={t("checkout_form.formPlaceholders.streetAddress")}
                             type="text"
                             name="address"
                             value={formData.address}
@@ -334,7 +336,7 @@ const Checkout = () => {
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>Postcode / ZIP</label>
+                          <label>{t("checkout_form.formLabels.postcode")}</label>
                           <input
                             type="text"
                             name="postcode"
@@ -348,7 +350,7 @@ const Checkout = () => {
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>Phone</label>
+                          <label>{t("checkout_form.formLabels.phone")}</label>
                           <input
                             type="text"
                             name="phone"
@@ -362,7 +364,7 @@ const Checkout = () => {
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>Email Address</label>
+                          <label>{t("checkout_form.formLabels.email")}</label>
                           <input
                             type="text"
                             name="email"
@@ -377,11 +379,11 @@ const Checkout = () => {
                     </div>
 
                     <div className="additional-info-wrap">
-                      <h4>Additional information</h4>
+                      <h4>{t("checkout_form.formLabels.orderNotes")}</h4>
                       <div className="additional-info">
-                        <label>Order notes</label>
+                        <label>{t("checkout_form.formLabels.orderNotes")}</label>
                         <textarea
-                          placeholder="Notes about your order, e.g. special notes for delivery. "
+                          placeholder={t("checkout_form.formLabels.orderNotesPlaceholder")}
                           name="orderNotes"
                           value={formData.orderNotes}
                           onChange={handleInputChange}
@@ -399,13 +401,13 @@ const Checkout = () => {
 
               <div className="col-lg-5">
                 <div className="your-order-area">
-                  <h3>Your order</h3>
+                  <h3>{t("checkout_form.order_details.heading")}</h3>
                   <div className="your-order-wrap gray-bg-4">
                     <div className="your-order-product-info">
                       <div className="your-order-top">
                         <ul>
-                          <li>Product</li>
-                          <li>Total</li>
+                          <li>{t("checkout_form.order_details.product")}</li>
+                          <li>{t("checkout_form.order_details.total")}</li>
                         </ul>
                       </div>
                       <div className="your-order-middle">
@@ -454,13 +456,13 @@ const Checkout = () => {
                       </div>
                       <div className="your-order-bottom">
                         <ul>
-                          <li className="your-order-shipping">Shipping</li>
-                          <li>Free shipping</li>
+                          <li className="your-order-shipping">{t("checkout_form.order_details.shipping")}</li>
+                          <li>{t("checkout_form.order_details.free_shipping")}</li>
                         </ul>
                       </div>
                       <div className="your-order-total">
                         <ul>
-                          <li className="order-total">Total</li>
+                          <li className="order-total">{t("checkout_form.order_details.total")}</li>
                           <li>₩{TotalPriceSum?.toFixed(2)}</li>
                         </ul>
                       </div>
@@ -468,7 +470,7 @@ const Checkout = () => {
                     <div className="payment-method"></div>
                   </div>
                   <div className="place-order mt-25">
-                    <button className="btn-hover" type="button" onClick={()=>{handleSubmit()}} >Place Order</button>
+                    <button className="btn-hover" type="button" onClick={()=>{handleSubmit()}} >{t("checkout_form.order_details.place_order")}</button>
                   </div>
                 </div>
               </div>

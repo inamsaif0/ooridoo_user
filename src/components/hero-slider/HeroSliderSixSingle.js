@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const HeroSliderSixSingle = ({ data }) => {
+
+  const { t } = useTranslation();
+
   return (
     <div
       className="single-slider-2 slider-height-9 d-flex align-items-center slider-height-res hm-13-slider"
@@ -21,7 +24,7 @@ const HeroSliderSixSingle = ({ data }) => {
                   className="animated"
                   to={process.env.PUBLIC_URL + data.url}
                 >
-                  SHOP NOW
+                  {t("global.shop_now")}
                 </Link>
               </div>
             </div>

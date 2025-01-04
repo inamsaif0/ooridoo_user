@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const HeroSliderFifteenSingle = ({ data, sliderClass }) => {
+
+  const { t } = useTranslation();
+
   return (
     <div
       className="single-slider-2 slider-height-2 d-flex align-items-center bg-img"
@@ -21,7 +25,7 @@ const HeroSliderFifteenSingle = ({ data, sliderClass }) => {
                   className="animated rounden-btn"
                   to={process.env.PUBLIC_URL + data.url}
                 >
-                  SHOP NOW
+                  {t("global.shop_now")}
                 </Link>
               </div>
             </div>

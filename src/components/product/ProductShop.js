@@ -11,6 +11,7 @@ import { cartFlagfunction, setProductsDetail } from "../../store/slices/productD
 import { toast } from "react-toastify";
 import { Card } from "react-bootstrap";
 import "./style.css"
+import { useTranslation } from "react-i18next";
 
 const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) => {
 
@@ -20,6 +21,8 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
 
   const router = useNavigate()
   const dispatch = useDispatch()
+
+  const {t} = useTranslation()
 
   console.log('Myproduct==>', products)
 
@@ -229,8 +232,8 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
                         /> */}
                       </div>
                       <div className="product-img-badges">
-                        {item?.saleCount ? <span className="bg-success">Sale</span> : null}
-                        {item?.new ? <span className="purple">New</span> : null}
+                        {item?.saleCount ? <span className="bg-success">{t("global.sale")}</span> : null}
+                        {item?.new ? <span className="purple">{t("global.new")}</span> : null}
                       </div>
                       <div className="product-action">
                         <div className="pro-same-action pro-wishlist">
@@ -241,12 +244,12 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
                         <div className="pro-same-action pro-cart">
                           {item?.quantity === 0 ? (
                             <button disabled className="active">
-                              Out of Stock
+                              {t("global.outofstock")}
                             </button>
                           ) : (
                             <button onClick={(e) => handleAddtoCart(e, item)}>
                               <i className="pe-7s-cart"></i>
-                              Add To Cart
+                              {t("global.addtocart")}
                             </button>
                           )}
                         </div>

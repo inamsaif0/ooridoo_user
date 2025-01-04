@@ -10,6 +10,7 @@ import ProductImageDescriptionSlider from "../../wrappers/product/ProductImageDe
 import BaseUrl from "../../BaseUrl";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 const ProductSlider = () => {
   let { pathname } = useLocation();
@@ -17,6 +18,7 @@ const ProductSlider = () => {
   const [loader, setLoader] = useState(false);
   const { products } = useSelector((state) => state.product);
   const product2 = products.find(product => product.id === '1');
+  const { t } = useTranslation()
 
   const [ReviewData, setReviewData] = useState([]);
 
@@ -79,8 +81,8 @@ const ProductSlider = () => {
         {/* breadcrumb */}
         <Breadcrumb
           pages={[
-            { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Shop Product", path: process.env.PUBLIC_URL + pathname }
+            { label: t("shop.product_page.breadcrumb.home"), path: process.env.PUBLIC_URL + "/" },
+            { label: t("shop.product_page.breadcrumb.shop_product"), path: process.env.PUBLIC_URL + pathname }
           ]}
         />
 

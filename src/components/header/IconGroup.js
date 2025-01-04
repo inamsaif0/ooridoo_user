@@ -7,9 +7,11 @@ import MenuCart from "./sub-components/MenuCart";
 import axios from "axios";
 import BaseUrl from "../../BaseUrl";
 import LanguageSelector from "../../helpers/language-selector";
+import { useTranslation } from "react-i18next";
 
 const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) => {
 
+  const { t } = useTranslation();
   const navigate = useNavigate()
   const Token = localStorage.getItem("Token")
   const UserId = localStorage.getItem("UserId")
@@ -85,9 +87,9 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
-      {/* <div className="d-none d-lg-block">
+      <div className="d-none d-lg-block">
         <LanguageSelector />
-      </div> */}
+      </div>
       {/* Large Screen User Icon */}
       <div className="same-style account-setting d-none d-lg-block p-0">
         <button
@@ -108,19 +110,19 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
           <ul>
             {Token == null ? (
               <li>
-                <Link to={process.env.PUBLIC_URL + "/login"}>Login</Link>
+                <Link to={process.env.PUBLIC_URL + "/login"}>{t("global.login")}</Link>
               </li>
             ) : null}
 
             <li>
-              <Link to={process.env.PUBLIC_URL + "/signup"}>Sign Up</Link>
+              <Link to={process.env.PUBLIC_URL + "/signup"}>{t("global.signup")}</Link>
             </li>
             {Token != null ? (
               <li
                 style={{ cursor: "pointer" }}
                 onClick={() => handleLogout()}
               >
-                Log Out
+                {t("global.logout")}
               </li>
             ) : null}
           </ul>
@@ -147,19 +149,19 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
           <ul>
             {Token == null ? (
               <li>
-                <Link to={process.env.PUBLIC_URL + "/login"}>Login</Link>
+                <Link to={process.env.PUBLIC_URL + "/login"}>{t("global.login")}</Link>
               </li>
             ) : null}
 
             <li>
-              <Link to={process.env.PUBLIC_URL + "/signup"}>Sign Up</Link>
+              <Link to={process.env.PUBLIC_URL + "/signup"}>{t("global.signup")}</Link>
             </li>
             {Token != null ? (
               <li
                 style={{ cursor: "pointer" }}
                 onClick={() => handleLogout()}
               >
-                Log Out
+                {t("global.logout")}
               </li>
             ) : null}
           </ul>

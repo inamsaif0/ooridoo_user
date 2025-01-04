@@ -12,11 +12,12 @@ import Swal from "sweetalert2";
 import BaseUrl from "../../BaseUrl";
 import { toast } from "react-toastify";
 import { cartFlagfunction, setProductsDetail } from "../../store/slices/productDetail-slice";
+import { useTranslation } from "react-i18next";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
   let { pathname } = useLocation();
-
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   const currency = useSelector((state) => state.currency);
@@ -226,26 +227,26 @@ const Wishlist = () => {
         {/* breadcrumb */}
         <Breadcrumb
           pages={[
-            { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Wishlist", path: process.env.PUBLIC_URL + pathname }
+            { label: t("header.icon_group.wishlist.breadcrumb.home"), path: process.env.PUBLIC_URL + "/" },
+            { label: t("header.icon_group.wishlist.breadcrumb.wishlist"), path: process.env.PUBLIC_URL + pathname }
           ]}
         />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
             {FavoriteData && FavoriteData?.length > 0 ? (
               <Fragment>
-                <h3 className="cart-page-title">Your wishlist items</h3>
+                <h3 className="cart-page-title">{t("header.icon_group.wishlist.heading")}</h3>
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
                       <table>
                         <thead>
                           <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Add To Cart</th>
-                            <th>action</th>
+                            <th>{t("header.icon_group.wishlist.image")}</th>
+                            <th>{t("header.icon_group.wishlist.product_name")}</th>
+                            <th>{t("header.icon_group.wishlist.unit_price")}</th>
+                            <th>{t("global.addtocart")}</th>
+                            <th>{t("header.icon_group.wishlist.action")}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -377,7 +378,7 @@ const Wishlist = () => {
                                 </td> */}
                                 <td className="product-wishlist-cart">
                                   <button onClick={(e) => { handleAddtoCart(e, wishlistItem) }} className="active"  >
-                                    Add to cart
+                                    {t("global.addtocart")}
                                   </button>
                                 </td>
                                 {/* <td>hello</td> */}
@@ -408,7 +409,7 @@ const Wishlist = () => {
                         <Link
                           to={process.env.PUBLIC_URL + "/shop/1"}
                         >
-                          Continue Shopping
+                          {t("header.icon_group.wishlist.continue_shopping")}
                         </Link>
                       </div>
                       {/* <div className="cart-clear">
@@ -428,9 +429,9 @@ const Wishlist = () => {
                       <i className="pe-7s-like"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in wishlist <br />{" "}
+                      {t("header.icon_group.wishlist.empty_wishlist")} <br />{" "}
                       <Link to={process.env.PUBLIC_URL + "/"}>
-                        Add Items
+                        {t("header.icon_group.wishlist.add_items")}
                       </Link>
                     </div>
                   </div>

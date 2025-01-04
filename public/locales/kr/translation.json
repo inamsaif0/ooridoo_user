@@ -1,21 +1,126 @@
-{
+{   "global": {
+        "login": "로그인",
+        "signup": "가입",
+        "signin": "로그인",
+        "logout": "로그 아웃",
+        "breadcrumb": {
+            "home": "홈",
+            "login_signup": "로그인 및 가입"
+        },
+        "total": "합계",
+        "viewcart": "장바구니보기",
+        "checkout": "점검",
+        "subtotal": "소계",
+        "empty_cart": "장바구니에 추가된 항목이 없습니다",
+        "addtocart": "장바구니에 추가",
+        "outofstock": "품절",
+        "new": "새로운",
+        "sale": "세일",
+        "showing_of_results": {
+            "line1": "전시",
+            "line2": "~의",
+            "line3": "결과"
+        },
+        "addtowishlist": "찜에 추가",
+        "name": "이름",
+        "username": "사용자 이름",
+        "email": "이메일",
+        "password": "암호",
+        "createpassword": "비밀번호 만들기",
+        "forgotpassword": "비밀번호를 잊으셨나요?",
+        "already_have_account": "이미 계정이 있습니까?",
+        "password_description": {
+            "line1": "8자 이상 사용",
+            "line2": "문자, 숫자 및 기호의 혼합 사용"
+        },
+        "complete_profile": "프로필 완성",
+        "update_photo": "사진 업데이트",
+        "full_name": "전체 이름",
+        "phone_number": "전화 번호",
+        "bio": "바이오",
+        "save": "저장",
+        "shop_now": "지금 쇼핑"
+    },
     "header": {
         "nav": {
             "home": "집",
             "shop": "가게",
             "contact_us": "저희에게 연락주세요",
             "categories": "카테고리"
+        },
+        "icon_group": {
+            "wishlist": {
+                "breadcrumb": {
+                    "home": "홈",
+                    "wishlist": "찜 목록"
+                },
+                "heading": "찜 목록 항목",
+                "image": "이미지",
+                "product_name": "상품명",
+                "unit_price": "단가",
+                "action": "동작",
+                "continue_shopping": "쇼핑 계속",
+                "empty_wishlist": "찜 목록에 항목을 찾을 수 없습니다",
+                "add_items": "항목 추가"
+            },
+            "cart": {
+                "breadcrumb": {
+                    "home": "홈",
+                    "cart": "장바구니"
+                },
+                "heading": "장바구니 항목",
+                "image": "이미지",
+                "product_name": "상품명",
+                "unit_price": "단가",
+                "quantity": "수량",
+                "subtotal": "소계",
+                "action": "동작",
+                "view_checkout": "체크 아웃보기",
+                "continue_shopping": "쇼핑 계속",
+                "empty_cart": "장바구니에 항목을 찾을 수 없습니다",
+                "shop_now": "지금 쇼핑"
+            },
+            "compare": "비교",
+            "account": "계정"
         }
     },
     "home_hero_heading": "책을 읽고 싶으신가요? 신뢰할 수 있는 최고의 책 찾기",
     "home_hero_para": "고귀한 꾸란: 의미와 해설의 영어 번역 - 파하드 왕 출판물은 3일 이내에 배달됩니다.",
     "home_top_categories": "상위 카테고리",
     "home_featured_products": "주요 제품",
-    "shop": {
-        "search": "찾다",
-        "search_input": "여기에서 검색하세요"
+    "shop":{
+        "search": "검색",
+        "search_input": "여기에서 검색...",
+        "product_page": {
+            "breadcrumb": {
+                "home": "홈",
+                "shop_product": "제품"
+            },
+            "additional_info": {
+                "heading": "추가 정보",
+                "author": "저자",
+                "dimension": "치수",
+                "no_of_pages": "페이지 수"
+            },
+            "description": "기술",
+            "reviews": {
+                "heading": "리뷰",
+                "no_reviews": "리뷰가 없습니다",
+                "add_review": "리뷰 추가",
+                "review_form": {
+                    "your_rating": "당신의 등급",
+                    "message": "메시지",
+                    "error_message": "메시지를 입력하십시오",
+                    "submit": "제출"
+                }
+            }
+        }
     },
     "contact": {
+        "breadcrumb": {
+            "home": "홈",
+            "contact": "저희에게 연락주세요"
+        },
         "form": {
             "heading": "연락하기",
             "name": "이름",
@@ -57,6 +162,54 @@
             "line_3": "이메일 주소를 입력하세요...",
             "line_4": "구독하다"
         }
-    }
+    },
+    "checkout_form": {
+        "title": {
+          "checkoutPage": "결제",
+          "billingDetails": "청구 세부 정보"
+        },
+        "breadcrumb": {
+          "home": "홈",
+          "checkout": "결제"
+        },
+        "formLabels": {
+          "firstName": "이름",
+          "lastName": "성",
+          "streetAddress": "주소",
+          "postcode": "우편번호",
+          "phone": "전화번호",
+          "email": "이메일 주소",
+          "orderNotes": "주문 메모",
+          "orderNotesPlaceholder": "주문에 대한 특별한 요구 사항이 있습니까?"
+        },
+        "formPlaceholders": {
+          "streetAddress": "집 번호와 거리 이름"
+        },
+        "formErrors": {
+          "firstName": "이름은 필수입니다",
+          "lastName": "성은 필수입니다",
+          "streetAddress": "주소는 필수입니다",
+          "postcode": "우편번호는 필수입니다",
+          "phone": {
+            "required": "전화번호는 필수입니다",
+            "invalid": "전화번호가 유효하지 않습니다"
+          },
+          "email": {
+            "required": "이메일 주소는 필수입니다",
+            "invalid": "이메일 주소가 유효하지 않습니다"
+          }
+        },
+        "order_details": {
+            "heading": "주문 세부 정보",
+            "product": "제품",
+            "total": "합계",
+            "shipping": "배송",
+            "free_shipping": "무료 배송",
+            "order_total": "주문 합계",
+            "payment_method": "결제 방법",
+            "place_order": "주문하기"
+        }
+      }
+      
 
 }

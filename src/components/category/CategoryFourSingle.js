@@ -1,8 +1,13 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import BaseUrl from "../../BaseUrl";
+import { useTranslation } from "react-i18next";
 
 const CategoryFourSingle = ({ data, sliderClass }) => {
+
+
+  const { t } = useTranslation()
+
   console.log('category==>data',data)
 
   let testimage='/assets/img/banner/book7.jpg'
@@ -24,7 +29,7 @@ const CategoryFourSingle = ({ data, sliderClass }) => {
           to={`/shop/${data?._id}`}
           className="collection-btn"
         >
-          SHOP NOW
+          {t("global.shop_now")}
         </Link>
       </div>
     </div>
