@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import Paginator from "react-hooks-paginator";
 import { useSelector } from "react-redux";
 import SEO from "../../components/seo";
@@ -58,17 +58,20 @@ const ShopGridStandard = () => {
     sortedProducts = filterSortedProducts;
     setSortedProducts(sortedProducts);
     setGetProductData(sortedProducts.slice(offset, offset + pageLimit));
+
     
   }, [offset, getProductData, sortType, sortValue, filterSortType, filterSortValue]);
 
-
-  console.log(currentData)
 
   useEffect(() => {
     const authorsName = getProductData?.map(product => product.author)
     setAuthors(authorsName)
     
   }, [])
+
+
+  
+  
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -101,7 +104,7 @@ const ShopGridStandard = () => {
 
   console.log('getProductData==>', getProductData)
 
-  console.log('getProductData==>currentData', currentData)
+  console.log('currentData==>', currentData)
 
   const [subCategoryId, setsubcategoryId] = useState()
 
@@ -112,6 +115,12 @@ const ShopGridStandard = () => {
 
   console.log('testcaseflag', StopFlag)
 
+
+  useEffect(useCallback(() => {
+    console.log("searchQuery==>", searchQuery)
+    const searchResults = currentData.filter(product => product.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    setGetProductData(searchResults)
+  }), [searchQuery])
 
 
   // running code
@@ -664,16 +673,20 @@ const ShopGridStandard = () => {
               subCategoryId={subCategoryId}
               setChildSubCategory={setChildSubCategory}
               setReChildSubCategory={setReChildSubCategory}
+              selectedCategory={selectedCategory}
               />
               <div className="col-lg-3 order-2 order-lg-1">
                 {/* shop sidebar */}
                 <ShopSidebar
                   products={getCategoriesData}
                   setSearchQuery={setSearchQuery}
+                  searchQuery={searchQuery}
                   setSelectedCategory={setSelectedCategory}
                   selectedCategory={selectedCategory}
                   getSortParams={getSortParams}
                   setsubcategoryId={setsubcategoryId}
+                  GetHandleSubCategoryid={GetHandleSubCategoryid}
+                  subCategoryId={subCategoryId}
                   sideSpaceClass="mr-30"
                 />
               </div>

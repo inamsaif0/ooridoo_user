@@ -45,7 +45,7 @@ const Contact = () => {
                   </div>
                   <div className="single-contact-info">
                     <div className="contact-icon">
-                      <i className="fa fa-globe" />
+                      <i className="fa fa-envelope" />
                     </div>
                     <div className="contact-info-dec">
                       <p>
@@ -65,8 +65,8 @@ const Contact = () => {
                       <i className="fa fa-map-marker" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>Address goes here, </p>
-                      <p>ncheongwangyeogsi YeonsuGu HannaruRo 133, 4th flour, office Nbr 505..</p>
+                      <p>{t("contact.address.line1")}, </p>
+                      <p>{t("contact.address.line2")}</p>
                       {/* <p>street, Crossroad 123.</p> */}
                     </div>
                   </div>

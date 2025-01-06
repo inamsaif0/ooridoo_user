@@ -29,7 +29,7 @@ const ShopTopAction = ({
   ];
 
   const sortDropdown = [
-    {value: "default", label: "Default"},
+    {value: "default", label: "Sort by price"},
     {value: "priceLowToHigh", label: "Price: Low to High"},
     {value: "priceHighToLow", label: "Price: High to Low"}
   ]
@@ -42,7 +42,7 @@ const ShopTopAction = ({
   // const authorsFinalDropdown = [...baseDropdown, ...authorsDropdown]
 
   const authorsDropdown = [
-    {value: "default", label: "Default"},
+    {value: "default", label: "Select Author"},
     {value: "Jamshed", label: "Jamshed"},
     {value: "Salman Ahmed", label: "Salman Ahmed"},
   ]

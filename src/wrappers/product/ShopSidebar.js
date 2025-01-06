@@ -11,7 +11,7 @@ import ShopCategories from "../../components/product/ShopCategories";
 import ShopColor from "../../components/product/ShopColor";
 
 
-const ShopSidebar = ({ products, getSortParams, sideSpaceClass,setsubcategoryId ,selectedCategory ,setSelectedCategory,setSearchQuery}) => {
+const ShopSidebar = ({ products, getSortParams, sideSpaceClass,setsubcategoryId ,selectedCategory ,setSelectedCategory, searchQuery,setSearchQuery, GetHandleSubCategoryid, subCategoryId}) => {
 
   
 
@@ -26,15 +26,17 @@ const ShopSidebar = ({ products, getSortParams, sideSpaceClass,setsubcategoryId 
     <div className={clsx("sidebar-style", sideSpaceClass)}>
       {/* shop search */}
       {/* <ShopSearch /> */}
-      <ShopSearch setSearchQuery={setSearchQuery} />
+      <ShopSearch setSearchQuery={setSearchQuery} searchQuery={searchQuery}/>
 
       {/* filter by categories */}
       <ShopCategories
+        GetHandleSubCategoryid={GetHandleSubCategoryid}
         categories={products}
         setSelectedCategory={setSelectedCategory}
         selectedCategory={selectedCategory}
         getSortParams={getSortParams}
         setsubcategoryId={setsubcategoryId}
+        subCategoryId={subCategoryId}
       />
 
       {/* filter by color */}

@@ -109,14 +109,16 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
         <div className="account-dropdown header-icon-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
           <ul>
             {Token == null ? (
+              <>
               <li>
                 <Link to={process.env.PUBLIC_URL + "/login"}>{t("global.login")}</Link>
               </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/signup"}>{t("global.signup")}</Link>
+              </li>
+              </>
             ) : null}
 
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/signup"}>{t("global.signup")}</Link>
-            </li>
             {Token != null ? (
               <li
                 style={{ cursor: "pointer" }}
