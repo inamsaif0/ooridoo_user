@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import { setActiveSort } from "../../helpers/product";
+import { removeActiveSort, setActiveSort } from "../../helpers/product";
 
-const ShopCategories = ({ categories, getSortParams ,setSelectedCategory, setsubcategoryId, selectedCategory}) => {
+const ShopCategories = ({ categories, getSortParams ,setSelectedCategory, setsubcategoryId, selectedCategory, GetHandleSubCategoryid, subCategoryId}) => {
 
   const myCategory=[
       "Books & Media",
@@ -28,14 +28,21 @@ const ShopCategories = ({ categories, getSortParams ,setSelectedCategory, setsub
   const handleCheckbox = (e, category) => {
     if (selectedCategory === category?._id) {
       // If the clicked category is already selected, reset the subcategory state
-      setsubcategoryId(null);
-      setSelectedCategory(category?._id);
+      // setsubcategoryId(null);
+      // setsubcategoryId(null);
+      // GetHandleSubCategoryid([]);
+      setSelectedCategory("");
+      // setActiveSort(e);
+      removeActiveSort()
+      console.log("THis is already selected",category?._id)
+      // setSelectedCategory(category?._id);
       // Fetch and display the main category products
       getSortParams("category", category?._id);
     } else {
       setSelectedCategory(category?._id);
+      console.log("THis is not already selected",category?._id)
+      setActiveSort(e);
     }
-    setActiveSort(e);
   };
 
   // const handleCheckbox = (e,category) =>{

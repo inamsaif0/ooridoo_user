@@ -130,10 +130,10 @@ const FooterOne = ({
                   <li style={{ marginRight: "10px" }}>|</li>
                   <li style={{ marginRight: "10px" }}>508-13-09975</li>
                   <li style={{ marginRight: "10px" }}>|</li>
-                  <li style={{ marginRight: "10px" }}>505, 4F, 133 Hana-ro, Yeonsu-gu, Incheon-si, Republic of Korea</li>
+                  <li style={{ marginRight: "10px" }}>{t("contact.address.line2")}</li>
                   <li style={{ marginRight: "10px" }}>|</li>
                   <li style={{ marginRight: "10px" }}>010-3322-9798</li>
-                  <li style={{ marginRight: "10px" }}>|</li>
+                  <li style={{ marginRight: "10px" }}>|</li> 
                   <li>
                     <a href="mailto:jfardeheb@yahoo.fr">jfardeheb@yahoo.fr</a>
                   </li>
