@@ -1,10 +1,87 @@
-{
+{   "global": {
+        "login": "Login",
+        "signup": "Sign Up",
+        "signin": "Sign In",
+        "logout": "Log Out",
+        "breadcrumb": {
+            "home": "Home",
+            "login_signup": "Login | Sign Up"
+        },
+        "total": "Total",
+        "viewcart": "View Cart",
+        "checkout": "Checkout",
+        "subtotal": "Subtotal",
+        "empty_cart": "No items added to cart",
+        "addtocart": "Add to Cart",
+        "outofstock": "Out of Stock",
+        "new": "New",
+        "sale": "Sale",
+        "showing_of_results": {
+            "line1": "showing",
+            "line2": "of",
+            "line3": "results"
+        },
+        "addtowishlist": "Add to Wishlist",
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "username": "Username",
+        "createpassword": "Create a password",
+        "forgotpassword": "Forgot your password?",
+        "already_have_account": "Already have an account?",
+        "password_description": {
+            "line1": "Use 8 or more characters",
+            "line2": "With a mix of letters, numbers, and symbols"
+        },
+        "complete_profile": "Complete Profile",
+        "update_photo": "Update Photo",
+        "full_name": "Full Name",
+        "phone_number": "Phone Number",
+        "bio": "Bio",
+        "save": "Save",
+        "shop_now": "Shop Now"
+    },
     "header": {
         "nav": {
             "home": "Home",
             "shop": "Shop",
             "contact_us": "Contact Us",
             "categories": "Categories"
+        },
+        "icon_group": {
+            "wishlist": {
+                "breadcrumb": {
+                    "home": "Home",
+                    "wishlist": "Wishlist"
+                },
+                "heading": "Your wishlist items",
+                "image": "Image",
+                "product_name": "Product Name",
+                "unit_price": "Unit Price",
+                "action": "Action",
+                "continue_shopping": "Continue Shopping",
+                "empty_wishlist": "No items found in wishlist",
+                "add_items": "Add Items"
+            },
+            "cart": {
+                "breadcrumb": {
+                    "home": "Home",
+                    "cart": "Cart"
+                },
+                "heading": "Your cart items",
+                "image": "Image",
+                "product_name": "Product Name",
+                "unit_price": "Unit Price",
+                "quantity": "Qty",
+                "subtotal": "Subtotal",
+                "action": "Action",
+                "view_checkout": "View Checkout",
+                "continue_shopping": "Continue Shopping",
+                "empty_cart": "No items found in cart",
+                "shop_now": "Shop Now"
+            },
+            "compare": "Compare",
+            "account": "Account"
         }
     },
     "home_hero_heading": "Wants to a Read Book? Find Best Books You Can Trust",
@@ -13,9 +90,37 @@
     "home_featured_products": "Featured Products",
     "shop":{
         "search": "Search",
-        "search_input": "Search here..."
+        "search_input": "Search here...",
+        "product_page": {
+            "breadcrumb": {
+                "home": "Home",
+                "shop_product": "Shop Product"
+            },
+            "additional_info": {
+                "heading": "Additional Information",
+                "author": "Author",
+                "dimension": "Dimension",
+                "no_of_pages": "No of Pages"
+            },
+            "description": "Description",
+            "reviews": {
+                "heading": "Reviews",
+                "no_reviews": "No Review Found",
+                "add_review": "Add a Review",
+                "review_form": {
+                    "your_rating": "Your Rating",
+                    "message": "Message",
+                    "error_message": "Enter your message",
+                    "submit": "Submit"
+                }
+            }
+        }
     },
     "contact": {
+        "breadcrumb": {
+            "home": "Home",
+            "contact": "Contact"
+        },
         "form": {
             "heading": "Get In Touch",
             "name": "Name",
@@ -58,6 +163,54 @@
             "line_4": "SUBSCRIBE"
         }
     },
+    "checkout_form": {
+        "title": {
+          "checkoutPage": "Checkout",
+          "billingDetails": "Billing Details"
+        },
+        "breadcrumb": {
+          "home": "Home",
+          "checkout": "Checkout"
+        },
+        "formLabels": {
+          "firstName": "First Name",
+          "lastName": "Last Name",
+          "streetAddress": "Street Address",
+          "postcode": "Postcode / ZIP",
+          "phone": "Phone",
+          "email": "Email Address",
+          "orderNotes": "Order Notes",
+          "orderNotesPlaceholder": "Notes about your order, e.g. special notes for delivery."
+        },
+        "formPlaceholders": {
+          "streetAddress": "House number and street name"
+        },
+        "formErrors": {
+          "firstName": "First name is required",
+          "lastName": "Last name is required",
+          "streetAddress": "Street address is required",
+          "postcode": "Postcode is required",
+          "phone": {
+            "required": "Phone number is required",
+            "invalid": "Phone number is invalid"
+          },
+          "email": {
+            "required": "Email address is required",
+            "invalid": "Email address is invalid"
+          }
+        },
+        "order_details": {
+            "heading": "Your Order",
+            "product": "Product",
+            "total": "Total",
+            "subtotal": "Subtotal",
+            "shipping": "Shipping",
+            "free_shipping": "Free Shipping",
+            "payment_method": "Payment Method",
+            "place_order": "Place Order"
+        }
+      },
+      
     "home_group_one": "Home Group One",
     "home_group_two": "Home Group Two",
     "home_group_three": "Home Group Three",

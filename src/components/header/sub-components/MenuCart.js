@@ -7,9 +7,11 @@ import BaseUrl from "../../../BaseUrl";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
 
+  const { t } = useTranslation();
   console.log('cartItems==>ahmed',ahmed)
   const dispatch = useDispatch();
   const currency = useSelector((state) => state.currency);
@@ -159,7 +161,7 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
           </ul>
           <div className="shopping-cart-total">
             <h4>
-              Total :{" "}
+              {`${t("global.total")} : `}
               <span className="shop-total">
                 {totalPrice}
                 {/* {totalPrice?.toFixed(2)} */}
@@ -169,18 +171,18 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
           </div>
           <div className="shopping-cart-btn btn-hover text-center">
             <Link className="default-btn" to={process.env.PUBLIC_URL + "/cart"}>
-              view cart
+              {t("global.viewcart")}
             </Link>
             <Link
               className="default-btn"
               to={process.env.PUBLIC_URL + "/checkout"}
             >
-              checkout
+              {t("global.checkout")}
             </Link>
           </div>
         </Fragment>
       ) : (
-        <p className="text-center">No items added to cart</p>
+        <p className="text-center">{t("global.empty_cart")}</p>
       )}
     </div>
   );

@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const HeroSliderTwoSingle = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <div className="single-slider single-slider-10 slider-height-8 bg-aqua">
       <div className="container">
@@ -15,7 +17,7 @@ const HeroSliderTwoSingle = ({ data }) => {
                   className="animated"
                   to={process.env.PUBLIC_URL + data.url}
                 >
-                  SHOP NOW
+                  {t("global.shop_now")}
                 </Link>
               </div>
             </div>

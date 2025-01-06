@@ -6,9 +6,11 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
+import { useTranslation } from "react-i18next";
 
 const Product = () => {
   let { pathname } = useLocation();
+  const {t} = useTranslation()
 
   return (
     <Fragment>
@@ -21,8 +23,8 @@ const Product = () => {
         {/* breadcrumb */}
         <Breadcrumb
           pages={[
-            { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Shop Product", path: process.env.PUBLIC_URL + pathname },
+            { label: t("shop.product_page.breadcrumb.home"), path: process.env.PUBLIC_URL + "/" },
+            { label: t("shop.product_page.breadcrumb.shop_product"), path: process.env.PUBLIC_URL + pathname },
           ]}
         />
 

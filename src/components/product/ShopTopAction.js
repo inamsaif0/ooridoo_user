@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { setActiveLayout } from "../../helpers/product";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const ShopTopAction = ({
   getLayout,
@@ -14,6 +15,8 @@ const ShopTopAction = ({
   getSortParams,
   authors
 }) => {
+
+  const { t } = useTranslation();
 
   const baseDropdown = [
     {value: "default", label: "Default"}
@@ -106,7 +109,7 @@ const ShopTopAction = ({
           </select>
         </div>}
         <p>
-          Showing {sortedProductCount} of {productCount} result
+          {t("global.showing_of_results.line1")} {sortedProductCount} {t("global.showing_of_results.line2")} {productCount} {t("global.showing_of_results.line3")}
         </p>
       </div>
 

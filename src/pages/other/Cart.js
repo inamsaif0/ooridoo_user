@@ -12,10 +12,12 @@ import axios from "axios";
 import BaseUrl from "../../BaseUrl";
 import { toast } from "react-toastify";
 import { cartFlagfunction, setProductsDetail } from "../../store/slices/productDetail-slice";
+import { useTranslation } from "react-i18next";
 
 const Cart = () => {
   let cartTotalPrice = 0;
 
+  const { t } = useTranslation();
   const [quantityCount] = useState(1);
   const dispatch = useDispatch();
   let { pathname } = useLocation();
@@ -299,27 +301,27 @@ const Cart = () => {
         {/* breadcrumb */}
         <Breadcrumb
           pages={[
-            { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Cart", path: process.env.PUBLIC_URL + pathname }
+            { label: t("header.icon_group.cart.breadcrumb.home"), path: process.env.PUBLIC_URL + "/" },
+            { label: t("header.icon_group.cart.breadcrumb.cart"), path: process.env.PUBLIC_URL + pathname }
           ]}
         />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
             {CartData && CartData.length >= 1 ? (
               <Fragment>
-                <h3 className="cart-page-title">Your cart items</h3>
+                <h3 className="cart-page-title">{t("header.icon_group.cart.heading")}</h3>
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
                       <table>
                         <thead>
                           <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Qty</th>
-                            <th>Subtotal</th>
-                            <th>action</th>
+                            <th>{t("header.icon_group.cart.image")}</th>
+                            <th>{t("header.icon_group.cart.product_name")}</th>
+                            <th>{t("header.icon_group.cart.unit_price")}</th>
+                            <th>{t("header.icon_group.cart.quantity")}</th>
+                            <th>{t("header.icon_group.cart.subtotal")}</th>
+                            <th>{t("header.icon_group.cart.action")}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -487,12 +489,12 @@ const Cart = () => {
                         <Link
                           to={process.env.PUBLIC_URL + "/shop/1"}
                         >
-                          Continue Shopping
+                          {t("header.icon_group.cart.continue_shopping")}
                         </Link>
                       </div>
                       <div className="cart-clear">
                         <button onClick={() => navigate('/checkout')}>
-                          View Checkout
+                          {t("header.icon_group.cart.view_checkout")}
                         </button>
                       </div>
                     </div>
@@ -599,9 +601,9 @@ const Cart = () => {
                       <i className="pe-7s-cart"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in cart <br />{" "}
+                    {t("header.icon_group.cart.empty_cart")} <br />{" "}
                       <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                        Shop Now
+                      {t("header.icon_group.cart.shop_now")}
                       </Link>
                     </div>
                   </div>

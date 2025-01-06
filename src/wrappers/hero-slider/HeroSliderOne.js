@@ -95,7 +95,7 @@ const HeroSliderOne = () => {
                             <Button className=" btn-lg btn-warning"
                             onClick={()=>{navigate('/shop/1')}}
                             >
-                              Shop Now
+                              {t("global.shop_now")}
                             </Button>
                           </div>
                         </div>

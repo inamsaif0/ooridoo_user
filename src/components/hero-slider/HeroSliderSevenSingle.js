@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import BaseUrl from "../../BaseUrl";
+import { useTranslation } from "react-i18next";
 
 const HeroSliderSevenSingle = ({ data }) => {
+
+  const { t } = useTranslation();
 
   console.log('data==>',data)
   
@@ -31,7 +34,7 @@ const HeroSliderSevenSingle = ({ data }) => {
           to={`/shop/${data?._id}`}
           
           >
-            SHOP NOW
+            {t("global.shop_now")}
           </Link>
         </div>
       </div>

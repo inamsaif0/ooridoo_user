@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import sliderData from "../../data/hero-sliders/hero-slider-thirty-three.json";
+import { useTranslation } from "react-i18next";
 
 const HeroSliderThirtyThree = () => {
+  const { t } = useTranslation();
   return (
     <div className="slider-area position-relative">
       <span
@@ -28,7 +30,7 @@ const HeroSliderThirtyThree = () => {
                 <h1 dangerouslySetInnerHTML={{ __html: sliderData.subtitle }} />
                 <div className="slider-btn btn-hover">
                   <Link to={process.env.PUBLIC_URL + sliderData.url}>
-                    SHOP NOW
+                  {t("global.shop_now")}
                   </Link>
                 </div>
               </div>

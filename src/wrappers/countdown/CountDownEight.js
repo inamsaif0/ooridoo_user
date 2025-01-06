@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import CountdownTimer from "../../components/countdown";
+import { useTranslation } from "react-i18next";
 
 const CountDownEight = ({
   backgroundImage,
@@ -9,6 +10,9 @@ const CountDownEight = ({
   spaceTopClass,
   spaceBottomClass
 }) => {
+
+  const { t } = useTranslation();
+
   return (
     <div
       className={clsx("funfact-area funfact-valentine bg-img", spaceTopClass, spaceBottomClass)}
@@ -26,7 +30,7 @@ const CountDownEight = ({
               </div>
               <div className="funfact-btn btn-only-round funfact-btn-red-2 btn-hover">
                 <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                  SHOP NOW
+                {t("global.shop_now")}
                 </Link>
               </div>
             </div>

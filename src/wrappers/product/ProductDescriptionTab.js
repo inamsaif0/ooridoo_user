@@ -9,9 +9,11 @@ import axios from "axios";
 import BaseUrl from "../../BaseUrl";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, ReviewData, ReduxProductData, fetchReviews }) => {
 
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     detail: "",
     customError: false,
@@ -110,14 +112,14 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, ReviewData, 
             <Nav variant="pills" className="description-review-topbar">
               <Nav.Item>
                 <Nav.Link eventKey="additionalInfo">
-                  Additional Information
+                  {t("shop.product_page.additional_info.heading")}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="productDescription" ref={LoginTabRef} >Description</Nav.Link>
+                <Nav.Link eventKey="productDescription" ref={LoginTabRef} >{t("shop.product_page.description")}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="productReviews">Reviews({ReviewData?.length || 0})</Nav.Link>
+                <Nav.Link eventKey="productReviews">{`${t("shop.product_page.reviews.heading")} (${ReviewData?.length || 0})`}</Nav.Link>
               </Nav.Item>
             </Nav>
             <Tab.Content className="description-review-bottom">
@@ -125,13 +127,13 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, ReviewData, 
                 <div className="product-anotherinfo-wrapper">
                   <ul>
                     <li>
-                      <span>Author</span> {ReduxProductData?.author}
+                      <span>{t("shop.product_page.additional_info.author")}</span> {ReduxProductData?.author}
                     </li>
                     <li>
-                      <span>Dimensions</span>{ReduxProductData?.dimension}{" "}
+                      <span>{t("shop.product_page.additional_info.dimension")}</span>{ReduxProductData?.dimension}{" "}
                     </li>
                     <li>
-                      <span>No of Pages</span> {ReduxProductData?.noofpages}
+                      <span>{t("shop.product_page.additional_info.no_of_pages")}</span> {ReduxProductData?.noofpages}
                     </li>
                     {/* <li>
                       <span>Other Info</span> American heirloom jean shorts pug
@@ -187,7 +189,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, ReviewData, 
                               </div>
                             ))
                           ) : (
-                            <p>No Review Found</p>
+                            <p>{t("shop.product_page.reviews.no_reviews")}</p>
                           )
                         )
                       }
@@ -276,11 +278,11 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, ReviewData, 
                   {/* form Review */}
                   <div className="col-lg-5">
                     <div className="ratting-form-wrapper pl-50">
-                      <h3>Add a Review</h3>
+                      <h3>{t("shop.product_page.reviews.add_review")}</h3>
                       <div className="ratting-form">
                         <form onSubmit={handleSubmitAddReviews}>
                           <div className="star-box">
-                            <span>Your rating:</span>
+                            <span>{t("shop.product_page.reviews.review_form.your_rating")}</span>
                             {/* <div className="ratting-star">
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
@@ -305,16 +307,16 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, ReviewData, 
                               <div className="rating-form-style form-submit">
                                 <textarea
                                   name="detail"
-                                  placeholder="Message"
+                                  placeholder={t("shop.product_page.reviews.review_form.message")}
                                   defaultValue={""}
                                   value={formData?.detail}
                                   onChange={handleInputChange}
                                 />
                                 {!formData?.customError || !formData?.detail && (
-                                  <p>Message is required</p>
+                                  <p>{t("shop.product_page.reviews.review_form.error_message")}</p>
                                 )}
 
-                                <input type="submit" defaultValue="Submit" />
+                                <input type="submit" value={t("shop.product_page.reviews.review_form.submit")} />
                               </div>
                             </div>
                           </div>

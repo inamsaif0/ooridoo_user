@@ -1,8 +1,12 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const HeroSliderTwelveSingle = ({ data }) => {
+
+  const {t} = useTranslation()
+
   return (
     <div
       className={clsx("slider-height-4 d-flex align-items-center bg-img")}
@@ -20,7 +24,7 @@ const HeroSliderTwelveSingle = ({ data }) => {
                   className="animated"
                   to={process.env.PUBLIC_URL + data.url}
                 >
-                  SHOP NOW
+                  {t("global.shop_now")}
                 </Link>
               </div>
             </div>

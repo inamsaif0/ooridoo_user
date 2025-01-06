@@ -1,8 +1,10 @@
 
+import { useTranslation } from "react-i18next";
 import sliderData from "../../data/hero-sliders/hero-slider-thirty.json";
 import { Link } from "react-router-dom";
 
 const HeroSliderThirty = () => {
+  const { t } = useTranslation();
   return (
     <div className="slider-area">
       <div
@@ -23,7 +25,7 @@ const HeroSliderThirty = () => {
                   className="button"
                   to={process.env.PUBLIC_URL + sliderData.url}
                 >
-                  Shop Now
+                  {t("global.shop_now")}
                 </Link>
               </div>
             </div>

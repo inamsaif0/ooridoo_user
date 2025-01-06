@@ -11,6 +11,8 @@ import { Email, Facebook, Pinterest, Twitter } from "@material-ui/icons";
 import { BsTwitter } from "react-icons/bs";
 import { useState } from "react";
 import "./style.css"
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 // Custom next arrow component (no additional styling)
 function NextArrow(props) {
@@ -36,6 +38,7 @@ const ProductImageGallerySlider = ({ product }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const gallerySwiperParams = {
     spaceBetween: 15,
@@ -226,11 +229,11 @@ const ProductImageGallerySlider = ({ product }) => {
             }}
             onClick={() => product?.quantity !== 0 && handleAddtoCart(product)}
           >
-            {product.quantity !== 0 ? "Add to Cart" : "Out of Stock"}
+            {product.quantity !== 0 ? t("global.addtocart") : t("global.outofstock")}
           </button>
           <button style={{ padding: "10px 20px", backgroundColor: "transparent", color: "red", border: "none", borderRadius: "5px", cursor: "pointer", display: "flex", alignItems: "center" }} onClick={() => handleAddtoFavorite(product)}>
             <i className={product?.isFavourite ? "pe-7s-like2" : "pe-7s-like"} style={{ fontSize: "25px", marginRight: "10px", cursor: "pointer" }} />
-            <span>Add to wishlist</span>
+            <span>{t("global.addtowishlist")}</span>
           </button>
         </div>
       </div>

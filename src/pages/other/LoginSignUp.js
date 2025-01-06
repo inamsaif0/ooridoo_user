@@ -12,6 +12,8 @@ import defaultUser from '../../assets/img/default-user.png';
 import GetStartedStep4 from "../../components/get-started/step4";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const LoginSignUp = () => {
   const { pathname } = useLocation();
@@ -23,7 +25,7 @@ const LoginSignUp = () => {
   const [Bio, setBio] = useState(null);
   const [phone, setphone] = useState(null);
   const inputRef = useRef(null);
-
+  const { t } = useTranslation();
   // function handleImageUpload(event) {
   //     const file = event?.target?.files[0];
   //     setProfilePriviewImage2(file)
@@ -332,8 +334,8 @@ const LoginSignUp = () => {
       <LayoutOne>
         <Breadcrumb
           pages={[
-            { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Login | Sign Up", path: process.env.PUBLIC_URL + pathname }
+            { label: t("global.breadcrumb.home"), path: process.env.PUBLIC_URL + "/" },
+            { label: t("global.breadcrumb.login_signup"), path: process.env.PUBLIC_URL + pathname }
           ]}
         />
         <div className="login-register-area pt-100 pb-100">
@@ -349,12 +351,12 @@ const LoginSignUp = () => {
                       }}>
                         <Nav.Item>
                           <Nav.Link eventKey="/login" ref={LoginTabRef}>
-                            <h4>Login</h4>
+                            <h4>{t("global.login")}</h4>
                           </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                           <Nav.Link eventKey="/signup">
-                            <h4>Sign Up</h4>
+                            <h4>{t("global.signup")}</h4>
                           </Nav.Link>
                         </Nav.Item>
                       </Nav>
@@ -367,7 +369,7 @@ const LoginSignUp = () => {
                                 <input
                                   type="email"
                                   name="email"
-                                  placeholder="Email"
+                                  placeholder={t("global.email")}
                                   value={formData.email}
                                   onChange={handleInputChange}
                                 />
@@ -376,7 +378,7 @@ const LoginSignUp = () => {
                                   type="password"
                                   className="mb-0"
                                   name="password"
-                                  placeholder="Password"
+                                  placeholder={t("global.password")}
                                   value={formData.password}
                                   onChange={handleInputChange}
                                 />
@@ -384,11 +386,11 @@ const LoginSignUp = () => {
                                 <div className="button-box">
                                   <div className="login-toggle-btn mb-3">
                                     <Link to={process.env.PUBLIC_URL + "/forgotPassword"}>
-                                      Forgot your password?
+                                      {t("global.forgotpassword")}
                                     </Link>
                                   </div>
                                   <button type="submit">
-                                    <span>Login</span>
+                                    <span>{t("global.login")}</span>
                                   </button>
                                 </div>
                               </form>
@@ -402,7 +404,7 @@ const LoginSignUp = () => {
                                 <input
                                   name="userName"
                                   className="mb-2"
-                                  placeholder="User Name"
+                                  placeholder={t('global.username')}
                                   type="text"
                                   value={formData.userName}
                                   onChange={handleSignUpChange}
@@ -411,7 +413,7 @@ const LoginSignUp = () => {
                                 <input
                                   className="mb-0 mt-4"
                                   name="email"
-                                  placeholder="Email"
+                                  placeholder={t('global.email')}
                                   type="email"
                                   value={formData.email}
                                   onChange={handleSignUpChange}
@@ -421,20 +423,20 @@ const LoginSignUp = () => {
                                   className="mb-0 mt-4"
                                   type="password"
                                   name="password"
-                                  placeholder="Create a password"
+                                  placeholder={t("global.createpassword")}
                                   value={formData.password}
                                   onChange={handleSignUpChange}
                                 />
                                 {errors.password && <span className="error ml-2">{errors.password}</span>}
-                                <small className={errors.password ? "ml-4" : ""}  ><br />Use 8 or more characters <br /> With a mix of letters, numbers, and symbols</small>
+                                <small className={errors.password ? "ml-4" : ""}  ><br />{t("global.password_description.line1")} <br />{t("global.password_description.line2")}</small>
                                 <div className="button-box">
                                   <div className="login-toggle-btn mb-3">
                                     <Link to={"#"} onClick={() => LoginTabRef.current.click()}>
-                                      Already have an account? <strong>Sign in</strong>?
+                                      {t("global.already_have_account")} <strong>{t("global.signin")}</strong>?
                                     </Link>
                                   </div>
                                   <button type="submit">
-                                    <span>Sign Up</span>
+                                    <span>{t("global.signup")}</span>
                                   </button>
                                 </div>
                               </form>
@@ -492,7 +494,7 @@ const LoginSignUp = () => {
                     </div> */}
 
 
-                            <h3 className='fw-bold text-decoration-underline  text-center'>Complete Profile</h3>
+                            <h3 className='fw-bold text-decoration-underline  text-center'>{t("global.complete_profile")}</h3>
                             <div className='d-flex align-items-center gap-4 mt-5'>
                               <div className="text-center" >
                                 <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
@@ -503,13 +505,13 @@ const LoginSignUp = () => {
                                   alt="Profile" />
                               </div>
                             </div>
-                            <button type='button' className='btn btn-outline-primary mt-4 ms-4 mb-4' onClick={handleImage}>Update Photo</button>
+                            <button type='button' className='btn btn-outline-primary mt-4 ms-4 mb-4' onClick={handleImage}>{t("global.update_photo")}</button>
                             {/* </div>
                     </div> */}
                             <input
                               name="userName"
                               className="mb-2"
-                              placeholder="Full name"
+                              placeholder={t("global.full_name")}
                               type="text"
                               // value={formData.userName}
                               onChange={(e) => { setFullname(e?.target?.value) }}
@@ -518,7 +520,7 @@ const LoginSignUp = () => {
                             <input
                               className="mb-0 mt-4"
                               name="phone_number"
-                              placeholder="Phone number"
+                              placeholder={t("global.phone_number")}
                               type="text"
                               // value={formData.email}
                               onChange={(e) => { setphone(e?.target?.value) }}
@@ -528,14 +530,14 @@ const LoginSignUp = () => {
                               className="mb-0 mt-4"
                               type="text"
                               name="password"
-                              placeholder="Bio"
+                              placeholder={t("global.bio")}
                               // value={formData.password}
                               onChange={(e) => { setBio(e?.target?.value) }}
                             // onChange={handleSignUpChange}
                             />
                             <div className="button-box mt-4">
                               <button type="submit">
-                                <span>Save</span>
+                                <span>{t("global.save")}</span>
                               </button>
                             </div>
                           </form>
