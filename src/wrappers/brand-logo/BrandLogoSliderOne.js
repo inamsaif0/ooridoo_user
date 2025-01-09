@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import Swiper, { SwiperSlide } from "../../components/swiper";
 import BrandLogoOneSingle from "../../components/brand-logo/BrandLogoOneSingle";
 import BaseUrl from "../../BaseUrl";
+import PropTypes from "prop-types";
 
 const settings = {
   loop: false,
@@ -30,32 +30,32 @@ const BrandLogoSliderOne = ({
   selectedCategory,
 }) => {
   const [currentSubcategories, setCurrentSubcategories] = useState([]);
+  // const [currentCategory, setCurrentCategory] = useState(null);
   const [clickCount, setClickCount] = useState(0);
 
+
+  
   useEffect(() => {
-    const currentCategory = getCategoriesData.find(
-      (category) => category._id === selectedCategory
-    );
+    const currentCategory = getCategoriesData.find((category) => category._id === selectedCategory)
     if (currentCategory?.subcategoryId?.length) {
       setCurrentSubcategories(currentCategory.subcategoryId);
     } else {
       setCurrentSubcategories([]);
     }
     // GetHandleSubCategoryid([]);
-    setClickCount(0); // Reset click count on category change
-  }, [getCategoriesData, selectedCategory]);
+    setClickCount(0);   // Reset click count on category change
+    }, [getCategoriesData, selectedCategory]);
 
   const handleSubCategoryClick = (subcategory) => {
     setClickCount((prevCount) => {
       const newCount = prevCount + 1;
-
       if (newCount === 1) {
         GetHandleSubCategoryid(subcategory._id);
-        setChildSubCategory([]);
-        setReChildSubCategory([]);
+        setChildSubCategory('');
+        setReChildSubCategory('');
       } else if (newCount === 2) {
         setChildSubCategory(subcategory?._id);
-        setReChildSubCategory([]);
+        setReChildSubCategory('');
       } else if (newCount === 3) {
         setReChildSubCategory(subcategory?._id);
       }
@@ -68,18 +68,51 @@ const BrandLogoSliderOne = ({
     }
   };
 
+  // const handleBack = (subcategory) => {
+  //   // console.log( "subCategory Hanldeback",subcategory)  
+  //   // console.log('handle back count',clickCount)
+  //   setClickCount((prevCount) => {
+  //     const newCount = prevCount - 1;
+  //     console.log("click count inside handleback", newCount)
+  //     if (newCount === 0) {
+  //       GetHandleSubCategoryid('');
+  //       setChildSubCategory('');
+  //       setReChildSubCategory('');
+  //       setCurrentSubcategories(subcategory)
+  //     } else if (newCount === 1) {
+  //       // setChildSubCategory('');
+  //       setReChildSubCategory('');
+  //       console.log("child sub hanldeback inside", subcategory?.subcategoryId)
+  //       setCurrentSubcategories(subcategory?.subcategoryId)
+  //     } else if(newCount === 2) {
+  //       setCurrentSubcategories(subcategory?.subcategoryId[0]?.subCategoryId)
+  //     }
+      
+  //     return newCount;
+  //   });
+  // }
+
+
   return (
     <div className={clsx("brand-logo-area", spaceBottomClass, spaceTopClass)}>
       <div className="container">
+
         <div className="brand-logo-active">
-          {currentSubcategories.length > 0 && (
+          {currentSubcategories?.length > 0 && (
             <>
               <h3 className="section-title-4">Sub Categories</h3>
+              {/* <button 
+                className="btn" 
+                onClick={() => handleBack(currentCategory.subcategoryId)}
+                >
+                Back
+              </button> */}
               <Swiper options={settings}>
-                {currentSubcategories.map((subcategory) => (
-                  <SwiperSlide
-                    key={subcategory._id}
-                    className="brand-logo-slide"
+                {currentSubcategories.map((subcategory) => { 
+               return   (
+               <SwiperSlide
+                  key={subcategory._id}
+                  className="brand-logo-slide"
                   >
                     <BrandLogoOneSingle
                       data={`${BaseUrl.baseurl}/${subcategory.media?.file}`}
@@ -87,8 +120,8 @@ const BrandLogoSliderOne = ({
                       spaceBottomClass="mb-30"
                       onclick={() => handleSubCategoryClick(subcategory)}
                     />
-                  </SwiperSlide>
-                ))}
+                  </SwiperSlide>)
+                })}
               </Swiper>
             </>
           )}

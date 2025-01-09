@@ -29,7 +29,7 @@ const ShopTopAction = ({
   ];
 
   const sortDropdown = [
-    {value: "default", label: "Sort by price"},
+    {value: "default", label: t("global.sort_by_price")},
     {value: "priceLowToHigh", label: "Price: Low to High"},
     {value: "priceHighToLow", label: "Price: High to Low"}
   ]
@@ -42,7 +42,7 @@ const ShopTopAction = ({
   // const authorsFinalDropdown = [...baseDropdown, ...authorsDropdown]
 
   const authorsDropdown = [
-    {value: "default", label: "Select Author"},
+    {value: "default", label: t("global.filter_by_author")},
     {value: "Jamshed", label: "Jamshed"},
     {value: "Salman Ahmed", label: "Salman Ahmed"},
   ]
@@ -108,9 +108,9 @@ const ShopTopAction = ({
             ))}
           </select>
         </div>}
-        <p>
+        {/* <p>
           {t("global.showing_of_results.line1")} {sortedProductCount} {t("global.showing_of_results.line2")} {productCount} {t("global.showing_of_results.line3")}
-        </p>
+        </p> */}
       </div>
 
       <div className="shop-tab">
@@ -120,7 +120,7 @@ const ShopTopAction = ({
             setActiveLayout(e);
           }}
         >
-          <i className="fa fa-th-large" />
+          <i className="fa fa-th-large"  />
         </button>
         <button
           onClick={e => {
@@ -128,7 +128,7 @@ const ShopTopAction = ({
             setActiveLayout(e);
           }}
         >
-          <i className="fa fa-th" />
+          <i className="fa fa-th "/>
         </button>
         {/* Uncomment if needed
         <button

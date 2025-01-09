@@ -642,9 +642,9 @@ const ShopGridStandard = () => {
     console.log("Sorting", sortType)
     console.log("Sorting", sortValue)
 
-    console.log(subCategoryId)
-    console.log(childSubCategory)
-    console.log(reChildSubCategory) 
+    console.log('subCategoryId', subCategoryId)
+    console.log('childSUb', childSubCategory)
+    console.log('reChildsuB', reChildSubCategory)
 
   return (
     <Fragment>
