@@ -76,7 +76,7 @@ const ShopTopAction = ({
   return (
     <div className="shop-top-bar mb-35">
       <div className="select-shoing-wrap">
-        {bookTitle?.toLowerCase().includes("books") && <div className="shop-select">
+        {bookTitle?.toLowerCase().includes("books") && <div className="shop-select mb-4 mb-sm-0">
           <select
             onChange={e => setSelectedLanguage(e.target.value)}
           >
@@ -87,7 +87,7 @@ const ShopTopAction = ({
             ))}
           </select>
         </div>}
-        <div className="shop-select">
+        <div className="shop-select mb-4 mb-sm-0">
           <select
             onChange={e => getSortParams("filterSort",e.target.value)}
           >
@@ -98,7 +98,7 @@ const ShopTopAction = ({
             ))}
           </select>
         </div>
-        {bookTitle?.toLowerCase().includes("books") && <div className="shop-select">
+        {bookTitle?.toLowerCase().includes("books") && <div className="shop-select mb-4 mb-sm-0">
           <select
             onChange={e => getSortParams("authorname",e.target.value)}
           >
