@@ -31,9 +31,9 @@ const ShopCategories = ({ categories, getSortParams ,setSelectedCategory, setsub
       // setsubcategoryId(null);
       // setsubcategoryId(null);
       // GetHandleSubCategoryid([]);
-      setSelectedCategory("");
+      // setSelectedCategory("");
       // setActiveSort(e);
-      removeActiveSort()
+      // removeActiveSort()
       console.log("THis is already selected",category?._id)
       // setSelectedCategory(category?._id);
       // Fetch and display the main category products

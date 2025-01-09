@@ -39,7 +39,9 @@
         "phone_number": "Phone Number",
         "bio": "Bio",
         "save": "Save",
-        "shop_now": "Shop Now"
+        "shop_now": "Shop Now",
+        "filter_by_author": "Filter By Author",
+        "sort_by_price": "Sort By Price"
     },
     "header": {
         "nav": {

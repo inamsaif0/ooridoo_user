@@ -39,7 +39,9 @@
         "phone_number": "전화 번호",
         "bio": "바이오",
         "save": "저장",
-        "shop_now": "지금 쇼핑"
+        "shop_now": "지금 쇼핑",
+        "filter_by_author": "작성자별로 필터링",
+        "sort_by_price": "가격순으로 정렬"
     },
     "header": {
         "nav": {
