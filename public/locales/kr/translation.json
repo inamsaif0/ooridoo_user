@@ -41,7 +41,8 @@
         "save": "저장",
         "shop_now": "지금 쇼핑",
         "filter_by_author": "작성자별로 필터링",
-        "sort_by_price": "가격순으로 정렬"
+        "sort_by_price": "가격순으로 정렬",
+        "filter_by_language": "언어로 필터링"
     },
     "header": {
         "nav": {

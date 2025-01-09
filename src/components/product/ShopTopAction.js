@@ -23,6 +23,7 @@ const ShopTopAction = ({
   ]
 
   const languageDropdown = [
+    { value: "default", label: t("global.filter_by_language") },
     { value: "arabic", label: "Arabic" },
     { value: "english", label: "English" },
     { value: "korean", label: "Korean" }
@@ -120,7 +121,7 @@ const ShopTopAction = ({
             setActiveLayout(e);
           }}
         >
-          <i className="fa fa-th-large"  />
+          <i className="fa fa-th-large" style={{color: `${layout === "grid two-column" ? "#e7b833" : "#606060"}`}} />
         </button>
         <button
           onClick={e => {
@@ -128,7 +129,7 @@ const ShopTopAction = ({
             setActiveLayout(e);
           }}
         >
-          <i className="fa fa-th "/>
+          <i className='fa fa-th' style={{color: `${layout === "grid three-column" ? "#e7b833" : "#606060"}`}} />
         </button>
         {/* Uncomment if needed
         <button

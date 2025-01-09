@@ -398,6 +398,9 @@
         &:hover a {
           color: $theme-color;
         }
+        &:active a {
+          color: $theme-color;
+        }
       }
     }
   }
