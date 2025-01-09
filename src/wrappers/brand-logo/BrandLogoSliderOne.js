@@ -47,6 +47,12 @@ const BrandLogoSliderOne = ({
     }, [getCategoriesData, selectedCategory]);
 
   const handleSubCategoryClick = (subcategory) => {
+
+    const divElement = document.querySelector(".single-brand-logo");
+    const imgElement = divElement.querySelector("img");
+
+    imgElement.style.filter = "grayscale(0)";
+
     setClickCount((prevCount) => {
       const newCount = prevCount + 1;
       if (newCount === 1) {

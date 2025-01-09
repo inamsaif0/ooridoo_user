@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -17,6 +17,9 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const [getCategories, setgetCategories] = useState([]);
 
   const { slug } = useParams();
+  let location = useLocation()
+
+  console.log("useparam name field",location.pathname)
   useEffect(() => {
     try {
       var config = {
@@ -66,6 +69,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
         <ul>
         <li className="mega-menu-title">
                           <Link
+                            style={{color: `${location.pathname === "/" && "#e4b530"}`}}
                             to={process.env.PUBLIC_URL + `/`}
                           >
                             {t("header.nav.home")}
@@ -75,6 +79,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
 
                         <li className="mega-menu-title">
                           <Link
+                            style={{color: `${location.pathname.includes("shop") && "#e4b530"}`}}
                             to={process.env.PUBLIC_URL + `/shop/1`}
                           >
                             {t("header.nav.shop")}
@@ -93,6 +98,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
 
                         <li className="mega-menu-title">
                           <Link
+                            style={{color: `${location.pathname.includes("contact") && "#e4b530"}`}}
                             to={process.env.PUBLIC_URL + `/contact`}
                           >
                             {t("header.nav.contact_us")}

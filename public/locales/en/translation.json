@@ -41,7 +41,8 @@
         "save": "Save",
         "shop_now": "Shop Now",
         "filter_by_author": "Filter By Author",
-        "sort_by_price": "Sort By Price"
+        "sort_by_price": "Sort By Price",
+        "filter_by_language": "Filter By Language"
     },
     "header": {
         "nav": {
