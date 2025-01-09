@@ -58,7 +58,7 @@ const MobileNavMenu = () => {
             </li>
           </ul>
         </li>
-        <li>
+        {/* <li>
           <Link to={process.env.PUBLIC_URL + "/shop/1"}>
             {t("Brands")}
           </Link>
@@ -72,7 +72,7 @@ const MobileNavMenu = () => {
           <Link to={process.env.PUBLIC_URL + "/shop/1"}>
             {t("Offers")}
           </Link>
-        </li>
+        </li> */}
         <li className="mt-5">
           <LanguageSelector />
         </li>

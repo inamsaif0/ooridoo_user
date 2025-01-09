@@ -602,7 +602,7 @@ const Cart = () => {
                     </div>
                     <div className="item-empty-area__text">
                     {t("header.icon_group.cart.empty_cart")} <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={process.env.PUBLIC_URL + "/AllShop"}>
                       {t("header.icon_group.cart.shop_now")}
                       </Link>
                     </div>
