@@ -48,8 +48,8 @@ const ShopSidebar = ({ products, getSortParams, sideSpaceClass,setsubcategoryId 
       {screenWidth > '576' && <ShopCategories
         GetHandleSubCategoryid={GetHandleSubCategoryid}
         categories={products}
-        setSelectedCategory={setSelectedCategory}
-        selectedCategory={selectedCategory}
+        // setSelectedCategory={setSelectedCategory}
+        // selectedCategory={selectedCategory}
         getSortParams={getSortParams}
         setsubcategoryId={setsubcategoryId}
         subCategoryId={subCategoryId}
