@@ -1,11 +1,13 @@
+import { t } from 'i18next'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const languages = [
-  {code: "en", lang: "English"},
-  {code: "kr", lang: "Korean"},
-  // {code: "ar", lang: "Arabic"}
-]
+  { code: "default", lang: "🌐" },
+  { code: "en", lang: "EN" },
+  { code: "kr", lang: "KR" },
+  // { code: "ar", lang: "Arabic" }
+];
 
 const LanguageSelector = () => {
 

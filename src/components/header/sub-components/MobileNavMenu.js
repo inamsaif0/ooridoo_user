@@ -73,9 +73,10 @@ const MobileNavMenu = () => {
             {t("Offers")}
           </Link>
         </li>
-        <li className="mt-5">
+        {/* <li className="mt-5">
           <LanguageSelector />
-        </li>
+          
+        </li> */}
       </ul>
     </nav>
   );
