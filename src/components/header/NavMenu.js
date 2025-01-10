@@ -19,18 +19,17 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const { slug } = useParams();
   let location = useLocation()
 
-  console.log("useparam name field",location.pathname)
   useEffect(() => {
     try {
       var config = {
         method: "get",
         // url: `${BaseUrl.baseurl}getheader`,
-        url:`${BaseUrl.baseurl}/api/categories/get`
+        url:`${BaseUrl.baseurl}/api/categories/getAllCategories`
       };
       axios(config)
         .then(function (response) {
-          console.log(response?.data?.data?.result, "setGetheader");
-          setgetCategories(response?.data?.data?.result);
+          console.log(response?.data, "setGetheader");
+          setgetCategories(response?.data?.data);
           // setGetprofessional(response?.data?.professionalCategory);
           // setGetShop(response?.data?.shop);
         })
@@ -213,7 +212,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                     <li className="">
                       <ul>
                         <li className="mega-menu-img">
-                          <Link to={process.env.PUBLIC_URL + "/shop/2"} className="text-start ps-5 shop2-link">
+                          <Link to={process.env.PUBLIC_URL + "/shop/1"} className="text-start ps-5 shop2-link">
                             <img
                               src={
                                 process.env.PUBLIC_URL +

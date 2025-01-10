@@ -73,7 +73,10 @@ const ShopGridStandard = () => {
   
   
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  // const [selectedCategory, setSelectedCategory] = useState(null);
+
+      const selectedCategory = useSelector((state) => state.selectedCategoryId.selectedCategory);
+  
 
   console.log('selectedCategory==>', selectedCategory)
 
@@ -681,8 +684,8 @@ const ShopGridStandard = () => {
                   products={getCategoriesData}
                   setSearchQuery={setSearchQuery}
                   searchQuery={searchQuery}
-                  setSelectedCategory={setSelectedCategory}
-                  selectedCategory={selectedCategory}
+                  // setSelectedCategory={setSelectedCategory}
+                  // selectedCategory={selectedCategory}
                   getSortParams={getSortParams}
                   setsubcategoryId={setsubcategoryId}
                   GetHandleSubCategoryid={GetHandleSubCategoryid}

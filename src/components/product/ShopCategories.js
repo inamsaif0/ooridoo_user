@@ -1,8 +1,12 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { removeActiveSort, setActiveSort } from "../../helpers/product";
+import { useDispatch, useSelector } from "react-redux";
+import { resetSelectedCategory, setSelectedCategory } from "../../store/slices/selectedCategory-slice";
+import { store } from "../../store/store";
+import { useLocation } from "react-router-dom";
 
-const ShopCategories = ({ categories, getSortParams ,setSelectedCategory, setsubcategoryId, selectedCategory, GetHandleSubCategoryid, subCategoryId}) => {
+const ShopCategories = ({ categories, getSortParams, setsubcategoryId, GetHandleSubCategoryid, subCategoryId}) => {
 
   const myCategory=[
       "Books & Media",
@@ -18,12 +22,21 @@ const ShopCategories = ({ categories, getSortParams ,setSelectedCategory, setsub
 
 
   console.log('categories==>',categories)
+    const location = useLocation()
+    const dispatch = useDispatch();
+    const selectedCategory = useSelector((state) => state.selectedCategoryId.selectedCategory);
+    console.log("redux selectedCatgory", selectedCategory)
 
   useEffect(() => {
     if (selectedCategory) {
       getSortParams("category", selectedCategory);
     }
   }, [selectedCategory]);
+
+  useEffect(() => {
+    // Reset the selected category when the route changes
+    dispatch(resetSelectedCategory());
+}, [location.pathname]);
 
   const handleCheckbox = (e, category) => {
     if (selectedCategory === category?._id) {
@@ -34,13 +47,15 @@ const ShopCategories = ({ categories, getSortParams ,setSelectedCategory, setsub
       // setSelectedCategory("");
       // setActiveSort(e);
       // removeActiveSort()
+      // dispatch(resetSelectedCategory());
       console.log("THis is already selected",category?._id)
       // setSelectedCategory(category?._id);
       // Fetch and display the main category products
       getSortParams("category", category?._id);
     } else {
-      setSelectedCategory(category?._id);
+      // setSelectedCategory(category?._id);
       console.log("THis is not already selected",category?._id)
+      dispatch(setSelectedCategory(category?._id));
       setActiveSort(e);
     }
   };
