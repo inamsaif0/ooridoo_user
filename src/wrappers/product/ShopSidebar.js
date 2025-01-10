@@ -9,6 +9,7 @@ import {
 import ShopSearch from "../../components/product/ShopSearch";
 import ShopCategories from "../../components/product/ShopCategories";
 import ShopColor from "../../components/product/ShopColor";
+import { useState, useEffect } from "react";
 
 
 const ShopSidebar = ({ products, getSortParams, sideSpaceClass,setsubcategoryId ,selectedCategory ,setSelectedCategory, searchQuery,setSearchQuery, GetHandleSubCategoryid, subCategoryId}) => {
@@ -20,6 +21,21 @@ const ShopSidebar = ({ products, getSortParams, sideSpaceClass,setsubcategoryId 
 
   // const uniqueCategories = getIndividualCategories(products);
   // const uniqueColors = getIndividualColors(products);
+
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
  
 
   return (
@@ -29,7 +45,7 @@ const ShopSidebar = ({ products, getSortParams, sideSpaceClass,setsubcategoryId 
       <ShopSearch setSearchQuery={setSearchQuery} searchQuery={searchQuery}/>
 
       {/* filter by categories */}
-      <ShopCategories
+      {screenWidth > '576' && <ShopCategories
         GetHandleSubCategoryid={GetHandleSubCategoryid}
         categories={products}
         setSelectedCategory={setSelectedCategory}
@@ -37,7 +53,7 @@ const ShopSidebar = ({ products, getSortParams, sideSpaceClass,setsubcategoryId 
         getSortParams={getSortParams}
         setsubcategoryId={setsubcategoryId}
         subCategoryId={subCategoryId}
-      />
+      />}
 
       {/* filter by color */}
       {/* <ShopColor colors={uniqueColors} getSortParams={getSortParams} /> */}

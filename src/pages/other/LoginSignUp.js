@@ -59,6 +59,8 @@ const LoginSignUp = () => {
     }
   }, [pathname]);
 
+  // const navigate = useNavigate()
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -108,6 +110,7 @@ const LoginSignUp = () => {
             toast.success(data?.message);
             localStorage.setItem('Token', JSON.stringify(data?.data?.token));
             localStorage.setItem('UserId', JSON.stringify(data?.data?.User?._id));
+
             console.log("Navigating to home...");
             navigate('/');
             // LoginTabRef causing issue here
