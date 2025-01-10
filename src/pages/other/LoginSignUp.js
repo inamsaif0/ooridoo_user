@@ -110,8 +110,11 @@ const LoginSignUp = () => {
             toast.success(data?.message);
             localStorage.setItem('Token', JSON.stringify(data?.data?.token));
             localStorage.setItem('UserId', JSON.stringify(data?.data?.User?._id));
-            navigate('/shop')
-            LoginTabRef.current.click()
+
+            console.log("Navigating to home...");
+            navigate('/');
+            // LoginTabRef causing issue here
+            // LoginTabRef.current.click()
             console.log("Success:", data);
           }
           else {

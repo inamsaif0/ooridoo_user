@@ -108,6 +108,26 @@ const MobileNavMenu = () => {
             ))}
           </ul>
         </li>
+        {/* <li>
+          <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+            {t("Brands")}
+          </Link>
+        </li>
+        <li>
+          <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+            {t("Events")}
+          </Link>
+        </li>
+        <li>
+          <Link to={process.env.PUBLIC_URL + "/shop/1"}>
+            {t("Offers")}
+          </Link>
+        </li> */}
+        <li className="mt-5">
+        </li>
+        {/* <li className="mt-5">
+          <LanguageSelector />
+        </li> */}
       </ul>
     </nav>
   );
