@@ -17,7 +17,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
   const UserId = localStorage.getItem("UserId")
   console.log('Token==>', Token)
   console.log('UserId==>', UserId)
-  
+
   document.addEventListener("click", (e) => {
     document.querySelectorAll(".header-icon-dropdown").forEach((menu) => {
       if (!menu.previousElementSibling.contains(e.target)) {
@@ -25,7 +25,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
       }
     });
   });
-  
+
   const handleClick = (e) => {
     document.querySelectorAll(".header-icon-dropdown").forEach((menu) => {
       if (menu !== e.currentTarget.nextSibling) {
@@ -88,87 +88,9 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)}>
       {/* <div className="d-none d-lg-block"> */}
-        <LanguageSelector />
-      
-      {/* Large Screen User Icon */}
-      <div className="same-style account-setting d-none d-lg-block p-0">
-        <button
-          className="account-setting-active"
-          onClick={e => handleClick(e)}
-        // style={{ border: "1px solid red" }}
-        >
-          {!UserId ? 
-            (<i className="pe-7s-user-female" style={{ fontSize: "35px" }} />)
-            :
-            (<img
-              src={`${BaseUrl.baseurl}/${profileImage}`}
-              style={{width: "30px", height: "30px", borderRadius: "15px" , objectFit: "cover"}}
-            />)
-          }
-        </button>
-        <div className="account-dropdown header-icon-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
-          <ul>
-            {Token == null ? (
-              <>
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/login"}>{t("global.login")}</Link>
-              </li>
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/signup"}>{t("global.signup")}</Link>
-              </li>
-              </>
-            ) : null}
+      <LanguageSelector />
 
-            {Token != null ? (
-              <li
-                style={{ cursor: "pointer" }}
-                onClick={() => handleLogout()}
-              >
-                {t("global.logout")}
-              </li>
-            ) : null}
-          </ul>
-        </div>
-      </div>
 
-      {/* Small Screen User Icon */}
-      <div className="same-style account-setting d-block d-lg-none p-0">
-        <button
-          className="account-setting-active"
-          onClick={(e) => handleClick(e)}
-          style={{ margin: "0px" }}
-        >
-          {!UserId ? 
-            (<i className="pe-7s-user-female" style={{ fontSize: "35px" }} />)
-            :
-            (<img
-              src={`${BaseUrl.baseurl}/${profileImage}`}
-              style={{width: "30px", height: "35px", objectFit: "cover"}}
-            />)
-          }
-        </button>
-        <div className="account-dropdown header-icon-dropdown mt-lg-n5 mt-md-n2 mt-sm-0">
-          <ul>
-            {Token == null ? (
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/login"}>{t("global.login")}</Link>
-              </li>
-            ) : null}
-
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/signup"}>{t("global.signup")}</Link>
-            </li>
-            {Token != null ? (
-              <li
-                style={{ cursor: "pointer" }}
-                onClick={() => handleLogout()}
-              >
-                {t("global.logout")}
-              </li>
-            ) : null}
-          </ul>
-        </div>
-      </div>
 
       {/* Wishlist */}
       <div className="same-style header-wishlist py-1">
@@ -216,7 +138,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
           <i className="pe-7s-menu" style={{ fontSize: "30px" }} />
         </button>
       </div>
-    </div>
+    </div >
 
   );
 };

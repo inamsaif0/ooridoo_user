@@ -8,7 +8,7 @@ const MobileNavMenu = () => {
   return (
     <nav className="offcanvas-navigation" id="offcanvas-navigation">
       <ul>
-      <li>
+        <li>
           <Link to={process.env.PUBLIC_URL + "/"}>
             {t("Home")}
           </Link>
