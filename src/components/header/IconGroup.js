@@ -132,7 +132,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
       </div>
 
       {/* Small Screen User Icon */}
-      <div className="same-style account-setting d-block d-lg-none p-0">
+      {/* <div className="same-style account-setting d-block d-lg-none p-0">
         <button
           className="account-setting-active"
           onClick={(e) => handleClick(e)}
@@ -168,7 +168,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
             ) : null}
           </ul>
         </div>
-      </div>
+      </div> */}
 
       {/* Wishlist */}
       <div className="same-style header-wishlist py-1">

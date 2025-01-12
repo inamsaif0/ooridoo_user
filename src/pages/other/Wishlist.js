@@ -430,7 +430,7 @@ const Wishlist = () => {
                     </div>
                     <div className="item-empty-area__text">
                       {t("header.icon_group.wishlist.empty_wishlist")} <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/"}>
+                      <Link to={process.env.PUBLIC_URL + "/shop/1"}>
                         {t("header.icon_group.wishlist.add_items")}
                       </Link>
                     </div>
