@@ -41,6 +41,15 @@ const Cart = () => {
     return value;
   }
 
+  function formatWithCommas(value) {
+    if (typeof value === "number") {
+        return value.toLocaleString(); // Adds commas for thousands separator
+    } else if (typeof value === "string" && !isNaN(value.replace(/,/g, ""))) {
+        return parseFloat(value.replace(/,/g, "")).toLocaleString();
+    }
+    throw new Error("Invalid input: must be a number or numeric string");
+  }
+
   const GetAllCartList = () => {
     const token = JSON.parse(localStorage.getItem('Token'));
     try {
@@ -422,7 +431,7 @@ const Cart = () => {
                                     </span>
                                   )} */}
                                   <span className="amount">
-                                    {convertToNumber(cartItem?.productId?.price)}
+                                    {formatWithCommas(convertToNumber(cartItem?.productId?.price))}
                                   </span>
                                 </td>
 

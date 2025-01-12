@@ -28,6 +28,15 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
     return value;
   }
 
+  function formatWithCommas(value) {
+    if (typeof value === "number") {
+        return value.toLocaleString(); // Adds commas for thousands separator
+    } else if (typeof value === "string" && !isNaN(value.replace(/,/g, ""))) {
+        return parseFloat(value.replace(/,/g, "")).toLocaleString();
+    }
+    throw new Error("Invalid input: must be a number or numeric string");
+  }
+
   const handleRemoveCart = async(e) =>{
     console.log('item==>id',e)
     const token = JSON.parse(localStorage.getItem('Token'));
@@ -173,7 +182,7 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
             <h4>
               {`${t("global.total")} : `}
               <span className="shop-total">
-                {convertToNumber(totalPrice)}
+                {formatWithCommas(convertToNumber(totalPrice))}
                 {/* {totalPrice?.toFixed(2)} */}
                 {/* ahmed */}
               </span>
