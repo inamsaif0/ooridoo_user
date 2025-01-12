@@ -29,6 +29,16 @@ const Checkout = () => {
     // GetAllFavoriteList();
   }, []);
 
+
+  function convertToNumber(value) {
+    if (typeof value === "string") {
+        // Remove commas and convert to number
+        return parseFloat(value.replace(/,/g, ""));
+    }
+    // If it's already a number, return it as is
+    return value;
+  }
+
   const GetAllCartList = () => {
     const token = JSON.parse(localStorage.getItem('Token'));
     try {
@@ -54,7 +64,7 @@ const Checkout = () => {
               quantity: item.count,
               name:item.productId?.title,
               unitPrice: item.productId.price,
-              totalPrice: item.productId.price * item.count
+              totalPrice: convertToNumber(item.productId.price) * (item.count)
             }))
           };
 
@@ -64,7 +74,7 @@ const Checkout = () => {
     
     
           const totalPrice = updatedCartData?.reduce((acc, item) => {
-            const itemPrice = item?.totalPrice || 0; // Assuming price is stored in item.productId.price
+            const itemPrice = (item?.totalPrice) || 0; // Assuming price is stored in item.productId.price
             return acc + itemPrice ;
           }, 0);
     
@@ -432,7 +442,8 @@ const Checkout = () => {
                             return (
                               <li key={key}>
                                 <span className="order-middle-left">
-                                  {cartItem?.name} ({`${cartItem?.quantity} x${cartItem?.unitPrice} `}) 
+                                  {cartItem?.name} ({`${cartItem?.quantity} x ${(cartItem?.unitPrice)}`}) 
+                                  
                                    {/* {cartItem?.quantity} */}
                                   {/* {cartItem?.name} X {cartItem?.quantity} */}
                                 </span>{" "}
@@ -446,7 +457,7 @@ const Checkout = () => {
                                       (
                                         finalProductPrice * cartItem.quantity
                                       ).toFixed(2)} */}
-                                      {cartItem?.totalPrice}
+                                      {convertToNumber(cartItem?.totalPrice)}
                                       {/* {cartItem?.totalPrice} */}
                                 </span>
                               </li>
@@ -463,7 +474,7 @@ const Checkout = () => {
                       <div className="your-order-total">
                         <ul>
                           <li className="order-total">{t("checkout_form.order_details.total")}</li>
-                          <li>₩{TotalPriceSum?.toFixed(2)}</li>
+                          <li>₩{(TotalPriceSum?.toFixed(2))}</li>
                         </ul>
                       </div>
                     </div>
