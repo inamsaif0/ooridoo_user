@@ -750,7 +750,7 @@ const ShopGridStandard = () => {
                     pagePrevText="«"
                     pageNextText="»"
                   /> */}
-                  {PaginationData?.totalPages > 1 && (
+                  {currentData.length > 12 && (
                     <Paginator
                       totalRecords={PaginationData?.totalItems}
                       pageLimit={limit}

@@ -1,87 +1,89 @@
-{   "global": {
+{
+
+    "global": {
         "login": "로그인",
-        "signup": "가입",
+        "signup": "회원가입",
         "signin": "로그인",
-        "logout": "로그 아웃",
+        "logout": "로그아웃",
         "breadcrumb": {
-            "home": "홈",
-            "login_signup": "로그인 및 가입"
+            "home": "home",
+            "login_signup": "로그인"
         },
-        "total": "합계",
+        "total": "총",
         "viewcart": "장바구니보기",
-        "checkout": "점검",
+        "checkout": "결재",
         "subtotal": "소계",
-        "empty_cart": "장바구니에 추가된 항목이 없습니다",
-        "addtocart": "장바구니에 추가",
-        "outofstock": "품절",
-        "new": "새로운",
-        "sale": "세일",
+        "empty_cart": "장바구니에 제품 없음",
+        "addtocart": "장바구니 담기",
+        "outofstock": "재고부족",
+        "new": "새로운 제품",
+        "sale": "판매중",
         "showing_of_results": {
-            "line1": "전시",
-            "line2": "~의",
-            "line3": "결과"
+            "line1": "미리보기",
+            "line2": "일부???",
+            "line3": "결과보기"
         },
-        "addtowishlist": "찜에 추가",
+        "addtowishlist": "위시리스트 담기",
         "name": "이름",
-        "username": "사용자 이름",
+        "username": "사용자이름",
         "email": "이메일",
-        "password": "암호",
-        "createpassword": "비밀번호 만들기",
+        "password": "비밀번호",
+        "createpassword": "비밀번호 생성",
         "forgotpassword": "비밀번호를 잊으셨나요?",
-        "already_have_account": "이미 계정이 있습니까?",
+        "already_have_account": "이미 계정이 있으신가요?",
         "password_description": {
-            "line1": "8자 이상 사용",
-            "line2": "문자, 숫자 및 기호의 혼합 사용"
+            "line1": "8자리 이상으로 비밀번호 만들기",
+            "line2": "영문과 숫자,특수부호 함께 사용"
         },
-        "complete_profile": "프로필 완성",
+        "complete_profile": "프로필 완성하기",
         "update_photo": "사진 업데이트",
-        "full_name": "전체 이름",
-        "phone_number": "전화 번호",
-        "bio": "바이오",
+        "full_name": "성명",
+        "phone_number": "전화번호",
+        "bio": "유기농",
         "save": "저장",
-        "shop_now": "지금 쇼핑",
+        "shop_now": "쇼핑 지금하기",
         "filter_by_author": "작성자별로 필터링",
         "sort_by_price": "가격순으로 정렬",
         "filter_by_language": "언어로 필터링"
     },
     "header": {
         "nav": {
-            "home": "집",
-            "shop": "가게",
-            "contact_us": "저희에게 연락주세요",
+            "home": "home",
+            "shop": "쇼핑하기",
+            "contact_us": "contact us",
             "categories": "카테고리"
         },
         "icon_group": {
             "wishlist": {
                 "breadcrumb": {
-                    "home": "홈",
-                    "wishlist": "찜 목록"
+                    "home": "home",
+                    "wishlist": "위시리스트"
                 },
-                "heading": "찜 목록 항목",
+                "heading": "위시리스트 목록",
                 "image": "이미지",
-                "product_name": "상품명",
-                "unit_price": "단가",
-                "action": "동작",
+                "product_name": "제품 이름",
+                "unit_price": "개별 가격",
+                "action": "활성화하기",
                 "continue_shopping": "쇼핑 계속",
                 "empty_wishlist": "찜 목록에 항목을 찾을 수 없습니다",
                 "add_items": "항목 추가"
             },
             "cart": {
                 "breadcrumb": {
-                    "home": "홈",
+                    "home": "home",
                     "cart": "장바구니"
                 },
                 "heading": "장바구니 항목",
                 "image": "이미지",
-                "product_name": "상품명",
-                "unit_price": "단가",
+                "product_name": "제품 이름",
+                "unit_price": "개별 가격",
                 "quantity": "수량",
                 "subtotal": "소계",
-                "action": "동작",
+                "action": "활성화하기",
                 "view_checkout": "체크 아웃보기",
                 "continue_shopping": "쇼핑 계속",
-                "empty_cart": "장바구니에 항목을 찾을 수 없습니다",
-                "shop_now": "지금 쇼핑"
+                "empty_cart": "장바구니에 제품 없음",
+                "shop_now": "쇼핑 지금하기"
             },
             "compare": "비교",
             "account": "계정"
@@ -96,7 +98,7 @@
         "search_input": "여기에서 검색...",
         "product_page": {
             "breadcrumb": {
-                "home": "홈",
+                "home": "home",
                 "shop_product": "제품"
             },
             "additional_info": {
@@ -121,8 +123,8 @@
     },
     "contact": {
         "breadcrumb": {
-            "home": "홈",
-            "contact": "저희에게 연락주세요"
+            "home": "home",
+            "contact": "contact us"
         },
         "form": {
             "heading": "연락하기",
@@ -176,7 +178,7 @@
           "billingDetails": "청구 세부 정보"
         },
         "breadcrumb": {
-          "home": "홈",
+          "home": "home",
           "checkout": "결제"
         },
         "formLabels": {
@@ -204,19 +206,19 @@
           "email": {
             "required": "이메일 주소는 필수입니다",
             "invalid": "이메일 주소가 유효하지 않습니다"
-          }
-        },
-        "order_details": {
-            "heading": "주문 세부 정보",
-            "product": "제품",
-            "total": "합계",
-            "shipping": "배송",
-            "free_shipping": "무료 배송",
-            "order_total": "주문 합계",
-            "payment_method": "결제 방법",
-            "place_order": "주문하기"
+          },
+          
+            "order_details": {
+                "heading": "주문 세부 정보",
+                "product": "제품",
+                "total": "합계",
+                "shipping": "배송",
+                "free_shipping": "무료 배송",
+                "order_total": "주문 합계",
+                "payment_method": "결제 방법",
+                "place_order": "주문하기"
+            }
+          
         }
-      }
-      
-
+    }
 }
