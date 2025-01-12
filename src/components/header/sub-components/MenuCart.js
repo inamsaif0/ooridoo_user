@@ -18,6 +18,16 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
   // const { cartItems } = useSelector((state) => state.cart);
   let cartTotalPrice = 0;
 
+
+  function convertToNumber(value) {
+    if (typeof value === "string") {
+        // Remove commas and convert to number
+        return parseFloat(value.replace(/,/g, ""));
+    }
+    // If it's already a number, return it as is
+    return value;
+  }
+
   const handleRemoveCart = async(e) =>{
     console.log('item==>id',e)
     const token = JSON.parse(localStorage.getItem('Token'));
@@ -74,7 +84,7 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
   }
 
   const totalPrice = ahmed.reduce((acc, item) => {
-    const itemPrice = item?.productId?.price || 0; // Assuming price is stored in item.productId.price
+    const itemPrice = convertToNumber(item?.productId?.price) || 0; // Assuming price is stored in item.productId.price
     return acc + itemPrice * item?.count;
   }, 0);
 
@@ -163,7 +173,7 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
             <h4>
               {`${t("global.total")} : `}
               <span className="shop-total">
-                {totalPrice}
+                {convertToNumber(totalPrice)}
                 {/* {totalPrice?.toFixed(2)} */}
                 {/* ahmed */}
               </span>

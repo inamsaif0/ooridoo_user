@@ -32,6 +32,15 @@ const Cart = () => {
     GetAllCartList();
   }, []);
 
+  function convertToNumber(value) {
+    if (typeof value === "string") {
+        // Remove commas and convert to number
+        return parseFloat(value.replace(/,/g, ""));
+    }
+    // If it's already a number, return it as is
+    return value;
+  }
+
   const GetAllCartList = () => {
     const token = JSON.parse(localStorage.getItem('Token'));
     try {
@@ -413,7 +422,7 @@ const Cart = () => {
                                     </span>
                                   )} */}
                                   <span className="amount">
-                                    {cartItem?.productId?.price}
+                                    {convertToNumber(cartItem?.productId?.price)}
                                   </span>
                                 </td>
 
