@@ -483,7 +483,7 @@ const Checkout = () => {
                       <div className="your-order-total">
                         <ul>
                           <li className="order-total">{t("checkout_form.order_details.total")}</li>
-                          <li>₩{formatWithCommas(TotalPriceSum)}</li>
+                          <li>₩{formatWithCommas(Number(TotalPriceSum))}</li>
                         </ul>
                       </div>
                     </div>
