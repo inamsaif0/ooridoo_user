@@ -39,6 +39,15 @@ const Checkout = () => {
     return value;
   }
 
+  function formatWithCommas(value) {
+    if (typeof value === "number") {
+        return value.toLocaleString(); // Adds commas for thousands separator
+    } else if (typeof value === "string" && !isNaN(value.replace(/,/g, ""))) {
+        return parseFloat(value.replace(/,/g, "")).toLocaleString();
+    }
+    throw new Error("Invalid input: must be a number or numeric string");
+}
+
   const GetAllCartList = () => {
     const token = JSON.parse(localStorage.getItem('Token'));
     try {
@@ -457,7 +466,7 @@ const Checkout = () => {
                                       (
                                         finalProductPrice * cartItem.quantity
                                       ).toFixed(2)} */}
-                                      {convertToNumber(cartItem?.totalPrice)}
+                                      {formatWithCommas(convertToNumber(cartItem?.totalPrice))}
                                       {/* {cartItem?.totalPrice} */}
                                 </span>
                               </li>
