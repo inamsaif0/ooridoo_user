@@ -344,8 +344,8 @@ const Cart = () => {
                         </thead>
                         <tbody>
                           {CartData.map((cartItem, key) => {
-                            console.log(cartItem)
-                            const itemSubtotal = cartItem?.productId?.price * cartItem?.count || 0; // Calculate subtotal for each item
+                            console.log("cart item object",cartItem)
+                            const itemSubtotal = convertToNumber(cartItem?.productId?.price) * cartItem?.count || 0; // Calculate subtotal for each item
                             // const discountedPrice = getDiscountPrice(
                             //   cartItem.price,
                             //   cartItem.discount
@@ -479,7 +479,7 @@ const Cart = () => {
                                 </td>
                                 <td className="product-subtotal">
                                   {/* {totalPrice} */}
-                                  {itemSubtotal}
+                                  {formatWithCommas(itemSubtotal)}
                                 </td>
 
                                 <td className="product-remove">

@@ -1,3 +1,21 @@
+function convertToNumber(value) {
+  if (typeof value === "string") {
+      // Remove commas and convert to number
+      return parseFloat(value.replace(/,/g, ""));
+  }
+  // If it's already a number, return it as is
+  return value;
+}
+
+function formatWithCommas(value) {
+  if (typeof value === "number") {
+      return value.toLocaleString(); // Adds commas for thousands separator
+  } else if (typeof value === "string" && !isNaN(value.replace(/,/g, ""))) {
+      return parseFloat(value.replace(/,/g, "")).toLocaleString();
+  }
+  throw new Error("Invalid input: must be a number or numeric string");
+}
+
 // get products
 export const getProducts = (products, category, type, limit) => {
   const finalProducts = category
@@ -110,12 +128,12 @@ export const getSortedProducts = (products, sortType, sortValue) => {
       }
       if (sortValue === "priceHighToLow") {
         return sortProducts.sort((a, b) => {
-          return b.price - a.price;
+          return convertToNumber(b.price) - convertToNumber(a.price);
         });
       }
       if (sortValue === "priceLowToHigh") {
         return sortProducts.sort((a, b) => {
-          return a.price - b.price;
+          return convertToNumber(a.price) - convertToNumber(b.price);
         });
       }
     }

@@ -46,7 +46,7 @@ const Checkout = () => {
         return parseFloat(value.replace(/,/g, "")).toLocaleString();
     }
     throw new Error("Invalid input: must be a number or numeric string");
-}
+  }
 
   const GetAllCartList = () => {
     const token = JSON.parse(localStorage.getItem('Token'));
@@ -72,7 +72,7 @@ const Checkout = () => {
               productId: item.productId._id,
               quantity: item.count,
               name:item.productId?.title,
-              unitPrice: item.productId.price,
+              unitPrice: convertToNumber(item.productId.price),
               totalPrice: convertToNumber(item.productId.price) * (item.count)
             }))
           };
@@ -398,7 +398,7 @@ const Checkout = () => {
                     </div>
 
                     <div className="additional-info-wrap">
-                      <h4>{t("checkout_form.formLabels.orderNotes")}</h4>
+                      {/* <h4>{t("checkout_form.formLabels.orderNotes")}</h4> */}
                       <div className="additional-info">
                         <label>{t("checkout_form.formLabels.orderNotes")}</label>
                         <textarea
@@ -483,7 +483,7 @@ const Checkout = () => {
                       <div className="your-order-total">
                         <ul>
                           <li className="order-total">{t("checkout_form.order_details.total")}</li>
-                          <li>₩{(TotalPriceSum?.toFixed(2))}</li>
+                          <li>₩{formatWithCommas(TotalPriceSum)}</li>
                         </ul>
                       </div>
                     </div>

@@ -38,6 +38,25 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
   }
 
 
+  function convertToNumber(value) {
+    if (typeof value === "string") {
+        // Remove commas and convert to number
+        return parseFloat(value.replace(/,/g, ""));
+    }
+    // If it's already a number, return it as is
+    return value;
+  }
+
+  function formatWithCommas(value) {
+    if (typeof value === "number") {
+        return value.toLocaleString(); // Adds commas for thousands separator
+    } else if (typeof value === "string" && !isNaN(value.replace(/,/g, ""))) {
+        return parseFloat(value.replace(/,/g, "")).toLocaleString();
+    }
+    throw new Error("Invalid input: must be a number or numeric string");
+  }
+
+
 
   const handleAddtoCart = async (e, item) => {
     e.preventDefault();
@@ -150,7 +169,6 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
     }
     try {
       // setLoader(true);
-
       // const token = JSON.parse(localStorage.getItem('Token'));
       // if (!token) throw new Error("Authentication token is missing");
 
@@ -262,7 +280,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
                       }}>{item?.title}</h3>
                       <h3>
                         <i className="fa fa-won"></i>
-                        <span>{item?.price}</span>
+                        <span>{(item?.price)}</span>
                       </h3>
                     </div>
                   </div>
