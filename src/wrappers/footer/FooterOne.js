@@ -124,9 +124,9 @@ const FooterOne = ({
             <div className="footer-widget mb-30">
               <div className="footer-info flex-wrap " style={{ display: "flex", flexWrap: "wrap" }}>
                 <ul style={{ display: "flex", listStyle: "none", padding: 0, margin: 0, textAlign: "center" , flexWrap: "wrap" }}>
-                  <li style={{ marginRight: "10px" }}>Ooridoo</li>
+                  <li style={{ marginRight: "10px" }}>{t("global.ooridoo")}</li>
                   <li style={{ marginRight: "10px" }}>|</li>
-                  <li style={{ marginRight: "10px" }}>Fardeheb Jalil Tawfiq</li>
+                  <li style={{ marginRight: "10px" }}>{t("global.Fardeheb_Jalil_Tawfiq")}</li>
                   <li style={{ marginRight: "10px" }}>|</li>
                   <li style={{ marginRight: "10px" }}>508-13-09975</li>
                   <li style={{ marginRight: "10px" }}>|</li>

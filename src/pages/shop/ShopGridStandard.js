@@ -1,6 +1,6 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import Paginator from "react-hooks-paginator";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SEO from "../../components/seo";
 import { getSortedProducts } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -10,8 +10,9 @@ import ShopTopbar from "../../wrappers/product/ShopTopbar";
 import BaseUrl from "../../BaseUrl";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
+import { setSelectedCategory } from "../../store/slices/selectedCategory-slice";
 
 const ShopGridStandard = () => {
   const [layout, setLayout] = useState("grid three-column");
@@ -28,9 +29,12 @@ const ShopGridStandard = () => {
   const [authors, setAuthors] = useState([])
   const [childSubCategory, setChildSubCategory] = useState([])
   const [reChildSubCategory, setReChildSubCategory] = useState([])
+  const dispatch = useDispatch()
+  const selectedCategory = useSelector((state) => state.selectedCategoryId.selectedCategory);
+
 
   const pageLimit = 15;
-  // let { pathname } = useLocation();
+  const location = useLocation();
 
   const getLayout = (layout) => {
     setLayout(layout);
@@ -45,6 +49,8 @@ const ShopGridStandard = () => {
     setFilterSortType(sortType);
     setFilterSortValue(sortValue);
   };
+
+  
 
   useEffect(() => {
     // let allProducts = [...getProductData]
@@ -69,13 +75,16 @@ const ShopGridStandard = () => {
     
   }, [])
 
-
+  useEffect(() => {
+    if (location.state?.selectedCategory) {
+      dispatch(setSelectedCategory(location.state.selectedCategory));
+    }
+  }, [location.state, dispatch]);
   
   
 
   // const [selectedCategory, setSelectedCategory] = useState(null);
 
-      const selectedCategory = useSelector((state) => state.selectedCategoryId.selectedCategory);
   
 
   console.log('selectedCategory==>', selectedCategory)
@@ -706,6 +715,7 @@ const ShopGridStandard = () => {
                   productCount={productLenght}
                   sortedProductCount={productLenght}
                   authors={authors}
+                  currentData={getProductData}
                 />
 
                 {/* shop page content default */}

@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import { setActiveLayout } from "../../helpers/product";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { setSelectedCategory } from "../../store/slices/selectedCategory-slice";
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const ShopTopAction = ({
   getLayout,
@@ -13,10 +16,15 @@ const ShopTopAction = ({
   categories,
   selectedCategory,
   getSortParams,
-  authors
+  authors,
+  currentData
 }) => {
 
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  console.log("count product",currentData)
 
   const baseDropdown = [
     {value: "default", label: "Default"}
@@ -53,6 +61,12 @@ const ShopTopAction = ({
   const category = categories.find(category => category._id == selectedCategory);
   const bookTitle = category?.title
 
+  const filterProducts = currentData?.filter((product) => product.category === selectedCategory)
+
+  const count = filterProducts?.length
+
+  // console.log("count product",typeof(productCount))
+
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
@@ -72,11 +86,17 @@ const ShopTopAction = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (location.state?.selectedCategory) {
+      dispatch(setSelectedCategory(location.state.selectedCategory));
+    }
+  }, [location.state, dispatch]);
+
 
   return (
     <div className="shop-top-bar mb-35">
       <div className="select-shoing-wrap">
-        {bookTitle?.toLowerCase().includes("books") && <div className="shop-select mb-4 mb-sm-0">
+        {(bookTitle?.toLowerCase().includes("books") && count !== 0) &&  <div className="shop-select mb-4 mb-sm-0">
           <select
             onChange={e => setSelectedLanguage(e.target.value)}
           >
@@ -98,7 +118,7 @@ const ShopTopAction = ({
             ))}
           </select>
         </div>
-        {bookTitle?.toLowerCase().includes("books") && <div className="shop-select mb-4 mb-sm-0">
+        {(bookTitle?.toLowerCase().includes("books") && count !== 0) && <div className="shop-select mb-4 mb-sm-0">
           <select
             onChange={e => getSortParams("authorname",e.target.value)}
           >

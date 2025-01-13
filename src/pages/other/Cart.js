@@ -387,13 +387,14 @@ const Cart = () => {
                                   </Link>
                                 </td>
 
-                                <td className="product-name">
+                                <td className="product-name text-center">
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +
                                       "/product/" +
                                       cartItem.id
                                     }
+                                    
                                   >
                                     {cartItem?.productId?.title}
                                   </Link>
@@ -431,7 +432,7 @@ const Cart = () => {
                                     </span>
                                   )} */}
                                   <span className="amount">
-                                    {formatWithCommas(convertToNumber(cartItem?.productId?.price))}
+                                  ₩{formatWithCommas(convertToNumber(cartItem?.productId?.price))}
                                   </span>
                                 </td>
 
@@ -479,7 +480,7 @@ const Cart = () => {
                                 </td>
                                 <td className="product-subtotal">
                                   {/* {totalPrice} */}
-                                  {formatWithCommas(itemSubtotal)}
+                                  ₩{formatWithCommas(itemSubtotal)}
                                 </td>
 
                                 <td className="product-remove">

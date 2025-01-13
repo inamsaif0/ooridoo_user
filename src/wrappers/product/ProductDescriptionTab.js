@@ -12,7 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, ReviewData, ReduxProductData, fetchReviews }) => {
-
+  
+  
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     detail: "",
@@ -123,7 +124,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, ReviewData, 
               </Nav.Item>
             </Nav>
             <Tab.Content className="description-review-bottom">
-              <Tab.Pane eventKey="additionalInfo">
+              {ReduxProductData?.productType === "Book" ? (<Tab.Pane eventKey="additionalInfo">
                 <div className="product-anotherinfo-wrapper">
                   <ul>
                     <li>
@@ -141,7 +142,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, ReviewData, 
                     </li> */}
                   </ul>
                 </div>
-              </Tab.Pane>
+              </Tab.Pane>) : (<Tab.Pane eventKey="additionalInfo">No Additional Info</Tab.Pane>)}
               <Tab.Pane eventKey="productDescription">
                 {productFullDesc}
               </Tab.Pane>

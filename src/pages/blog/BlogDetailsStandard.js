@@ -6,9 +6,11 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 import BlogComment from "../../wrappers/blog/BlogComment";
 import BlogPost from "../../wrappers/blog/BlogPost";
+import { useTranslation } from "react-i18next";
 
 const BlogDetailsStandard = () => {
   let { pathname } = useLocation();
+  const {t} = useTranslation()
 
   return (
     <Fragment>
@@ -20,8 +22,8 @@ const BlogDetailsStandard = () => {
         {/* breadcrumb */}
         <Breadcrumb 
           pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Refund Policy", path: process.env.PUBLIC_URL + pathname }
+            {label: t("refund_policy.breadcrumb.home"), path: process.env.PUBLIC_URL + "/" },
+            {label: t("refund_policy.breadcrumb.refund_policy"), path: process.env.PUBLIC_URL + pathname }
           ]} 
         />
         <div className="blog-area pt-100 pb-100">

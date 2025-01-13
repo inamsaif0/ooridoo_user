@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -8,6 +8,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import book1 from "../../assets/img/books/book1.jpg"
 import book2 from "../../assets/img/books/book2.jpg"
+import { useDispatch, useSelector } from "react-redux";
+import { resetSelectedCategory, setSelectedCategory } from "../../store/slices/selectedCategory-slice";
+import { setActiveSort } from "../../helpers/product";
 
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const { t } = useTranslation();
@@ -15,9 +18,12 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const [getprofessional, setGetprofessional] = useState([]);
   const [getshop, setGetShop] = useState([]);
   const [getCategories, setgetCategories] = useState([]);
+  const selectedCategory = useSelector((state) => state.selectedCategoryId.selectedCategory);
+   
 
   const { slug } = useParams();
-  let location = useLocation()
+  const location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
@@ -55,6 +61,25 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
       });
     }
   }, [slug]);
+
+  const navigate = useNavigate();
+
+  const handleCatgory = (e,category) => { 
+    // Navigate to the new URL
+    navigate(`${process.env.PUBLIC_URL}/shop/1`, {
+      state: { selectedCategory: category?._id }
+    });
+
+      if (selectedCategory === category?._id) {
+        console.log("Already Selected");
+        // setActiveSort(e)
+      } else {
+        dispatch(setSelectedCategory(category?._id));
+        // setActiveSort(e)
+      }
+  
+  };
+  
 
   return (
     <div
@@ -114,7 +139,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               ) : (
                 <i className="fa fa-angle-down" />
               )}
-            </Link>
+            </Link> 
               <ul className="mega-menu mega-menu-padding">
                 <li className="w-100">
                   <ul className="d-flex justify-content-center gap-5">
@@ -146,8 +171,12 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                                   {category?.media?.[0]?.file && console.log(category.media[0].file)}
                                     {t(category.title)}
                                   </Link> */}
-                                  <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
-                                    <div className="category-list-item" >
+                                  {/* <Link to={`${process.env.PUBLIC_URL}/shop/1`} onClick={() => handleCatgory(category)}s> */}
+                                    <div 
+                                      className="category-list-item"
+                                      style={{cursor: "pointer"}} 
+                                      onClick={(e) => handleCatgory(e,category)}
+                                    >
                                       <img
                                         src={category?.media?.file && `${BaseUrl.baseurl}/${category.media.file}`}
                                         // src={book1}
@@ -159,7 +188,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                                         {t(category.title)}         
                                         </p>
                                     </div>
-                                  </Link>
+                                  {/* </Link> */}
                                 </li>
                               ))}
                           </ul>
@@ -186,21 +215,22 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
 
                             {getCategories?.slice(4, 8).map((category, index) => (
                               <li key={index}>
-                                <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
-                                <div className="category-list-item" >
+                                <div 
+                                      className="category-list-item"
+                                      style={{cursor: "pointer"}} 
+                                      onClick={(e) => handleCatgory(e,category)}
+                                    >
                                       <img
                                         src={category?.media?.file && `${BaseUrl.baseurl}/${category.media.file}`}
-                                        // src={book2}
+                                        // src={book1}
                                         className="w-100 h-100"
                                         alt=""
                                         />
                                         <p>
-                                          {t(category.title)}
+
+                                        {t(category.title)}         
                                         </p>
-                                          
-                                          
-                                  </div>
-                                </Link>
+                                    </div>
                               </li>
                             ))}
                           </ul>
@@ -213,8 +243,10 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                       <ul>
                         {getCategories?.slice(8, 9).map((category, index) => (
                               <li key={index} className="mega-menu-img">
-                                <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
-                                  <div className="" >
+                                  <div 
+                                    style={{cursor: "pointer"}} 
+                                    onClick={(e) => handleCatgory(e,category)}
+                                  >
                                     <img
                                       src={category?.media?.file && `${BaseUrl.baseurl}/${category.media.file}`}
                                       style={{width: "400px", height: "330px"}}
@@ -224,7 +256,6 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                                           {t(category.title)}
                                         </p>   
                                   </div>
-                                </Link>
                               </li>
                             ))}
                       </ul>

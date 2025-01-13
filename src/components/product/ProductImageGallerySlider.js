@@ -13,6 +13,7 @@ import { useState } from "react";
 import "./style.css"
 import { t } from "i18next";
 import { useTranslation } from "react-i18next";
+import ShortDescription from "./ShortDescription";
 
 // Custom next arrow component (no additional styling)
 function NextArrow(props) {
@@ -154,7 +155,7 @@ const ProductImageGallerySlider = ({ product }) => {
   };
 
   return (
-    <div className="product-details-container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
+    <div className="product-details-container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "start", gap: "20px" }}>
       {/* Product Image Slider */}
       <div className="product-large-image-wrapper" style={{ flex: "1 1 35%", borderRadius: "5px", height: "auto", }}>
         {product?.media?.length ? (
@@ -202,8 +203,9 @@ const ProductImageGallerySlider = ({ product }) => {
       <div className="product-details" style={{ flex: "1 1 60%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: "600px", }}>
         <h2>{product?.title || "Product Title"}</h2>
         <span>Price: <b>{product?.price} ₩</b></span>
-        <p style={{ fontStyle: "italic", marginBottom: "10px" }}>by {product?.author || "Author Name"}</p>
-        <p>{product?.description || "Product Description goes here."}</p>
+        {product?.productType === "Book" && <p style={{ fontStyle: "italic", marginBottom: "10px" }}>by {product?.author || "Author Name"}</p>}
+
+          {  <ShortDescription description={product.description} />}
 
         <span className="my-2"><b>Schedule Arrival</b>: in 1 day</span>
         <span className="my-2"><b>SKU</b>: {product?.sku || "not found"}</span>

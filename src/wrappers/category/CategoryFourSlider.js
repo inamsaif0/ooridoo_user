@@ -9,6 +9,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import BaseUrl from "../../BaseUrl.js";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // swiper slider settings
 const settings = {
@@ -32,7 +34,14 @@ const settings = {
 
 const CategoryfourSlider = ({ spaceTopClass, spaceBottomClass }) => {
 
+  
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const selectedCategory = useSelector((state) => state.selectedCategoryId.selectedCategory);
   const [getCategoryData, setGetCategoryData] = useState([]);
+  
   useEffect(() => {
     // setLoader(true);
 
@@ -76,8 +85,7 @@ const CategoryfourSlider = ({ spaceTopClass, spaceBottomClass }) => {
     }
   }, []);
 
-
-  const { t } = useTranslation()
+  
 
   return (
     <div className={clsx("collections-area m-4", spaceTopClass, spaceBottomClass)}>
