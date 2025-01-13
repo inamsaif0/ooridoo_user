@@ -117,7 +117,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
             </Link>
               <ul className="mega-menu mega-menu-padding">
                 <li className="w-100">
-                  <ul className="d-flex justify-content-center ">
+                  <ul className="d-flex justify-content-center gap-5">
                   {/* style={{ maxWidth: "1280px", width: "100%" }} */}
                     <li className="">
                       <ul>
@@ -211,19 +211,22 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                     {/* image */}
                     <li className="">
                       <ul>
-                        <li className="mega-menu-img">
-                          <Link to={process.env.PUBLIC_URL + "/shop/1"} className="text-start ps-5 shop2-link">
-                            <img
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/assets/img/banner/book1.jpg"
-                              }
-                              // height={240}
-                              // width={240}
-                              alt=""
-                            />
-                          </Link>
-                        </li>
+                        {getCategories?.slice(8, 9).map((category, index) => (
+                              <li key={index} className="mega-menu-img">
+                                <Link to={`${process.env.PUBLIC_URL}/shop/${category?._id}`}>
+                                  <div className="" >
+                                    <img
+                                      src={category?.media?.file && `${BaseUrl.baseurl}/${category.media.file}`}
+                                      style={{width: "400px", height: "330px"}}
+                                      alt=""
+                                    />
+                                        <p>
+                                          {t(category.title)}
+                                        </p>   
+                                  </div>
+                                </Link>
+                              </li>
+                            ))}
                       </ul>
                     </li>
                   </ul> 
