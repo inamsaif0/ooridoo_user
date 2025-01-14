@@ -8,7 +8,7 @@
         "signin": "로그인",
         "logout": "로그아웃",
         "breadcrumb": {
-            "home": "home",
+            "home": "집",
             "login_signup": "로그인"
         },
         "total": "총",
@@ -50,15 +50,15 @@
     },
     "header": {
         "nav": {
-            "home": "home",
+            "home": "집",
             "shop": "쇼핑하기",
-            "contact_us": "contact us",
+            "contact_us": "저희에게 연락주세요",
             "categories": "카테고리"
         },
         "icon_group": {
             "wishlist": {
                 "breadcrumb": {
-                    "home": "home",
+                    "home": "집",
                     "wishlist": "위시리스트"
                 },
                 "heading": "위시리스트 목록",
@@ -72,7 +72,7 @@
             },
             "cart": {
                 "breadcrumb": {
-                    "home": "home",
+                    "home": "집",
                     "cart": "장바구니"
                 },
                 "heading": "장바구니 항목",
@@ -100,7 +100,7 @@
         "search_input": "여기에서 검색...",
         "product_page": {
             "breadcrumb": {
-                "home": "home",
+                "home": "집",
                 "shop_product": "제품"
             },
             "additional_info": {
@@ -125,8 +125,8 @@
     },
     "contact": {
         "breadcrumb": {
-            "home": "home",
-            "contact": "contact us"
+            "home": "집",
+            "contact": "저희에게 연락주세요"
         },
         "form": {
             "heading": "연락하기",
@@ -180,7 +180,7 @@
           "billingDetails": "청구 세부 정보"
         },
         "breadcrumb": {
-          "home": "home",
+          "home": "집",
           "checkout": "결제"
         },
         "formLabels": {

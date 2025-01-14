@@ -319,7 +319,7 @@ const Wishlist = () => {
                                     </span>
                                   )} */}
                                   <span className="amount">
-                                    {wishlistItem?.productId?.price}
+                                  ₩{wishlistItem?.productId?.price}
                                   </span>
 
                                 </td>

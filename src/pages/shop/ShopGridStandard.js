@@ -724,6 +724,7 @@ const ShopGridStandard = () => {
                   getLayout={getLayout}
                   ProductLenght={getProductData?.length}
                   products={getProductData}
+                  categories={getCategoriesData}
                 />
 
                 {/* shop product pagination */}

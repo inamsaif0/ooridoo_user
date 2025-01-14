@@ -400,7 +400,7 @@ const Checkout = () => {
                     <div className="additional-info-wrap">
                       {/* <h4>{t("checkout_form.formLabels.orderNotes")}</h4> */}
                       <div className="additional-info">
-                        <label>{t("checkout_form.formLabels.orderNotes")}</label>
+                        <label><h5>{t("checkout_form.formLabels.orderNotes")}</h5></label>
                         <textarea
                           placeholder={t("checkout_form.formLabels.orderNotesPlaceholder")}
                           name="orderNotes"
@@ -466,7 +466,7 @@ const Checkout = () => {
                                       (
                                         finalProductPrice * cartItem.quantity
                                       ).toFixed(2)} */}
-                                      {formatWithCommas(convertToNumber(cartItem?.totalPrice))}
+                                      ₩{formatWithCommas(convertToNumber(cartItem?.totalPrice))}
                                       {/* {cartItem?.totalPrice} */}
                                 </span>
                               </li>

@@ -182,7 +182,7 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
             <h4>
               {`${t("global.total")} : `}
               <span className="shop-total">
-                {formatWithCommas(convertToNumber(totalPrice))}
+              ₩{formatWithCommas(convertToNumber(totalPrice))}
                 {/* {totalPrice?.toFixed(2)} */}
                 {/* ahmed */}
               </span>
