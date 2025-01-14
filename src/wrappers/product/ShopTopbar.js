@@ -12,12 +12,14 @@ const ShopTopbar = ({
   categories,
   selectedCategory,
   getSortParams,
-  authors
+  authors,
+  currentData
 }) => {
   return (
     <Fragment>
       {/* shop top action */}
       <ShopTopAction
+        currentData={currentData}
         layout={layout}
         getLayout={getLayout}
         getFilterSortParams={getFilterSortParams}

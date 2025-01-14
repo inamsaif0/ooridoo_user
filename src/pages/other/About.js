@@ -9,9 +9,11 @@ import TextGridOne from "../../wrappers/text-grid/TextGridOne";
 import FunFactOne from "../../wrappers/fun-fact/FunFactOne";
 import TeamMemberOne from "../../wrappers/team-member/TeamMemberOne";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
+import { useTranslation } from "react-i18next";
 
 const About = () => {
   let { pathname } = useLocation();
+  const { t } = useTranslation();
 
   return (
     <Fragment>
@@ -23,8 +25,8 @@ const About = () => {
         {/* breadcrumb */}
         <Breadcrumb 
           pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "About us", path: process.env.PUBLIC_URL + pathname }
+            {label: t("about_us.breadcrumb.home"), path: process.env.PUBLIC_URL + "/" },
+            {label: t("about_us.breadcrumb.About"), path: process.env.PUBLIC_URL + pathname }
           ]} 
         />
 

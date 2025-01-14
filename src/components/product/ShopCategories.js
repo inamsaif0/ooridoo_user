@@ -33,11 +33,6 @@ const ShopCategories = ({ categories, getSortParams, setsubcategoryId, GetHandle
     }
   }, [selectedCategory]);
 
-  useEffect(() => {
-    // Reset the selected category when the route changes
-    dispatch(resetSelectedCategory());
-}, [location.pathname]);
-
   const handleCheckbox = (e, category) => {
     if (selectedCategory === category?._id) {
       // If the clicked category is already selected, reset the subcategory state

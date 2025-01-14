@@ -7,6 +7,7 @@ import BaseUrl from "../../BaseUrl";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Fragment } from "react";
+import ShortDescription from "./ShortDescription";
 
 const ProductDescriptionInfo = () => {
   const [getProduct, setGetProduct] = useState([]);
@@ -72,7 +73,7 @@ const ProductDescriptionInfo = () => {
                 </div>
                 <Rating />
                 <div className="pro-details-list">
-                  <div dangerouslySetInnerHTML={{ __html: e?.description }} />
+                  <ShortDescription description={e.description} />
                 </div>
                 <div className="pro-details-quality">
                   <div className="cart-plus-minus">

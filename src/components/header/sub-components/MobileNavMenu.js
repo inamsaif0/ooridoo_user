@@ -183,7 +183,6 @@ const MobileNavMenu = () => {
             <ul className="sub-menu">
               {getCategories?.map((category, index) => (
                 <li key={index}>
-                  {console.log(category.media.file)}
                   <Link to={`${process.env.PUBLIC_URL}/shop/1`} onClick={() => handleCatgory(category)}>
                     {category.title}
                   </Link>

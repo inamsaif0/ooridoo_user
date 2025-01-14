@@ -1,18 +1,25 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 const SectionTitleWithText = ({ spaceTopClass, spaceBottomClass }) => {
+
+  const {t} = useTranslation();
+
   return (
     <div className={clsx("welcome-area", spaceTopClass, spaceBottomClass)}>
       <div className="container">
         <div className="welcome-content text-center">
-          <h5>Who Are We</h5>
-          <h1>Welcome To Ooridoo</h1>
+          {/* <h5>Who Are We</h5> */}
+          <h1>{t("about_us.section_with_text.heading")}</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt labor et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commo consequat irure{" "}
+          {t("about_us.section_with_text.line1")}
+          <br/>
+          <br/>
+          {t("about_us.section_with_text.line2")}
+          <br/>
+          <br/>
+          {t("about_us.section_with_text.line3")}
           </p>
         </div>
       </div>
