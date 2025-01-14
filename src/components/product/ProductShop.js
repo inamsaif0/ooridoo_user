@@ -6,14 +6,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import BaseUrl from "../../BaseUrl";
 import Rating from "./sub-components/ProductRating";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartFlagfunction, setProductsDetail } from "../../store/slices/productDetail-slice";
 import { toast } from "react-toastify";
 import { Card } from "react-bootstrap";
 import "./style.css"
 import { useTranslation } from "react-i18next";
 
-const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) => {
+const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products, categories }) => {
 
   const navigate = useNavigate()
 
@@ -21,8 +21,12 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
 
   const router = useNavigate()
   const dispatch = useDispatch()
-
   const {t} = useTranslation()
+
+  const selectedCategory = useSelector((state) => state.selectedCategoryId.selectedCategory);
+
+  const category = categories?.find((category) => category?._id === selectedCategory)
+  
 
   console.log('Myproduct==>', products)
 
@@ -219,6 +223,7 @@ const ProductGridListSingle = ({ spaceBottomClass, ProductLenght, products }) =>
 
   return (
     <Fragment>
+      {selectedCategory && <h3>{category?.title}</h3>}
       <div className={clsx("product-wrap", spaceBottomClass)} style={{ padding: "10px" }}>
         <div className="row" style={{}}>
           {products.length > 0 ? (

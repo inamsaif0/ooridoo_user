@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import ProductGridListSingle from "../../components/product/ProductShop";
 
-const ProductGridList = ({ spaceBottomClass, ProductLenght ,products }) => {
+const ProductGridList = ({ spaceBottomClass, ProductLenght ,products, categories }) => {
 
 
   return (
@@ -10,6 +10,8 @@ const ProductGridList = ({ spaceBottomClass, ProductLenght ,products }) => {
         products={products}
         spaceBottomClass={spaceBottomClass}
         ProductLenght={ProductLenght}
+        categories={categories}
+        
       />
     </Fragment>
   );

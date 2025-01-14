@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import ProductgridList from "./ProductgridList";
 
-const ShopProducts = ({ products, layout, ProductLenght }) => {
+const ShopProducts = ({ products, layout, ProductLenght, categories }) => {
 
   console.log('products',products)
 
@@ -12,6 +12,7 @@ const ShopProducts = ({ products, layout, ProductLenght }) => {
         <ProductgridList
           products={products}
           ProductLenght={ProductLenght}
+          categories={categories}
           spaceBottomClass="mb-25"
         />
       </div>
