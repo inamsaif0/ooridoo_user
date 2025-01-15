@@ -120,12 +120,19 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
             ) : null}
 
             {Token != null ? (
-              <li
-                style={{ cursor: "pointer" }}
-                onClick={() => handleLogout()}
-              >
-                {t("global.logout")}
-              </li>
+              <>
+                <li
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleLogout()}
+                  >
+                    <a>
+                      {t("global.logout")}
+                    </a>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/profile"} >View Profile</Link>
+                </li>
+                </>
             ) : null}
           </ul>
         </div>

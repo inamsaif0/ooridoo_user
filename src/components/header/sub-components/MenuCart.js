@@ -185,7 +185,7 @@ const MenuCart = ({cartItems:ahmed ,GetAllCartList}) => {
               ₩{formatWithCommas(convertToNumber(totalPrice))}
                 {/* {totalPrice?.toFixed(2)} */}
                 {/* ahmed */}
-              </span>
+              </span> 
             </h4>
           </div>
           <div className="shopping-cart-btn btn-hover text-center">

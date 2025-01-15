@@ -1,32 +1,96 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './ProfileHeader.css'
 import img1 from '../../../assets/img/Pepsi.png'
 import { Link, useLocation } from 'react-router-dom'
+import axios from 'axios'
+import BaseUrl from '../../../BaseUrl'
+import OrderDetails from './SubComponents/OrderDetails'
 const ProfileHeader = () => {
 
-    const [profileImage, setProfileImage] = useState(null);
     const inputRef = useRef(null);
 
     let { pathname } = useLocation()
 
+    const Token = localStorage.getItem("Token")
+    const UserId = localStorage.getItem("UserId")
+
     console.log("pathname",pathname)
     let UserPathname = pathname
 
-    function handleImageUpload(event) {
+    // function handleImageUpload(event) {
 
-        console.log("handleImageUpload", event.target.files[0])
-        const file = event.target.files[0];
-        console.log("file",file)
-        const imageUrl = URL.createObjectURL(file);
-        // inputRef.current.textContent();
-        console.log("URL.createObjectURL",imageUrl)
-        setProfileImage(imageUrl);
+    //     console.log("handleImageUpload", event.target.files[0])
+    //     const file = event.target.files[0];
+    //     console.log("file",file)
+    //     const imageUrl = URL.createObjectURL(file);
+    //     // inputRef.current.textContent();
+    //     console.log("URL.createObjectURL",imageUrl)
+    //     setProfileImage(imageUrl);
 
-    }
+    // }
 
-    const handleImage = () => {
-        inputRef.current.click()
-    }
+    // const handleImage = () => {
+    //     inputRef.current.click()
+    // }
+
+    const [profile, setProfile] = useState(null);
+    const [userOrders, setUserOrder] = useState([])
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = JSON.parse(localStorage.getItem("Token"));
+      try {
+        const response = await axios.get(`${BaseUrl.baseurl}/api/user/get-all-users`, {
+          headers: {
+            token: token,
+            // "Accept": "application/json",
+            // 'Content-Type': 'multipart/form-data'
+          },
+        });
+        if (response.data.status === true) {
+          const users = response.data.data;
+          const currentUser = users.find(user => user._id === JSON.parse(UserId))
+          setProfile(currentUser)
+        } else {
+          console.error("Error fetching profile image:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching profile image:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const token = JSON.parse(localStorage.getItem("Token"));
+      try {
+        const response = await axios.get(`${BaseUrl.baseurl}/api/order/get-all-user-orders`, {
+          headers: {
+            token: token,
+            // "Accept": "application/json",
+            // 'Content-Type': 'multipart/form-data'
+          },
+        });
+        if (response.data.status === true) {
+          const orders = response.data.data;
+          console.log("orders", orders)
+        //   const currentUser = users.find(user => user._id === JSON.parse(UserId))
+          setUserOrder(orders)
+        } else {
+          console.error("Error fetching profile image:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching profile image:", error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+
 
     return (
         <>
@@ -34,20 +98,26 @@ const ProfileHeader = () => {
             <div className='container mt-4 mb-4'  >
                 <div className='row' >
                     <div className='col-md-4 text-center ' >
-                        <h4 className='' >Upload Profile Image</h4>   
-                        <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
-                        <img className='profile-image' onClick={() => handleImage()} src={profileImage ? profileImage : img1} alt="Profile" />
-
-                        <div className='text-center'>
-                            <button className='btn btn-primary mt-4 '  > Upload Profile </button>
-                        </div>
+                        <img className='profile-image' src={`${BaseUrl.baseurl}/${profile?.profileImage?.file}`} alt="Profile" />
 
                     </div>
 
                     <div className='col-md-6 d-flex flex-column mt-4'  >
-                        <h3 className='mt-4' >User</h3>
+                        <h3 className='mt-4' >{profile?.fullName}</h3>
+                        <p>{profile?.bio}</p>
 
-                        <span className='mt-2'>0 followers | 0 following</span>
+                        <div>
+                            <span className='me-3'><b>Email:</b></span>
+                            <span>{profile?.email}</span>
+                        </div>
+                        <div>
+                            <span className='me-3'><b>Contact:</b></span>
+                            <span>{profile?.phone_number}</span>
+                        </div>
+                        <div>
+                            <span className='me-3'><b>Address:</b></span>
+                            <span>{profile?.address}</span>
+                        </div>
 
 
 
@@ -55,7 +125,7 @@ const ProfileHeader = () => {
 
                 </div>
 
-                <div className='row d-flex   mt-5  mb-3'   >
+                {/* <div className='row d-flex   mt-5  mb-3'   >
                     <ul className="nav nav-pills nav-fill ml-4" >
                         <Link to={"#"} >
                             <li className="nav-item ml-2" >
@@ -84,10 +154,13 @@ const ProfileHeader = () => {
                         </Link>
 
                     </ul>
+                </div> */}
+
+                <div className='hr-line my-5' />
+
+                <div className="row">
+                    <OrderDetails data={userOrders} />
                 </div>
-
-                <div className='hr-line' />
-
 
             </div>
 
