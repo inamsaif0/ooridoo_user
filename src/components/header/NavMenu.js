@@ -65,21 +65,28 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const navigate = useNavigate();
 
   const handleCatgory = (e,category) => { 
+    e.preventDefault();
     // Navigate to the new URL
-    navigate(`${process.env.PUBLIC_URL}/shop/1`, {
-      state: { selectedCategory: category?._id }
-    });
+    navigate(`${process.env.PUBLIC_URL}/shop/1`);
 
-      if (selectedCategory === category?._id) {
-        console.log("Already Selected");
-        // setActiveSort(e)
-      } else {
+
+    if (selectedCategory === category?._id) {
+      console.log("Already Selected");
+      // setActiveSort(e)
+    } else {
+      setTimeout(() => {   
         dispatch(setSelectedCategory(category?._id));
         // setActiveSort(e)
-      }
+      }, 1000);
+    }
   
   };
   
+
+//   useEffect(() => {
+//     // Reset the selected category when the route changes
+//     dispatch(resetSelectedCategory());
+// }, [location.pathname]);
 
   return (
     <div

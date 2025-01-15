@@ -30,7 +30,7 @@ const ProfessionalProfile = () => {
                 />
                 <ProfileHeader />
 
-                <div className='container'>
+                {/* <div className='container'>
                     <div className='row' >
                         <div className='col-lg-3' >
                             <ProfileTags />
@@ -46,7 +46,7 @@ const ProfessionalProfile = () => {
 
                     </div>
 
-                </div>
+                </div> */}
 
             </LayoutOne>
         </Fragment>

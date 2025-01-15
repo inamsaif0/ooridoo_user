@@ -12,7 +12,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useLocation, useParams } from "react-router-dom";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
-import { setSelectedCategory } from "../../store/slices/selectedCategory-slice";
+import { resetSelectedCategory, setSelectedCategory } from "../../store/slices/selectedCategory-slice";
 
 const ShopGridStandard = () => {
   const [layout, setLayout] = useState("grid three-column");
@@ -35,6 +35,7 @@ const ShopGridStandard = () => {
 
   const pageLimit = 15;
   const location = useLocation();
+  console.log("select category is",selectedCategory)
 
   const getLayout = (layout) => {
     setLayout(layout);
@@ -75,11 +76,16 @@ const ShopGridStandard = () => {
     
   }, [])
 
+  // useEffect(() => {
+  //   if (location.state?.selectedCategory) {
+  //     dispatch(setSelectedCategory(location.state.selectedCategory));
+  //   }
+  // }, [location.state, dispatch]);
+
   useEffect(() => {
-    if (location.state?.selectedCategory) {
-      dispatch(setSelectedCategory(location.state.selectedCategory));
-    }
-  }, [location.state, dispatch]);
+        // Reset the selected category when the route changes
+        dispatch(resetSelectedCategory());
+    }, [location.pathname]);
   
   
 
@@ -657,6 +663,8 @@ const ShopGridStandard = () => {
     console.log('subCategoryId', subCategoryId)
     console.log('childSUb', childSubCategory)
     console.log('reChildsuB', reChildSubCategory)
+
+
 
   return (
     <Fragment>
