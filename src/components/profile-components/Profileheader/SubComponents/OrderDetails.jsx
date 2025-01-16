@@ -30,37 +30,38 @@ const OrderDetails = ({ data }) => {
 
   return (
     <div className="container mt-4">
-      <table className="table">
-        <thead  style={{ backgroundColor: "#f8f9fa", color: "#000" }}>
-          <tr className="">
-            <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Delivery Status</th>
-            <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Payment Status</th>
-            <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Payment ID</th>
-            <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Address</th>
-            <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((order, index) => (
-            <tr key={index} style={{ borderBottom: "1px solid #e9ecef !important"  }}>
-              <td className="text-center px-4 text-capitalize">{order.deliveryStatus}</td>
-              <td className="text-center px-4 text-capitalize">{order.paymentStatus}</td>
-              <td className="text-center px-4 text-capitalize">{order.paymentId}</td>
-              <td className="text-center px-4 text-capitalize">{order.shippingAddress || "N/A"}</td>
-              <td className="text-center px-4 text-capitalize">
-                <button
-                  className="btn btn-sm py-2 px-4 text-white"
-                  style={{backgroundColor: "#e6b732", borderRadius: "20px",}}
-                  onClick={() => handleModalOpen(order)}
-                >
-                  View Products
-                </button>
-              </td>
+      <div className="table-responsive">
+        <table className="table">
+          <thead  style={{ backgroundColor: "#f8f9fa", color: "#000" }}>
+            <tr className="">
+              <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Delivery Status</th>
+              <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Payment Status</th>
+              <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Payment ID</th>
+              <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Address</th>
+              <th className="p-4 text-center" style={{fontWeight: "500", textTransform: "uppercase"}}>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
+          </thead>
+          <tbody>
+            {data.map((order, index) => (
+              <tr key={index} style={{ borderBottom: "1px solid #e9ecef !important"  }}>
+                <td className="text-center px-4 text-capitalize">{order.deliveryStatus}</td>
+                <td className="text-center px-4 text-capitalize">{order.paymentStatus}</td>
+                <td className="text-center px-4 text-capitalize">{order.paymentId}</td>
+                <td className="text-center px-4 text-capitalize">{order.shippingAddress || "N/A"}</td>
+                <td className="text-center px-4 text-capitalize">
+                  <button
+                    className="btn btn-sm py-2 px-4 text-white"
+                    style={{backgroundColor: "#e6b732", borderRadius: "20px",}}
+                    onClick={() => handleModalOpen(order)} 
+                  >
+                    View Products
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {/* Modal */}
       {showModal && selectedOrder && (
         <div 

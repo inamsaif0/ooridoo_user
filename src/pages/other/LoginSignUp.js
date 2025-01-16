@@ -496,7 +496,7 @@ const LoginSignUp = () => {
 
                             {/* <div>
                       
-                    </div> */}
+                    </div> */} 
 
 
                             <h3 className='fw-bold text-decoration-underline  text-center'>{t("global.complete_profile")}</h3>

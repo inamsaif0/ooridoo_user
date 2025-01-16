@@ -71,7 +71,7 @@ const Contact = () => {
                     </div>
                   </div>
                   <div className="contact-social text-center">
-                    <h3>Follow Us</h3>
+                    <h3>{t("global.follow_us")}</h3>
                     <ul>
                       <li>
                         <a href="//facebook.com">

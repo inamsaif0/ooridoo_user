@@ -237,3 +237,19 @@
     width: 50%;
   }
 }
+
+//verify otp styling
+
+.otp-input-box {
+    width: 50px;
+    height: 50px !important;
+    text-align: center;
+    font-size: 24px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    @media #{$xs-layout} {
+      width: 40px;
+      height: 40px;
+    }
+}

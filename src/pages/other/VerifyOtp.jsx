@@ -89,7 +89,7 @@ function VerifyOtp() {
                                     <div className="login-form-container">
                                         <div className="login-register-form">
                                             <form onSubmit={handleSubmit}>
-                                                <div className="otp-inputs d-flex justify-content-center" style={{ gap: "10px" }}>
+                                                <div className="otp-inputs d-flex justify-content-center gap-2" >
                                                     {otp.map((value, index) => (
                                                         <input
                                                             key={index}
@@ -98,16 +98,8 @@ function VerifyOtp() {
                                                             value={value}
                                                             onChange={(e) => handleChange(e, index)}
                                                             maxLength={1}
-                                                            className="otp-input mx-1"
+                                                            className="otp-input otp-input-box mx-1"
                                                             placeholder="-"
-                                                            style={{
-                                                                width: "50px",
-                                                                height: "50px",
-                                                                textAlign: "center",
-                                                                fontSize: "24px",
-                                                                border: "1px solid #ccc",
-                                                                borderRadius: "5px",
-                                                            }}
                                                         />
                                                     ))}
                                                 </div>
