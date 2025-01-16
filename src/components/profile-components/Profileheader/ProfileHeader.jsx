@@ -51,7 +51,7 @@ const ProfileHeader = () => {
         if (response.data.status === true) {
           const users = response.data.data;
           console.log("users all",users)
-          const currentUser = users.find(user => user._id === String(UserId));
+          const currentUser = users.find(user => user._id === JSON.parse(UserId))
           setProfile(currentUser)
         } else {
           console.error("Error fetching profile image:", response);
