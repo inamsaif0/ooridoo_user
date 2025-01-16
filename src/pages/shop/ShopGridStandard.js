@@ -33,7 +33,7 @@ const ShopGridStandard = () => {
   const selectedCategory = useSelector((state) => state.selectedCategoryId.selectedCategory);
 
 
-  const pageLimit = 15;
+  const pageLimit = 10;
   const location = useLocation();
   console.log("select category is",selectedCategory)
 
@@ -108,6 +108,8 @@ const ShopGridStandard = () => {
   console.log('getCategoriesData==>', getCategoriesData)
 
   const [PaginationData, setPaginationData] = useState()
+
+  console.log("pagnitation data",PaginationData)
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -664,6 +666,8 @@ const ShopGridStandard = () => {
     console.log('childSUb', childSubCategory)
     console.log('reChildsuB', reChildSubCategory)
 
+    console.log("data type one current data", currentData)
+    console.log("data type two get product data", getProductData)
 
 
   return (
@@ -769,14 +773,14 @@ const ShopGridStandard = () => {
                     pagePrevText="«"
                     pageNextText="»"
                   /> */}
-                  {currentData.length > 12 && (
+                  {(
                     <Paginator
                       totalRecords={PaginationData?.totalItems}
                       pageLimit={limit}
                       pageNeighbours={2}
                       setOffset={setOffset}
-                      // currentPage={currentPage}
-                      currentPage={PaginationData?.currentPage}
+                      currentPage={currentPage}
+                      // currentPage={PaginationData?.currentPage}
                       setCurrentPage={setCurrentPage}
                       pageContainerClass="mb-0 mt-0"
                       pagePrevText="«"
