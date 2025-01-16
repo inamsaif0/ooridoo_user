@@ -24,6 +24,7 @@ const LoginSignUp = () => {
   const [Fullname, setFullname] = useState(null);
   const [Bio, setBio] = useState(null);
   const [phone, setphone] = useState(null);
+  const [address, setAddress] = useState(null);
   const inputRef = useRef(null);
   const { t } = useTranslation();
   // function handleImageUpload(event) {
@@ -283,6 +284,7 @@ const LoginSignUp = () => {
     formData.append('full_name', Fullname);
     formData.append('phone_number', phone);
     formData.append('bio', Bio);
+    formData.append('address', address)
 
 
 
@@ -303,6 +305,7 @@ const LoginSignUp = () => {
       console.log('==>cart==>api', response)
       if (response?.data?.status === true) {
         toast.success(response?.data?.message);
+        // localStorage.setItem("UserId", response?.data?.data?.User._id)
         navigate('/')
         // dispatch(cartFlagfunction(true))
       } else {
@@ -331,6 +334,7 @@ const LoginSignUp = () => {
 
   };
 
+  console.log("address",address)
 
 
   return (
@@ -503,7 +507,7 @@ const LoginSignUp = () => {
                             <div className='d-flex align-items-center gap-4 mt-5'>
                               <div className="text-center" >
                                 <input type="file" ref={inputRef} style={{ display: 'none' }} onChange={handleImageUpload} />
-                                <img className='profile-image' style={{ height: '200px', width: '200px', borderRadius: '12px' }} onClick={() => handleImage()}
+                                <img className='profile-image' style={{ height: '200px', width: '200px', borderRadius: '12px', objectFit: "cover" }} onClick={() => handleImage()}
 
                                   // src={profileImage ? profileImage : defaultUser}
                                   src={profileImage || defaultUser}  // Show defaultUser if no profile image is uploaded
@@ -540,6 +544,16 @@ const LoginSignUp = () => {
                               onChange={(e) => { setBio(e?.target?.value) }}
                             // onChange={handleSignUpChange}
                             />
+                            <input
+                              className="mb-0 mt-4"
+                              type="text"
+                              name="address"
+                              placeholder={t("global.address")}
+                              // value={formData.password}
+                              onChange={(e) => { setAddress(e?.target?.value) }}
+                            // onChange={handleSignUpChange}
+                            />
+
                             <div className="button-box mt-4">
                               <button type="submit">
                                 <span>{t("global.save")}</span>

@@ -13,6 +13,7 @@ const ProfileHeader = () => {
 
     const Token = localStorage.getItem("Token")
     const UserId = localStorage.getItem("UserId")
+    console.log("userid", UserId)
 
     console.log("pathname",pathname)
     let UserPathname = pathname
@@ -49,7 +50,8 @@ const ProfileHeader = () => {
         });
         if (response.data.status === true) {
           const users = response.data.data;
-          const currentUser = users.find(user => user._id === JSON.parse(UserId))
+          console.log("users all",users)
+          const currentUser = users.find(user => user._id === String(UserId));
           setProfile(currentUser)
         } else {
           console.error("Error fetching profile image:", response);
@@ -61,6 +63,8 @@ const ProfileHeader = () => {
 
     fetchProfile();
   }, []);
+
+  console.log("user profile",profile)
 
 
   useEffect(() => {
