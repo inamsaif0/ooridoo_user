@@ -305,7 +305,7 @@ const LoginSignUp = () => {
       console.log('==>cart==>api', response)
       if (response?.data?.status === true) {
         toast.success(response?.data?.message);
-        // localStorage.setItem("UserId", response?.data?.data?.User._id)
+        localStorage.setItem("UserId", response?.data?.data?.User._id)
         navigate('/')
         // dispatch(cartFlagfunction(true))
       } else {
