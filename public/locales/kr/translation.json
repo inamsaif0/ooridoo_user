@@ -1,16 +1,17 @@
 {
 
     "global": {
-        "ooridoo": "오레두",
+        "ooridoo": "우리두",
         "Fardeheb_Jalil_Tawfiq":"파르데헤브 잘릴 타우피크",
         "follow_us": "우리를 팔로우하세요",
+        "view_profile": "프로필 보기",
         "address": "주소",
         "login": "로그인",
         "signup": "회원가입",
         "signin": "로그인",
         "logout": "로그아웃",
         "breadcrumb": {
-            "home": "집",
+            "home": "홈",
             "login_signup": "로그인"
         },
         "total": "총",
@@ -52,7 +53,7 @@
     },
     "header": {
         "nav": {
-            "home": "집",
+            "home": "홈",
             "shop": "쇼핑하기",
             "contact_us": "저희에게 연락주세요",
             "categories": "카테고리"
@@ -60,7 +61,7 @@
         "icon_group": {
             "wishlist": {
                 "breadcrumb": {
-                    "home": "집",
+                    "home": "홈",
                     "wishlist": "위시리스트"
                 },
                 "heading": "위시리스트 목록",
@@ -74,7 +75,7 @@
             },
             "cart": {
                 "breadcrumb": {
-                    "home": "집",
+                    "home": "홈",
                     "cart": "장바구니"
                 },
                 "heading": "장바구니 항목",
@@ -102,7 +103,7 @@
         "search_input": "여기에서 검색...",
         "product_page": {
             "breadcrumb": {
-                "home": "집",
+                "home": "홈",
                 "shop_product": "제품"
             },
             "additional_info": {
@@ -127,7 +128,7 @@
     },
     "contact": {
         "breadcrumb": {
-            "home": "집",
+            "home": "홈",
             "contact": "저희에게 연락주세요"
         },
         "form": {
@@ -182,7 +183,7 @@
           "billingDetails": "청구 세부 정보"
         },
         "breadcrumb": {
-          "home": "집",
+          "home": "홈",
           "checkout": "결제"
         },
         "formLabels": {
@@ -227,7 +228,7 @@
 
     "about_us": {
         "breadcrumb" :{
-            "home": "집",
+            "home": "홈",
             "About": "우리에 대해"
         },
         "section_with_text": {
@@ -241,7 +242,7 @@
     "refund_policy": {
         "heading": "환불 정책",
         "breadcrumb": {
-            "home": "집",
+            "home": "홈",
             "refund_policy": "환불 정책"
         },
     "section1": {
