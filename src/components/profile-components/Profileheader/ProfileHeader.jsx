@@ -160,12 +160,15 @@ const ProfileHeader = () => {
                     </ul>
                 </div> */}
 
-                <div className='hr-line my-5' />
+                {userOrders.length > 0 && <>
 
-                <div className="row">
-                    <OrderDetails data={userOrders} />
-                </div>
+                  <div className='hr-line my-5' />
 
+                  <div className="row">
+                      <OrderDetails data={userOrders} />
+                  </div>
+
+                </>}
             </div>
 
 

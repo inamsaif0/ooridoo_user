@@ -130,7 +130,7 @@ const IconGroup = ({ iconWhiteClass, cartItems, FavoriteData, GetAllCartList }) 
                     </a>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + "/profile"} >View Profile</Link>
+                  <Link to={process.env.PUBLIC_URL + "/profile"} >{t("global.view_profile")}</Link>
                 </li>
                 </>
             ) : null}

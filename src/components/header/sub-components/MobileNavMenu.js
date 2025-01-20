@@ -151,12 +151,19 @@ const MobileNavMenu = () => {
               <Link to={process.env.PUBLIC_URL + "/signup"}>{t("global.signup")}</Link>
             </li>) : null}
             {Token != null ? (
-              <li
-                style={{ cursor: "pointer" }}
-                onClick={() => handleLogout()}
-              >
-                {t("global.logout")}
-              </li>
+              <>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/profile"}>
+                    {t("global.view_profile")}
+                  </Link>
+                </li>
+                <li
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleLogout()}
+                  >
+                  {t("global.logout")}
+                </li>
+              </>
             ) : null}
           </ul>
         </div>
@@ -165,21 +172,21 @@ const MobileNavMenu = () => {
         <ul>
         <li>
             <Link to={process.env.PUBLIC_URL + "/"}>
-              {t("Home")}
+              {t("header.nav.home")}
             </Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/shop/1"}>
-              {t("Shop")}
+              {t("header.nav.shop")}
             </Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/contact"}>
-              {t("Contact us")}
+              {t("header.nav.contact_us")}
             </Link>
           </li>
           <li className="menu-item-has-children">
-            <Link to={process.env.PUBLIC_URL + ""}>{t("Categories")}</Link>
+            <Link to={process.env.PUBLIC_URL + ""}>{t("header.nav.categories")}</Link>
             <ul className="sub-menu">
               {getCategories?.map((category, index) => (
                 <li key={index}>
